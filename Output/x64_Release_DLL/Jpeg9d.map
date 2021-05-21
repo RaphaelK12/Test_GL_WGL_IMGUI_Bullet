@@ -1,0 +1,1724 @@
+ Jpeg9d
+
+ Timestamp is 606f63bb (Thu Apr  8 17:12:43 2021)
+
+ Preferred load address is 0000000180000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 000390c0H .text$mn                CODE
+ 0001:000390c0 00000036H .text$mn$00             CODE
+ 0001:000390f6 00000092H .text$x                 CODE
+ 0002:00000000 00000170H .idata$5                DATA
+ 0002:00000170 00000028H .00cfg                  DATA
+ 0002:00000198 00000008H .CRT$XCA                DATA
+ 0002:000001a0 00000008H .CRT$XCZ                DATA
+ 0002:000001a8 00000008H .CRT$XIA                DATA
+ 0002:000001b0 00000008H .CRT$XIZ                DATA
+ 0002:000001b8 00000008H .CRT$XPA                DATA
+ 0002:000001c0 00000008H .CRT$XPZ                DATA
+ 0002:000001c8 00000008H .CRT$XTA                DATA
+ 0002:000001d0 00000010H .CRT$XTZ                DATA
+ 0002:000001d8 00000000H .gehcont$y              DATA
+ 0002:000001d8 00000000H .gfids$y                DATA
+ 0002:000001e0 00002ca0H .rdata                  DATA
+ 0002:00002e80 00000000H .rdata$CastGuardVftablesA DATA
+ 0002:00002e80 00000000H .rdata$CastGuardVftablesC DATA
+ 0002:00002e80 000002d0H .rdata$zzzdbg           DATA
+ 0002:00003150 00000008H .rtc$IAA                DATA
+ 0002:00003158 00000008H .rtc$IZZ                DATA
+ 0002:00003160 00000008H .rtc$TAA                DATA
+ 0002:00003168 00000008H .rtc$TZZ                DATA
+ 0002:00003170 00002860H .xdata                  DATA
+ 0002:000059d0 0000119cH .edata                  DATA
+ 0002:00006b6c 0000008cH .idata$2                DATA
+ 0002:00006bf8 00000018H .idata$3                DATA
+ 0002:00006c10 00000170H .idata$4                DATA
+ 0002:00006d80 000003baH .idata$6                DATA
+ 0003:00000000 00000040H .data                   DATA
+ 0003:00000040 00000608H .bss                    DATA
+ 0004:00000000 00001db8H .pdata                  DATA
+ 0005:00000000 00000060H .rsrc$01                DATA
+ 0005:00000060 00000098H .rsrc$02                DATA
+
+  Address         Publics by Value              Rva+Base               Lib:Object
+
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_iat_copy 0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_iat     0000000000000000     <absolute>
+ 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
+ 0000:00000000       __guard_check_icall_a64n_fptr 0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_count          0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_table         0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
+ 0000:00000000       __arm64x_redirection_metadata 0000000000000000     <absolute>
+ 0000:00000000       __x64_code_ranges_to_entry_points_count 0000000000000000     <absolute>
+ 0000:00000000       __AbsoluteZero             0000000000000000     <absolute>
+ 0000:00000000       __guard_eh_cont_count      0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
+ 0000:00000000       __arm64x_redirection_metadata_count 0000000000000000     <absolute>
+ 0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       __x64_code_ranges_to_entry_points 0000000000000000     <absolute>
+ 0000:00000000       __guard_eh_cont_table      0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_count         0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
+ 0000:00000000       __arm64x_extra_rfe_table   0000000000000000     <absolute>
+ 0000:00000000       __arm64x_extra_rfe_table_size 0000000000000000     <absolute>
+ 0000:00000000       __volatile_metadata        0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
+ 0000:00000000       __arm64x_native_entrypoint 0000000000000000     <absolute>
+ 0000:00000100       __guard_flags              0000000000000100     <absolute>
+ 0000:00000000       __ImageBase                0000000180000000     <linker-defined>
+ 0001:00000000       DllMain                    0000000180001000 f   dllmain.obj
+ 0001:00000000       _get_startup_argv_mode     0000000180001000 f   MSVCRT:argv_mode.obj
+ 0001:00000010       jpeg_CreateCompress        0000000180001010 f   jcapimin.obj
+ 0001:00000180       jpeg_destroy_compress      0000000180001180 f   jcapimin.obj
+ 0001:00000180       jpeg_destroy_decompress    0000000180001180 f   jdapimin.obj
+ 0001:00000180       jpeg_destroy               0000000180001180 f   jcomapi.obj
+ 0001:000001c0       jpeg_abort                 00000001800011c0 f   jcomapi.obj
+ 0001:000001c0       jpeg_abort_compress        00000001800011c0 f   jcapimin.obj
+ 0001:000001c0       jpeg_abort_decompress      00000001800011c0 f   jdapimin.obj
+ 0001:00000210       jpeg_suppress_tables       0000000180001210 f   jcapimin.obj
+ 0001:000002f0       jpeg_finish_compress       00000001800012f0 f   jcapimin.obj
+ 0001:00000440       jpeg_write_marker          0000000180001440 f   jcapimin.obj
+ 0001:000004e0       jpeg_write_m_header        00000001800014e0 f   jcapimin.obj
+ 0001:00000550       jpeg_write_m_byte          0000000180001550 f   jcapimin.obj
+ 0001:00000560       jpeg_write_tables          0000000180001560 f   jcapimin.obj
+ 0001:000005c0       jpeg_start_compress        00000001800015c0 f   jcapistd.obj
+ 0001:00000650       jpeg_write_scanlines       0000000180001650 f   jcapistd.obj
+ 0001:00000740       jpeg_write_raw_data        0000000180001740 f   jcapistd.obj
+ 0001:00001f80       jinit_arith_encoder        0000000180002f80 f   jcarith.obj
+ 0001:00002a00       jinit_c_coef_controller    0000000180003a00 f   jccoefct.obj
+ 0001:00003460       _guard_check_icall_nop     0000000180004460 f   MSVCRT:guard_support.obj
+ 0001:00003460       jpeg_mem_term              0000000180004460 f   jmemnobs.obj
+ 0001:00003470       jinit_color_converter      0000000180004470 f   jccolor.obj
+ 0001:000048b0       jinit_forward_dct          00000001800058b0 f   jcdctmgr.obj
+ 0001:000068e0       jinit_huff_encoder         00000001800078e0 f   jchuff.obj
+ 0001:00006980       jpeg_calc_jpeg_dimensions  0000000180007980 f   jcinit.obj
+ 0001:00006f80       jinit_compress_master      0000000180007f80 f   jcinit.obj
+ 0001:000071a0       jinit_c_main_controller    00000001800081a0 f   jcmainct.obj
+ 0001:000094b0       jinit_marker_writer        000000018000a4b0 f   jcmarker.obj
+ 0001:0000a350       jinit_c_master_control     000000018000b350 f   jcmaster.obj
+ 0001:0000a4e0       jpeg_alloc_quant_table     000000018000b4e0 f   jcomapi.obj
+ 0001:0000a500       jpeg_alloc_huff_table      000000018000b500 f   jcomapi.obj
+ 0001:0000a520       jpeg_std_huff_table        000000018000b520 f   jcomapi.obj
+ 0001:0000a6e0       jpeg_add_quant_table       000000018000b6e0 f   jcparam.obj
+ 0001:0000abf0       jpeg_default_qtables       000000018000bbf0 f   jcparam.obj
+ 0001:0000ac50       jpeg_set_linear_quality    000000018000bc50 f   jcparam.obj
+ 0001:0000acb0       jpeg_quality_scaling       000000018000bcb0 f   jcparam.obj
+ 0001:0000ace0       jpeg_set_quality           000000018000bce0 f   jcparam.obj
+ 0001:0000afe0       jpeg_set_defaults          000000018000bfe0 f   jcparam.obj
+ 0001:0000b150       jpeg_default_colorspace    000000018000c150 f   jcparam.obj
+ 0001:0000b630       jpeg_set_colorspace        000000018000c630 f   jcparam.obj
+ 0001:0000bb40       jpeg_simple_progression    000000018000cb40 f   jcparam.obj
+ 0001:0000c530       jinit_c_prep_controller    000000018000d530 f   jcprepct.obj
+ 0001:0000d170       jinit_downsampler          000000018000e170 f   jcsample.obj
+ 0001:0000d380       jpeg_write_coefficients    000000018000e380 f   jctrans.obj
+ 0001:0000d540       jpeg_copy_critical_parameters 000000018000e540 f   jctrans.obj
+ 0001:0000dc40       jpeg_CreateDecompress      000000018000ec40 f   jdapimin.obj
+ 0001:0000dfc0       jpeg_read_header           000000018000efc0 f   jdapimin.obj
+ 0001:0000e090       jpeg_consume_input         000000018000f090 f   jdapimin.obj
+ 0001:0000e180       jpeg_input_complete        000000018000f180 f   jdapimin.obj
+ 0001:0000e1d0       jpeg_has_multiple_scans    000000018000f1d0 f   jdapimin.obj
+ 0001:0000e220       jpeg_finish_decompress     000000018000f220 f   jdapimin.obj
+ 0001:0000e320       jpeg_start_decompress      000000018000f320 f   jdapistd.obj
+ 0001:0000e560       jpeg_read_scanlines        000000018000f560 f   jdapistd.obj
+ 0001:0000e630       jpeg_read_raw_data         000000018000f630 f   jdapistd.obj
+ 0001:0000e720       jpeg_start_output          000000018000f720 f   jdapistd.obj
+ 0001:0000e7a0       jpeg_finish_output         000000018000f7a0 f   jdapistd.obj
+ 0001:0000f9c0       jinit_arith_decoder        00000001800109c0 f   jdarith.obj
+ 0001:0000fd40       jpeg_stdio_dest            0000000180010d40 f   jdatadst.obj
+ 0001:0000fda0       jpeg_mem_dest              0000000180010da0 f   jdatadst.obj
+ 0001:0000fff0       jpeg_stdio_src             0000000180010ff0 f   jdatasrc.obj
+ 0001:00010090       jpeg_mem_src               0000000180011090 f   jdatasrc.obj
+ 0001:00010650       _is_c_termination_complete 0000000180011650 f   MSVCRT:ucrt_stubs.obj
+ 0001:00010650       __scrt_stub_for_is_c_termination_complete 0000000180011650 f   MSVCRT:ucrt_stubs.obj
+ 0001:00010650       jpeg_mem_init              0000000180011650 f   jmemnobs.obj
+ 0001:00011260       jinit_d_coef_controller    0000000180012260 f   jdcoefct.obj
+ 0001:00011da0       jinit_color_deconverter    0000000180012da0 f   jdcolor.obj
+ 0001:00012ab0       jinit_inverse_dct          0000000180013ab0 f   jddctmgr.obj
+ 0001:00014b50       jinit_huff_decoder         0000000180015b50 f   jdhuff.obj
+ 0001:00014c80       jpeg_core_output_dimensions 0000000180015c80 f   jdinput.obj
+ 0001:00015ae0       jinit_input_controller     0000000180016ae0 f   jdinput.obj
+ 0001:000161a0       jinit_d_main_controller    00000001800171a0 f   jdmainct.obj
+ 0001:00018830       jpeg_resync_to_restart     0000000180019830 f   jdmarker.obj
+ 0001:00018980       jinit_marker_reader        0000000180019980 f   jdmarker.obj
+ 0001:00018a90       jpeg_save_markers          0000000180019a90 f   jdmarker.obj
+ 0001:00018b50       jpeg_set_marker_processor  0000000180019b50 f   jdmarker.obj
+ 0001:00018c50       jpeg_calc_output_dimensions 0000000180019c50 f   jdmaster.obj
+ 0001:000192d0       jpeg_new_colormap          000000018001a2d0 f   jdmaster.obj
+ 0001:00019360       jinit_master_decompress    000000018001a360 f   jdmaster.obj
+ 0001:000198e0       jinit_merged_upsampler     000000018001a8e0 f   jdmerge.obj
+ 0001:00019e90       jinit_d_post_controller    000000018001ae90 f   jdpostct.obj
+ 0001:0001a3b0       jinit_upsampler            000000018001b3b0 f   jdsample.obj
+ 0001:0001a5a0       jpeg_read_coefficients     000000018001b5a0 f   jdtrans.obj
+ 0001:0001a710       __local_stdio_printf_options 000000018001b710 f i jerror.obj
+ 0001:0001a720       fprintf                    000000018001b720 f i jerror.obj
+ 0001:0001a770       sprintf                    000000018001b770 f i jerror.obj
+ 0001:0001a9c0       jpeg_std_error             000000018001b9c0 f   jerror.obj
+ 0001:0001aa30       jpeg_fdct_float            000000018001ba30 f   jfdctflt.obj
+ 0001:0001b240       jpeg_fdct_ifast            000000018001c240 f   jfdctfst.obj
+ 0001:0001b7e0       jpeg_fdct_islow            000000018001c7e0 f   jfdctint.obj
+ 0001:0001bd30       jpeg_fdct_7x7              000000018001cd30 f   jfdctint.obj
+ 0001:0001c020       jpeg_fdct_6x6              000000018001d020 f   jfdctint.obj
+ 0001:0001c780       jpeg_fdct_5x5              000000018001d780 f   jfdctint.obj
+ 0001:0001cea0       jpeg_fdct_4x4              000000018001dea0 f   jfdctint.obj
+ 0001:0001d240       jpeg_fdct_3x3              000000018001e240 f   jfdctint.obj
+ 0001:0001d470       jpeg_fdct_2x2              000000018001e470 f   jfdctint.obj
+ 0001:0001d500       jpeg_fdct_1x1              000000018001e500 f   jfdctint.obj
+ 0001:0001d550       jpeg_fdct_9x9              000000018001e550 f   jfdctint.obj
+ 0001:0001da60       jpeg_fdct_10x10            000000018001ea60 f   jfdctint.obj
+ 0001:0001e150       jpeg_fdct_11x11            000000018001f150 f   jfdctint.obj
+ 0001:0001e9d0       jpeg_fdct_12x12            000000018001f9d0 f   jfdctint.obj
+ 0001:0001f1b0       jpeg_fdct_13x13            00000001800201b0 f   jfdctint.obj
+ 0001:0001fb60       jpeg_fdct_14x14            0000000180020b60 f   jfdctint.obj
+ 0001:000204c0       jpeg_fdct_15x15            00000001800214c0 f   jfdctint.obj
+ 0001:00020e90       jpeg_fdct_16x16            0000000180021e90 f   jfdctint.obj
+ 0001:000219a0       jpeg_fdct_16x8             00000001800229a0 f   jfdctint.obj
+ 0001:00021fd0       jpeg_fdct_14x7             0000000180022fd0 f   jfdctint.obj
+ 0001:00022770       jpeg_fdct_12x6             0000000180023770 f   jfdctint.obj
+ 0001:00022f00       jpeg_fdct_10x5             0000000180023f00 f   jfdctint.obj
+ 0001:000233e0       jpeg_fdct_8x4              00000001800243e0 f   jfdctint.obj
+ 0001:00023a40       jpeg_fdct_6x3              0000000180024a40 f   jfdctint.obj
+ 0001:00023ea0       jpeg_fdct_4x2              0000000180024ea0 f   jfdctint.obj
+ 0001:00024000       jpeg_fdct_2x1              0000000180025000 f   jfdctint.obj
+ 0001:00024060       jpeg_fdct_8x16             0000000180025060 f   jfdctint.obj
+ 0001:000249d0       jpeg_fdct_7x14             00000001800259d0 f   jfdctint.obj
+ 0001:00024f10       jpeg_fdct_6x12             0000000180025f10 f   jfdctint.obj
+ 0001:000255f0       jpeg_fdct_5x10             00000001800265f0 f   jfdctint.obj
+ 0001:00025910       jpeg_fdct_4x8              0000000180026910 f   jfdctint.obj
+ 0001:00025f80       jpeg_fdct_3x6              0000000180026f80 f   jfdctint.obj
+ 0001:00026450       jpeg_fdct_2x4              0000000180027450 f   jfdctint.obj
+ 0001:000265c0       jpeg_fdct_1x2              00000001800275c0 f   jfdctint.obj
+ 0001:00026620       jpeg_idct_float            0000000180027620 f   jidctflt.obj
+ 0001:00026ed0       jpeg_idct_ifast            0000000180027ed0 f   jidctfst.obj
+ 0001:00027660       jpeg_idct_islow            0000000180028660 f   jidctint.obj
+ 0001:00027f90       jpeg_idct_7x7              0000000180028f90 f   jidctint.obj
+ 0001:00028320       jpeg_idct_6x6              0000000180029320 f   jidctint.obj
+ 0001:00028ba0       jpeg_idct_5x5              0000000180029ba0 f   jidctint.obj
+ 0001:00029400       jpeg_idct_4x4              000000018002a400 f   jidctint.obj
+ 0001:000298e0       jpeg_idct_3x3              000000018002a8e0 f   jidctint.obj
+ 0001:00029b70       jpeg_idct_2x2              000000018002ab70 f   jidctint.obj
+ 0001:00029c50       jpeg_idct_1x1              000000018002ac50 f   jidctint.obj
+ 0001:00029c90       jpeg_idct_9x9              000000018002ac90 f   jidctint.obj
+ 0001:0002a580       jpeg_idct_10x10            000000018002b580 f   jidctint.obj
+ 0001:0002add0       jpeg_idct_11x11            000000018002bdd0 f   jidctint.obj
+ 0001:0002b5c0       jpeg_idct_12x12            000000018002c5c0 f   jidctint.obj
+ 0001:0002bf70       jpeg_idct_13x13            000000018002cf70 f   jidctint.obj
+ 0001:0002c870       jpeg_idct_14x14            000000018002d870 f   jidctint.obj
+ 0001:0002d420       jpeg_idct_15x15            000000018002e420 f   jidctint.obj
+ 0001:0002dd10       jpeg_idct_16x16            000000018002ed10 f   jidctint.obj
+ 0001:0002e7e0       jpeg_idct_16x8             000000018002f7e0 f   jidctint.obj
+ 0001:0002f3b0       jpeg_idct_14x7             00000001800303b0 f   jidctint.obj
+ 0001:0002fa20       jpeg_idct_12x6             0000000180030a20 f   jidctint.obj
+ 0001:00030310       jpeg_idct_10x5             0000000180031310 f   jidctint.obj
+ 0001:000308b0       jpeg_idct_8x4              00000001800318b0 f   jidctint.obj
+ 0001:000310c0       jpeg_idct_6x3              00000001800320c0 f   jidctint.obj
+ 0001:00031600       jpeg_idct_4x2              0000000180032600 f   jidctint.obj
+ 0001:000317f0       jpeg_idct_2x1              00000001800327f0 f   jidctint.obj
+ 0001:00031850       jpeg_idct_8x16             0000000180032850 f   jidctint.obj
+ 0001:00031f90       jpeg_idct_7x14             0000000180032f90 f   jidctint.obj
+ 0001:000325e0       jpeg_idct_6x12             00000001800335e0 f   jidctint.obj
+ 0001:00033020       jpeg_idct_5x10             0000000180034020 f   jidctint.obj
+ 0001:00033700       jpeg_idct_4x8              0000000180034700 f   jidctint.obj
+ 0001:000340c0       jpeg_idct_3x6              00000001800350c0 f   jidctint.obj
+ 0001:00034630       jpeg_idct_2x4              0000000180035630 f   jidctint.obj
+ 0001:00034840       jpeg_idct_1x2              0000000180035840 f   jidctint.obj
+ 0001:000348b0       __local_stdio_scanf_options 00000001800358b0 f i jmemmgr.obj
+ 0001:000348c0       sscanf                     00000001800358c0 f i jmemmgr.obj
+ 0001:00035710       jinit_memory_mgr           0000000180036710 f   jmemmgr.obj
+ 0001:00035890       jpeg_get_small             0000000180036890 f   jmemnobs.obj
+ 0001:00035890       jpeg_get_large             0000000180036890 f   jmemnobs.obj
+ 0001:000358a0       jpeg_free_large            00000001800368a0 f   jmemnobs.obj
+ 0001:000358a0       jpeg_free_small            00000001800368a0 f   jmemnobs.obj
+ 0001:000358b0       jpeg_mem_available         00000001800368b0 f   jmemnobs.obj
+ 0001:000358d0       jpeg_open_backing_store    00000001800368d0 f   jmemnobs.obj
+ 0001:00036810       jinit_1pass_quantizer      0000000180037810 f   jquant1.obj
+ 0001:00037fe0       jinit_2pass_quantizer      0000000180038fe0 f   jquant2.obj
+ 0001:00038160       jdiv_round_up              0000000180039160 f   jutils.obj
+ 0001:00038170       jround_up                  0000000180039170 f   jutils.obj
+ 0001:00038190       jcopy_sample_rows          0000000180039190 f   jutils.obj
+ 0001:00038200       jcopy_block_row            0000000180039200 f   jutils.obj
+ 0001:00038230       __security_check_cookie    0000000180039230 f   MSVCRT:amdsecgs.obj
+ 0001:00038254       __raise_securityfailure    0000000180039254 f   MSVCRT:gs_report.obj
+ 0001:00038288       __report_gsfailure         0000000180039288 f   MSVCRT:gs_report.obj
+ 0001:0003835c       __report_rangecheckfailure 000000018003935c f   MSVCRT:gs_report.obj
+ 0001:00038370       __report_securityfailure   0000000180039370 f   MSVCRT:gs_report.obj
+ 0001:00038810       _DllMainCRTStartup         0000000180039810 f   MSVCRT:dll_dllmain.obj
+ 0001:00038850       __security_init_cookie     0000000180039850 f   MSVCRT:gs_support.obj
+ 0001:000388fc       ?__scrt_initialize_type_info@@YAXXZ 00000001800398fc f   MSVCRT:tncleanup.obj
+ 0001:0003890c       ?__scrt_uninitialize_type_info@@YAXXZ 000000018003990c f   MSVCRT:tncleanup.obj
+ 0001:00038918       __scrt_initialize_default_local_stdio_options 0000000180039918 f   MSVCRT:default_local_stdio_options.obj
+ 0001:00038934       __scrt_acquire_startup_lock 0000000180039934 f   MSVCRT:utility.obj
+ 0001:00038970       __scrt_dllmain_after_initialize_c 0000000180039970 f   MSVCRT:utility.obj
+ 0001:000389a4       __scrt_dllmain_before_initialize_c 00000001800399a4 f   MSVCRT:utility.obj
+ 0001:000389bc       __scrt_dllmain_crt_thread_attach 00000001800399bc f   MSVCRT:utility.obj
+ 0001:000389e4       __scrt_dllmain_crt_thread_detach 00000001800399e4 f   MSVCRT:utility.obj
+ 0001:000389fc       __scrt_dllmain_exception_filter 00000001800399fc f   MSVCRT:utility.obj
+ 0001:00038a5c       __scrt_dllmain_uninitialize_c 0000000180039a5c f   MSVCRT:utility.obj
+ 0001:00038a8c       __scrt_dllmain_uninitialize_critical 0000000180039a8c f   MSVCRT:utility.obj
+ 0001:00038aa0       __scrt_initialize_crt      0000000180039aa0 f   MSVCRT:utility.obj
+ 0001:00038aec       __scrt_initialize_onexit_tables 0000000180039aec f   MSVCRT:utility.obj
+ 0001:00038b78       __scrt_is_nonwritable_in_current_image 0000000180039b78 f   MSVCRT:utility.obj
+ 0001:00038c10       __scrt_release_startup_lock 0000000180039c10 f   MSVCRT:utility.obj
+ 0001:00038c34       __scrt_uninitialize_crt    0000000180039c34 f   MSVCRT:utility.obj
+ 0001:00038c60       __scrt_get_dyn_tls_init_callback 0000000180039c60 f   MSVCRT:dyn_tls_init.obj
+ 0001:00038c68       __crt_debugger_hook        0000000180039c68 f   MSVCRT:utility_desktop.obj
+ 0001:00038c70       __scrt_fastfail            0000000180039c70 f   MSVCRT:utility_desktop.obj
+ 0001:00038dbc       _RTC_Initialize            0000000180039dbc f   MSVCRT:initsect.obj
+ 0001:00038df8       _RTC_Terminate             0000000180039df8 f   MSVCRT:initsect.obj
+ 0001:00038e34       __isa_available_init       0000000180039e34 f   MSVCRT:cpu_disp.obj
+ 0001:00038fd8       __scrt_is_ucrt_dll_in_use  0000000180039fd8 f   MSVCRT:ucrt_detection.obj
+ 0001:00038ff0       __C_specific_handler       0000000180039ff0 f   vcruntime:VCRUNTIME140.dll
+ 0001:00038ff6       __std_type_info_destroy_list 0000000180039ff6 f   vcruntime:VCRUNTIME140.dll
+ 0001:00038ffc       memset                     0000000180039ffc f   vcruntime:VCRUNTIME140.dll
+ 0001:00039002       _initterm                  000000018003a002 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00039008       _initterm_e                000000018003a008 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0003900e       _seh_filter_dll            000000018003a00e f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00039014       _configure_narrow_argv     000000018003a014 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0003901a       _initialize_narrow_environment 000000018003a01a f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00039020       _initialize_onexit_table   000000018003a020 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00039026       _execute_onexit_table      000000018003a026 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:0003902c       _cexit                     000000018003a02c f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00039034       __vcrt_thread_detach       000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __acrt_uninitialize_critical 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __acrt_thread_detach       000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __scrt_stub_for_acrt_thread_detach 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __scrt_stub_for_acrt_uninitialize_critical 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __scrt_stub_for_acrt_uninitialize 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __vcrt_thread_attach       000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __scrt_stub_for_acrt_thread_attach 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __acrt_uninitialize        000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __vcrt_uninitialize_critical 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __acrt_thread_attach       000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __vcrt_initialize          000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __acrt_initialize          000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __vcrt_uninitialize        000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039034       __scrt_stub_for_acrt_initialize 000000018003a034 f   MSVCRT:ucrt_stubs.obj
+ 0001:00039038       __GSHandlerCheck           000000018003a038 f   MSVCRT:gshandler.obj
+ 0001:00039058       __GSHandlerCheckCommon     000000018003a058 f   MSVCRT:gshandler.obj
+ 0001:000390b3       memcpy                     000000018003a0b3 f   vcruntime:VCRUNTIME140.dll
+ 0001:000390d0       _guard_dispatch_icall_nop  000000018003a0d0 f   MSVCRT:guard_dispatch.obj
+ 0001:000390f0       _guard_xfg_dispatch_icall_nop 000000018003a0f0 f   MSVCRT:guard_xfg_dispatch.obj
+ 0002:00000000       __imp_GetCurrentThreadId   000000018003b000     kernel32:KERNEL32.dll
+ 0002:00000008       __imp_RtlLookupFunctionEntry 000000018003b008     kernel32:KERNEL32.dll
+ 0002:00000010       __imp_RtlVirtualUnwind     000000018003b010     kernel32:KERNEL32.dll
+ 0002:00000018       __imp_UnhandledExceptionFilter 000000018003b018     kernel32:KERNEL32.dll
+ 0002:00000020       __imp_SetUnhandledExceptionFilter 000000018003b020     kernel32:KERNEL32.dll
+ 0002:00000028       __imp_GetCurrentProcess    000000018003b028     kernel32:KERNEL32.dll
+ 0002:00000030       __imp_IsDebuggerPresent    000000018003b030     kernel32:KERNEL32.dll
+ 0002:00000038       __imp_InitializeSListHead  000000018003b038     kernel32:KERNEL32.dll
+ 0002:00000040       __imp_GetSystemTimeAsFileTime 000000018003b040     kernel32:KERNEL32.dll
+ 0002:00000048       __imp_RtlCaptureContext    000000018003b048     kernel32:KERNEL32.dll
+ 0002:00000050       __imp_GetCurrentProcessId  000000018003b050     kernel32:KERNEL32.dll
+ 0002:00000058       __imp_QueryPerformanceCounter 000000018003b058     kernel32:KERNEL32.dll
+ 0002:00000060       __imp_IsProcessorFeaturePresent 000000018003b060     kernel32:KERNEL32.dll
+ 0002:00000068       __imp_TerminateProcess     000000018003b068     kernel32:KERNEL32.dll
+ 0002:00000070       \177KERNEL32_NULL_THUNK_DATA 000000018003b070     kernel32:KERNEL32.dll
+ 0002:00000078       __imp___std_type_info_destroy_list 000000018003b078     vcruntime:VCRUNTIME140.dll
+ 0002:00000080       __imp___C_specific_handler 000000018003b080     vcruntime:VCRUNTIME140.dll
+ 0002:00000088       __imp_memset               000000018003b088     vcruntime:VCRUNTIME140.dll
+ 0002:00000090       __imp_memcpy               000000018003b090     vcruntime:VCRUNTIME140.dll
+ 0002:00000098       \177VCRUNTIME140_NULL_THUNK_DATA 000000018003b098     vcruntime:VCRUNTIME140.dll
+ 0002:000000a0       __imp_getenv               000000018003b0a0     ucrt:api-ms-win-crt-environment-l1-1-0.dll
+ 0002:000000a8       \177api-ms-win-crt-environment-l1-1-0_NULL_THUNK_DATA 000000018003b0a8     ucrt:api-ms-win-crt-environment-l1-1-0.dll
+ 0002:000000b0       __imp_free                 000000018003b0b0     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:000000b8       __imp_malloc               000000018003b0b8     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:000000c0       \177api-ms-win-crt-heap-l1-1-0_NULL_THUNK_DATA 000000018003b0c0     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:000000c8       __imp__initialize_onexit_table 000000018003b0c8     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000000d0       __imp__configure_narrow_argv 000000018003b0d0     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000000d8       __imp__execute_onexit_table 000000018003b0d8     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000000e0       __imp__cexit               000000018003b0e0     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000000e8       __imp__seh_filter_dll      000000018003b0e8     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000000f0       __imp__initterm_e          000000018003b0f0     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000000f8       __imp__initterm            000000018003b0f8     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000100       __imp__initialize_narrow_environment 000000018003b100     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000108       __imp_exit                 000000018003b108     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000110       \177api-ms-win-crt-runtime-l1-1-0_NULL_THUNK_DATA 000000018003b110     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00000118       __imp___acrt_iob_func      000000018003b118     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000120       __imp___stdio_common_vsscanf 000000018003b120     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000128       __imp_ferror               000000018003b128     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000130       __imp_fread                000000018003b130     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000138       __imp___stdio_common_vfprintf 000000018003b138     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000140       __imp___stdio_common_vsprintf 000000018003b140     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000148       __imp_fwrite               000000018003b148     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000150       __imp_fflush               000000018003b150     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000158       \177api-ms-win-crt-stdio-l1-1-0_NULL_THUNK_DATA 000000018003b158     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00000160       __imp_strncpy              000000018003b160     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:00000168       \177api-ms-win-crt-string-l1-1-0_NULL_THUNK_DATA 000000018003b168     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:00000170       __guard_check_icall_fptr   000000018003b170     MSVCRT:guard_support.obj
+ 0002:00000178       __guard_xfg_check_icall_fptr 000000018003b178     MSVCRT:guard_support.obj
+ 0002:00000180       __guard_dispatch_icall_fptr 000000018003b180     MSVCRT:guard_support.obj
+ 0002:00000188       __guard_xfg_dispatch_icall_fptr 000000018003b188     MSVCRT:guard_support.obj
+ 0002:00000190       __guard_xfg_table_dispatch_icall_fptr 000000018003b190     MSVCRT:guard_support.obj
+ 0002:00000198       __xc_a                     000000018003b198     MSVCRT:initializers.obj
+ 0002:000001a0       __xc_z                     000000018003b1a0     MSVCRT:initializers.obj
+ 0002:000001a8       __xi_a                     000000018003b1a8     MSVCRT:initializers.obj
+ 0002:000001b0       __xi_z                     000000018003b1b0     MSVCRT:initializers.obj
+ 0002:000001b8       __xp_a                     000000018003b1b8     MSVCRT:initializers.obj
+ 0002:000001c0       __xp_z                     000000018003b1c0     MSVCRT:initializers.obj
+ 0002:000001c8       __xt_a                     000000018003b1c8     MSVCRT:initializers.obj
+ 0002:000001d0       __xt_z                     000000018003b1d0     MSVCRT:initializers.obj
+ 0002:000001f0       _pDefaultRawDllMain        000000018003b1f0     MSVCRT:dll_dllmain.obj
+ 0002:000001f0       _pRawDllMain               000000018003b1f0     MSVCRT:dll_dllmain.obj
+ 0002:00000200       jpeg_aritab                000000018003b200     jaricom.obj
+ 0002:00000ca0       jpeg_std_message_table     000000018003bca0     jerror.obj
+ 0002:000011d0       jpeg_natural_order         000000018003c1d0     jutils.obj
+ 0002:00001310       jpeg_natural_order4        000000018003c310     jutils.obj
+ 0002:00001390       jpeg_natural_order5        000000018003c390     jutils.obj
+ 0002:00001440       jpeg_natural_order3        000000018003c440     jutils.obj
+ 0002:000014b0       jpeg_natural_order6        000000018003c4b0     jutils.obj
+ 0002:00001580       jpeg_natural_order7        000000018003c580     jutils.obj
+ 0002:00001690       jpeg_natural_order2        000000018003c690     jutils.obj
+ 0002:000016e0       ??_C@_03ONFDEEMF@SOS@      000000018003c6e0     jdmarker.obj
+ 0002:000016e4       ??_C@_03OMINOMMP@LSE@      000000018003c6e4     jdmarker.obj
+ 0002:000016e8       ??_C@_0BG@MIBALFBH@Bogus?5message?5code?5?$CFd@ 000000018003c6e8     jerror.obj
+ 0002:00001700       ??_C@_0CA@FDMPGPNI@ALIGN_TYPE?5is?5wrong?0?5please?5fix@ 000000018003c700     jerror.obj
+ 0002:00001720       ??_C@_0CF@DENLILGA@MAX_ALLOC_CHUNK?5is?5wrong?0?5pleas@ 000000018003c720     jerror.obj
+ 0002:00001748       ??_C@_0BK@DKALDNKG@Bogus?5buffer?5control?5mode@ 000000018003c748     jerror.obj
+ 0002:00001768       ??_C@_0BP@ONFLCDHG@Invalid?5component?5ID?5?$CFd?5in?5SOS@ 000000018003c768     jerror.obj
+ 0002:00001788       ??_C@_0BF@DHNDJDFN@Invalid?5crop?5request@ 000000018003c788     jerror.obj
+ 0002:000017a0       ??_C@_0BN@OJEJKKDL@DCT?5coefficient?5out?5of?5range@ 000000018003c7a0     jerror.obj
+ 0002:000017c0       ??_C@_0CK@JDGFICDL@DCT?5scaled?5block?5size?5?$CFdx?$CFd?5not@ 000000018003c7c0     jerror.obj
+ 0002:000017f0       ??_C@_0EA@INILHCIJ@Component?5index?5?$CFd?3?5mismatching@ 000000018003c7f0     jerror.obj
+ 0002:00001830       ??_C@_0BP@EOFJNLFD@Bogus?5Huffman?5table?5definition@ 000000018003c830     jerror.obj
+ 0002:00001850       ??_C@_0BH@BGDIGLHC@Bogus?5input?5colorspace@ 000000018003c850     jerror.obj
+ 0002:00001868       ??_C@_0BG@NEGIHEMC@Bogus?5JPEG?5colorspace@ 000000018003c868     jerror.obj
+ 0002:00001880       ??_C@_0BE@OGLAEMOG@Bogus?5marker?5length@ 000000018003c880     jerror.obj
+ 0002:00001898       ??_C@_0DN@ELFKFKL@Wrong?5JPEG?5library?5version?3?5lib@ 000000018003c898     jerror.obj
+ 0002:000018d8       ??_C@_0DA@HLEOHNPA@Sampling?5factors?5too?5large?5for?5@ 000000018003c8d8     jerror.obj
+ 0002:00001908       ??_C@_0BM@OEMICEFD@Invalid?5memory?5pool?5code?5?$CFd@ 000000018003c908     jerror.obj
+ 0002:00001928       ??_C@_0CD@LDBDNLHK@Unsupported?5JPEG?5data?5precision@ 000000018003c928     jerror.obj
+ 0002:00001950       ??_C@_0DH@LNGGEGOL@Invalid?5progressive?5parameters?5@ 000000018003c950     jerror.obj
+ 0002:00001988       ??_C@_0DH@HIKEGPKP@Invalid?5progressive?5parameters?5@ 000000018003c988     jerror.obj
+ 0002:000019c0       ??_C@_0BH@HMMHPOPE@Bogus?5sampling?5factors@ 000000018003c9c0     jerror.obj
+ 0002:000019d8       ??_C@_0CA@MJDDICLK@Invalid?5scan?5script?5at?5entry?5?$CFd@ 000000018003c9d8     jerror.obj
+ 0002:000019f8       ??_C@_0CK@BAMFIBMM@Improper?5call?5to?5JPEG?5library?5i@ 000000018003c9f8     jerror.obj
+ 0002:00001a30       ??_C@_0EN@DKAEGIBH@JPEG?5parameter?5struct?5mismatch?3@ 000000018003ca30     jerror.obj
+ 0002:00001a80       ??_C@_0BL@CBOEEPLK@Bogus?5virtual?5array?5access@ 000000018003ca80     jerror.obj
+ 0002:00001aa0       ??_C@_0CL@JKHIPJLJ@Buffer?5passed?5to?5JPEG?5library?5i@ 000000018003caa0     jerror.obj
+ 0002:00001ad0       ??_C@_0BM@PKHCPJDH@Suspension?5not?5allowed?5here@ 000000018003cad0     jerror.obj
+ 0002:00001af0       ??_C@_0CF@LAEFHNAH@CCIR601?5sampling?5not?5implemente@ 000000018003caf0     jerror.obj
+ 0002:00001b18       ??_C@_0CG@BEBDNOCG@Too?5many?5color?5components?3?5?$CFd?0?5@ 000000018003cb18     jerror.obj
+ 0002:00001b40       ??_C@_0CF@JDLOPNGO@Unsupported?5color?5conversion?5re@ 000000018003cb40     jerror.obj
+ 0002:00001b68       ??_C@_0BD@LDBBBMFL@Bogus?5DAC?5index?5?$CFd@ 000000018003cb68     jerror.obj
+ 0002:00001b80       ??_C@_0BF@CLIOOJFM@Bogus?5DAC?5value?50x?$CFx@ 000000018003cb80     jerror.obj
+ 0002:00001b98       ??_C@_0BD@KJHFPHIC@Bogus?5DHT?5index?5?$CFd@ 000000018003cb98     jerror.obj
+ 0002:00001bb0       ??_C@_0BD@DIMECAOP@Bogus?5DQT?5index?5?$CFd@ 000000018003cbb0     jerror.obj
+ 0002:00001bc8       ??_C@_0CF@DAGGEAPM@Empty?5JPEG?5image?5?$CIDNL?5not?5suppo@ 000000018003cbc8     jerror.obj
+ 0002:00001bf0       ??_C@_0BF@CPNENPBA@Read?5from?5EMS?5failed@ 000000018003cbf0     jerror.obj
+ 0002:00001c08       ??_C@_0BE@DGJBKIEB@Write?5to?5EMS?5failed@ 000000018003cc08     jerror.obj
+ 0002:00001c20       ??_C@_0CB@DMGINPNE@Didn?8t?5expect?5more?5than?5one?5sca@ 000000018003cc20     jerror.obj
+ 0002:00001c48       ??_C@_0BG@BALCKDNL@Input?5file?5read?5error@ 000000018003cc48     jerror.obj
+ 0002:00001c60       ??_C@_0CP@IDOBLGGD@Output?5file?5write?5error?5?9?9?9?5out@ 000000018003cc60     jerror.obj
+ 0002:00001c90       ??_C@_0CI@EKDDDHFF@Fractional?5sampling?5not?5impleme@ 000000018003cc90     jerror.obj
+ 0002:00001cb8       ??_C@_0CG@FLMMNCBG@Huffman?5code?5size?5table?5out?5of?5@ 000000018003ccb8     jerror.obj
+ 0002:00001ce0       ??_C@_0CB@LFBMFPHI@Missing?5Huffman?5code?5table?5entr@ 000000018003cce0     jerror.obj
+ 0002:00001d08       ??_C@_0CP@EKFPGPNP@Maximum?5supported?5image?5dimensi@ 000000018003cd08     jerror.obj
+ 0002:00001d38       ??_C@_0BB@JJAIKFBB@Empty?5input?5file@ 000000018003cd38     jerror.obj
+ 0002:00001d50       ??_C@_0BM@KEKMMNGA@Premature?5end?5of?5input?5file@ 000000018003cd50     jerror.obj
+ 0002:00001d70       ??_C@_0DO@OPNPKGO@Cannot?5transcode?5due?5to?5multipl@ 000000018003cd70     jerror.obj
+ 0002:00001db0       ??_C@_0CH@NIBDNILP@Scan?5script?5does?5not?5transmit?5a@ 000000018003cdb0     jerror.obj
+ 0002:00001dd8       ??_C@_0CH@EFBBPPCK@Invalid?5color?5quantization?5mode@ 000000018003cdd8     jerror.obj
+ 0002:00001e00       ??_C@_0BE@EOAAHHJ@Not?5implemented?5yet@ 000000018003ce00     jerror.obj
+ 0002:00001e18       ??_C@_0CO@BEHINNOI@Requested?5feature?5was?5omitted?5a@ 000000018003ce18     jerror.obj
+ 0002:00001e48       ??_C@_0CI@NFDPNIK@Arithmetic?5table?50x?$CF02x?5was?5not@ 000000018003ce48     jerror.obj
+ 0002:00001e70       ??_C@_0BM@HJHFKLAF@Backing?5store?5not?5supported@ 000000018003ce70     jerror.obj
+ 0002:00001e90       ??_C@_0CF@BKANFCCL@Huffman?5table?50x?$CF02x?5was?5not?5de@ 000000018003ce90     jerror.obj
+ 0002:00001eb8       ??_C@_0CC@BKPLBDLJ@JPEG?5datastream?5contains?5no?5ima@ 000000018003ceb8     jerror.obj
+ 0002:00001ee0       ??_C@_0CK@CCHKIENB@Quantization?5table?50x?$CF02x?5was?5n@ 000000018003cee0     jerror.obj
+ 0002:00001f10       ??_C@_0CL@GNLFDFCL@Not?5a?5JPEG?5file?3?5starts?5with?50x@ 000000018003cf10     jerror.obj
+ 0002:00001f40       ??_C@_0BO@DJPLELIB@Insufficient?5memory?5?$CIcase?5?$CFd?$CJ@ 000000018003cf40     jerror.obj
+ 0002:00001f60       ??_C@_0CO@HPDBAEEA@Cannot?5quantize?5more?5than?5?$CFd?5co@ 000000018003cf60     jerror.obj
+ 0002:00001f90       ??_C@_0CI@PLMPLCNO@Cannot?5quantize?5to?5fewer?5than?5?$CF@ 000000018003cf90     jerror.obj
+ 0002:00001fb8       ??_C@_0CH@NHMNHHIB@Cannot?5quantize?5to?5more?5than?5?$CFd@ 000000018003cfb8     jerror.obj
+ 0002:00001fe0       ??_C@_0CL@FGONDLAJ@Invalid?5JPEG?5file?5structure?3?5?$CFs@ 000000018003cfe0     jerror.obj
+ 0002:00002010       ??_C@_0CN@IHJJJAFJ@Invalid?5JPEG?5file?5structure?3?5tw@ 000000018003d010     jerror.obj
+ 0002:00002040       ??_C@_0DA@GJIJGINK@Invalid?5JPEG?5file?5structure?3?5mi@ 000000018003d040     jerror.obj
+ 0002:00002070       ??_C@_0CK@HMKECJK@Unsupported?5JPEG?5process?3?5SOF?5t@ 000000018003d070     jerror.obj
+ 0002:000020a0       ??_C@_0CN@HGJCMLNE@Invalid?5JPEG?5file?5structure?3?5tw@ 000000018003d0a0     jerror.obj
+ 0002:000020d0       ??_C@_0CD@POKNOPOF@Failed?5to?5create?5temporary?5file@ 000000018003d0d0     jerror.obj
+ 0002:000020f8       ??_C@_0BO@EEPJGHHI@Read?5failed?5on?5temporary?5file@ 000000018003d0f8     jerror.obj
+ 0002:00002118       ??_C@_0BO@GOBJOAAI@Seek?5failed?5on?5temporary?5file@ 000000018003d118     jerror.obj
+ 0002:00002138       ??_C@_0DG@KALDLIJB@Write?5failed?5on?5temporary?5file?5@ 000000018003d138     jerror.obj
+ 0002:00002170       ??_C@_0CK@EPADOAKC@Application?5transferred?5too?5few@ 000000018003d170     jerror.obj
+ 0002:000021a0       ??_C@_0BP@BPKOBOIP@Unsupported?5marker?5type?50x?$CF02x@ 000000018003d1a0     jerror.obj
+ 0002:000021c0       ??_C@_0CD@GCLFJCHC@Virtual?5array?5controller?5messed@ 000000018003d1c0     jerror.obj
+ 0002:000021e8       ??_C@_0CH@LJLHCCHC@Image?5too?5wide?5for?5this?5impleme@ 000000018003d1e8     jerror.obj
+ 0002:00002210       ??_C@_0BF@EKLGFGNM@Read?5from?5XMS?5failed@ 000000018003d210     jerror.obj
+ 0002:00002228       ??_C@_0BE@FDPDCBIN@Write?5to?5XMS?5failed@ 000000018003d228     jerror.obj
+ 0002:00002240       ??_C@_0DF@MHABAH@Copyright?5?$CIC?$CJ?52020?0?5Thomas?5G?4?5L@ 000000018003d240     jerror.obj
+ 0002:00002278       ??_C@_0BA@CIHDPAEK@9d?5?512?9Jan?92020@ 000000018003d278     jerror.obj
+ 0002:00002288       ??_C@_0DO@EGLODMBB@Caution?3?5quantization?5tables?5ar@ 000000018003d288     jerror.obj
+ 0002:000022d0       ??_C@_0EC@EHPKAOHA@Adobe?5APP14?5marker?3?5version?5?$CFd?0@ 000000018003d2d0     jerror.obj
+ 0002:00002318       ??_C@_0CK@HCPFFNKJ@Unknown?5APP0?5marker?5?$CInot?5JFIF?$CJ?0@ 000000018003d318     jerror.obj
+ 0002:00002348       ??_C@_0CM@CAEPHFAA@Unknown?5APP14?5marker?5?$CInot?5Adobe@ 000000018003d348     jerror.obj
+ 0002:00002378       ??_C@_0CH@KIJGKPAA@Define?5Arithmetic?5Table?50x?$CF02x?3@ 000000018003d378     jerror.obj
+ 0002:000023a0       ??_C@_0BM@MDIEILCE@Define?5Huffman?5Table?50x?$CF02x@ 000000018003d3a0     jerror.obj
+ 0002:000023c0       ??_C@_0CL@KLDOJIKN@Define?5Quantization?5Table?5?$CFd?5?5p@ 000000018003d3c0     jerror.obj
+ 0002:000023f0       ??_C@_0BL@EMFIKBEK@Define?5Restart?5Interval?5?$CFu@ 000000018003d3f0     jerror.obj
+ 0002:00002410       ??_C@_0BE@IPCOOGDJ@Freed?5EMS?5handle?5?$CFu@ 000000018003d410     jerror.obj
+ 0002:00002428       ??_C@_0BH@GIPOLIGC@Obtained?5EMS?5handle?5?$CFu@ 000000018003d428     jerror.obj
+ 0002:00002440       ??_C@_0N@HJHFKELG@End?5Of?5Image@ 000000018003d440     jerror.obj
+ 0002:00002450       ??_C@_0CI@FKGPAJC@?5?5?5?5?5?5?5?5?$CF3d?5?$CF3d?5?$CF3d?5?$CF3d?5?$CF3d?5?$CF3d@ 000000018003d450     jerror.obj
+ 0002:00002478       ??_C@_0DF@LOKNABIG@JFIF?5APP0?5marker?3?5version?5?$CFd?4?$CF0@ 000000018003d478     jerror.obj
+ 0002:000024b0       ??_C@_0DM@JLHNPIBE@Warning?3?5thumbnail?5image?5size?5d@ 000000018003d4b0     jerror.obj
+ 0002:000024f0       ??_C@_0CO@KKPHGHBA@JFIF?5extension?5marker?3?5type?50x?$CF@ 000000018003d4f0     jerror.obj
+ 0002:00002520       ??_C@_0CB@BADBMAAB@?5?5?5?5with?5?$CFd?5x?5?$CFd?5thumbnail?5imag@ 000000018003d520     jerror.obj
+ 0002:00002548       ??_C@_0CH@EHHJCMGA@Miscellaneous?5marker?50x?$CF02x?0?5le@ 000000018003d548     jerror.obj
+ 0002:00002570       ??_C@_0BJ@COPODLDN@Unexpected?5marker?50x?$CF02x@ 000000018003d570     jerror.obj
+ 0002:00002590       ??_C@_0CI@GHPOCOCL@?5?5?5?5?5?5?5?5?$CF4u?5?$CF4u?5?$CF4u?5?$CF4u?5?$CF4u?5?$CF4u@ 000000018003d590     jerror.obj
+ 0002:000025b8       ??_C@_0CD@CNNAOOFA@Quantizing?5to?5?$CFd?5?$DN?5?$CFd?$CK?$CFd?$CK?$CFd?5col@ 000000018003d5b8     jerror.obj
+ 0002:000025e0       ??_C@_0BI@NEIBNACE@Quantizing?5to?5?$CFd?5colors@ 000000018003d5e0     jerror.obj
+ 0002:000025f8       ??_C@_0CE@FDPBEAOO@Selected?5?$CFd?5colors?5for?5quantiza@ 000000018003d5f8     jerror.obj
+ 0002:00002620       ??_C@_0CF@NIMOLBCP@At?5marker?50x?$CF02x?0?5recovery?5acti@ 000000018003d620     jerror.obj
+ 0002:00002648       ??_C@_05LLAPAOG@RST?$CFd@  000000018003d648     jerror.obj
+ 0002:00002650       ??_C@_0DJ@PCBCLFML@Smoothing?5not?5supported?5with?5no@ 000000018003d650     jerror.obj
+ 0002:00002690       ??_C@_0DK@DMINKOGN@Start?5Of?5Frame?50x?$CF02x?3?5width?$DN?$CFu@ 000000018003d690     jerror.obj
+ 0002:000026d0       ??_C@_0BP@EDCAMHHE@?5?5?5?5Component?5?$CFd?3?5?$CFdhx?$CFdv?5q?$DN?$CFd@ 000000018003d6d0     jerror.obj
+ 0002:000026f0       ??_C@_0P@JLCHJELA@Start?5of?5Image@ 000000018003d6f0     jerror.obj
+ 0002:00002700       ??_C@_0BN@BLOOHNC@Start?5Of?5Scan?3?5?$CFd?5components@ 000000018003d700     jerror.obj
+ 0002:00002720       ??_C@_0BO@CDEKFGLC@?5?5?5?5Component?5?$CFd?3?5dc?$DN?$CFd?5ac?$DN?$CFd@ 000000018003d720     jerror.obj
+ 0002:00002740       ??_C@_0BN@GAMIJLDC@?5?5Ss?$DN?$CFd?0?5Se?$DN?$CFd?0?5Ah?$DN?$CFd?0?5Al?$DN?$CFd@ 000000018003d740     jerror.obj
+ 0002:00002760       ??_C@_0BJ@KDCGAOJB@Closed?5temporary?5file?5?$CFs@ 000000018003d760     jerror.obj
+ 0002:00002780       ??_C@_0BJ@GOCABEP@Opened?5temporary?5file?5?$CFs@ 000000018003d780     jerror.obj
+ 0002:000027a0       ??_C@_0EC@ELDEPOJP@JFIF?5extension?5marker?3?5JPEG?9com@ 000000018003d7a0     jerror.obj
+ 0002:000027e8       ??_C@_0DK@JGAPDCJL@JFIF?5extension?5marker?3?5palette?5@ 000000018003d7e8     jerror.obj
+ 0002:00002828       ??_C@_0DG@FCFDGNHE@JFIF?5extension?5marker?3?5RGB?5thum@ 000000018003d828     jerror.obj
+ 0002:00002860       ??_C@_0DE@EEJCDLOO@Unrecognized?5component?5IDs?5?$CFd?5?$CF@ 000000018003d860     jerror.obj
+ 0002:00002898       ??_C@_0BE@FOGGKKAO@Freed?5XMS?5handle?5?$CFu@ 000000018003d898     jerror.obj
+ 0002:000028b0       ??_C@_0BH@LJLGPEFF@Obtained?5XMS?5handle?5?$CFu@ 000000018003d8b0     jerror.obj
+ 0002:000028c8       ??_C@_0CG@KEGHCDOM@Unknown?5Adobe?5color?5transform?5c@ 000000018003d8c8     jerror.obj
+ 0002:000028f0       ??_C@_0CH@LMKBDJBK@Corrupt?5JPEG?5data?3?5bad?5arithmet@ 000000018003d8f0     jerror.obj
+ 0002:00002920       ??_C@_0EC@CBCJOINE@Inconsistent?5progression?5sequen@ 000000018003d920     jerror.obj
+ 0002:00002968       ??_C@_0DM@PCOGCKJB@Corrupt?5JPEG?5data?3?5?$CFu?5extraneou@ 000000018003d968     jerror.obj
+ 0002:000029a8       ??_C@_0DB@PGMEPGHN@Corrupt?5JPEG?5data?3?5premature?5en@ 000000018003d9a8     jerror.obj
+ 0002:000029e0       ??_C@_0CE@PBLDOPKB@Corrupt?5JPEG?5data?3?5bad?5Huffman?5@ 000000018003d9e0     jerror.obj
+ 0002:00002a08       ??_C@_0CO@ODCCEDLN@Warning?3?5unknown?5JFIF?5revision?5@ 000000018003da08     jerror.obj
+ 0002:00002a38       ??_C@_0BL@DPFPFMLM@Premature?5end?5of?5JPEG?5file@ 000000018003da38     jerror.obj
+ 0002:00002a58       ??_C@_0DI@NFMBADOH@Corrupt?5JPEG?5data?3?5found?5marker@ 000000018003da58     jerror.obj
+ 0002:00002a90       ??_C@_0CL@BAKCGOKJ@Invalid?5SOS?5parameters?5for?5sequ@ 000000018003da90     jerror.obj
+ 0002:00002ac0       ??_C@_0CL@OCGBAKPF@Application?5transferred?5too?5man@ 000000018003dac0     jerror.obj
+ 0002:00002aec       ??_C@_03OFAPEBGM@?$CFs?6@  000000018003daec     jerror.obj
+ 0002:00002af0       ??_C@_07OOOLPGAB@JPEGMEM@  000000018003daf0     jmemmgr.obj
+ 0002:00002af8       ??_C@_05IBIMIMKO@?$CFld?$CFc@ 000000018003daf8     jmemmgr.obj
+ 0002:00002b00       __real@3ec3ef15            000000018003db00     jfdctflt.obj
+ 0002:00002b04       __real@3f0a8bd4            000000018003db04     jfdctflt.obj
+ 0002:00002b08       __real@3f3504f3            000000018003db08     jfdctflt.obj
+ 0002:00002b0c       __real@3f8a8bd4            000000018003db0c     jidctflt.obj
+ 0002:00002b10       __real@3fa73d75            000000018003db10     jfdctflt.obj
+ 0002:00002b14       __real@3fb504f3            000000018003db14     jidctflt.obj
+ 0002:00002b18       __real@3fc0000000000000    000000018003db18     jddctmgr.obj
+ 0002:00002b20       __real@3fd1a855de72ab5d    000000018003db20     jddctmgr.obj
+ 0002:00002b28       __real@3fe1517a7bc720bb    000000018003db28     jddctmgr.obj
+ 0002:00002b30       __real@3fe92469c0a7bf3b    000000018003db30     jddctmgr.obj
+ 0002:00002b38       __real@3fec835e            000000018003db38     jidctflt.obj
+ 0002:00002b40       __real@3ff0000000000000    000000018003db40     jddctmgr.obj
+ 0002:00002b48       __real@3ff2d062ef6c11aa    000000018003db48     jddctmgr.obj
+ 0002:00002b50       __real@3ff4e7ae914d6fca    000000018003db50     jddctmgr.obj
+ 0002:00002b58       __real@3ff63150b14861ef    000000018003db58     jddctmgr.obj
+ 0002:00002b60       __real@4020000000000000    000000018003db60     jcdctmgr.obj
+ 0002:00002b68       __real@40273d75            000000018003db68     jidctflt.obj
+ 0002:00002b70       __real@4030000000000000    000000018003db70     jcdctmgr.obj
+ 0002:00002b78       __real@44002000            000000018003db78     jidctflt.obj
+ 0002:00002b7c       __real@44800000            000000018003db7c     jfdctflt.obj
+ 0002:00002b80       __real@46800100            000000018003db80     jcdctmgr.obj
+ 0002:00002b90       __xmm@00000003000000020000000100000000 000000018003db90     jdcolor.obj
+ 0002:00002ba0       __xmm@00000800000008000000080000000800 000000018003dba0     jddctmgr.obj
+ 0002:00002bb0       __xmm@00001d2f00001d2f00001d2f00001d2f 000000018003dbb0     jdcolor.obj
+ 0002:00002bc0       __xmm@00004c8b00004c8b00004c8b00004c8b 000000018003dbc0     jdcolor.obj
+ 0002:00002bd0       __xmm@00008000000080000000800000008000 000000018003dbd0     jdcolor.obj
+ 0002:00002be0       __xmm@00009646000096460000964600009646 000000018003dbe0     jdcolor.obj
+ 0002:00002bf0       __xmm@00807fff00807fff00807fff00807fff 000000018003dbf0     jccolor.obj
+ 0002:00002c00       __xmm@40004000400040004000400040004000 000000018003dc00     jcdctmgr.obj
+ 0002:00002c10       __xmm@46800100468001004680010046800100 000000018003dc10     jcdctmgr.obj
+ 0002:00002c20       __xmm@7fffffff7fffffff7fffffff7fffffff 000000018003dc20     jquant2.obj
+ 0002:00002c30       __xmm@ffff94d1ffff94d1ffff94d1ffff94d1 000000018003dc30     jccolor.obj
+ 0002:00002c40       __xmm@ffffab32ffffab32ffffab32ffffab32 000000018003dc40     jccolor.obj
+ 0002:00002c50       __xmm@ffffd4ceffffd4ceffffd4ceffffd4ce 000000018003dc50     jccolor.obj
+ 0002:00002c60       __xmm@ffffeb2fffffeb2fffffeb2fffffeb2f 000000018003dc60     jccolor.obj
+ 0002:00002c70       __xmm@ffffffffffffffffffffffffffffffff 000000018003dc70     jchuff.obj
+ 0002:00002cf0       _load_config_used          000000018003dcf0     MSVCRT:loadcfg.obj
+ 0002:00003150       __rtc_iaa                  000000018003e150     MSVCRT:initsect.obj
+ 0002:00003158       __rtc_izz                  000000018003e158     MSVCRT:initsect.obj
+ 0002:00003160       __rtc_taa                  000000018003e160     MSVCRT:initsect.obj
+ 0002:00003168       __rtc_tzz                  000000018003e168     MSVCRT:initsect.obj
+ 0002:00006b6c       __IMPORT_DESCRIPTOR_VCRUNTIME140 0000000180041b6c     vcruntime:VCRUNTIME140.dll
+ 0002:00006b80       __IMPORT_DESCRIPTOR_api-ms-win-crt-stdio-l1-1-0 0000000180041b80     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00006b94       __IMPORT_DESCRIPTOR_api-ms-win-crt-heap-l1-1-0 0000000180041b94     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00006ba8       __IMPORT_DESCRIPTOR_api-ms-win-crt-string-l1-1-0 0000000180041ba8     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:00006bbc       __IMPORT_DESCRIPTOR_api-ms-win-crt-runtime-l1-1-0 0000000180041bbc     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00006bd0       __IMPORT_DESCRIPTOR_api-ms-win-crt-environment-l1-1-0 0000000180041bd0     ucrt:api-ms-win-crt-environment-l1-1-0.dll
+ 0002:00006be4       __IMPORT_DESCRIPTOR_KERNEL32 0000000180041be4     kernel32:KERNEL32.dll
+ 0002:00006bf8       __NULL_IMPORT_DESCRIPTOR   0000000180041bf8     vcruntime:VCRUNTIME140.dll
+ 0003:00000000       __security_cookie_complement 0000000180043000     MSVCRT:gs_cookie.obj
+ 0003:00000008       __security_cookie          0000000180043008     MSVCRT:gs_cookie.obj
+ 0003:00000010       __scrt_native_dllmain_reason 0000000180043010     MSVCRT:utility.obj
+ 0003:00000018       __isa_available            0000000180043018     MSVCRT:cpu_disp.obj
+ 0003:0000001c       __isa_enabled              000000018004301c     MSVCRT:cpu_disp.obj
+ 0003:00000020       __memcpy_nt_iters          0000000180043020     MSVCRT:cpu_disp.obj
+ 0003:00000028       __memset_nt_iters          0000000180043028     MSVCRT:cpu_disp.obj
+ 0003:00000030       __scrt_ucrt_dll_is_in_use  0000000180043030     MSVCRT:ucrt_stubs.obj
+ 0003:00000034       _fltused                   0000000180043034     MSVCRT:fltused.obj
+ 0003:000005c0       ?__type_info_root_node@@3U__type_info_node@@A 00000001800435c0     MSVCRT:tncleanup.obj
+ 0003:000005d0       __scrt_current_native_startup_state 00000001800435d0     MSVCRT:utility.obj
+ 0003:000005d8       __scrt_native_startup_lock 00000001800435d8     MSVCRT:utility.obj
+ 0003:00000618       __scrt_debugger_hook_flag  0000000180043618     MSVCRT:utility_desktop.obj
+ 0003:00000620       __castguard_check_failure_os_handled_fptr 0000000180043620     MSVCRT:guard_support.obj
+ 0003:00000628       __favor                    0000000180043628     MSVCRT:cpu_disp.obj
+ 0003:00000630       __dyn_tls_init_callback    0000000180043630     <common>
+ 0003:00000638       ?_OptionsStorage@?1??__local_stdio_printf_options@@9@9 0000000180043638     <common>
+ 0003:00000640       ?_OptionsStorage@?1??__local_stdio_scanf_options@@9@9 0000000180043640     <common>
+
+ entry point at        0001:00038810
+
+ Static symbols
+
+ 0000:fffb8000       .debug$S                   0000000180000000     Jpeg9d.exp
+ 0000:fffb8000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-environment-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffb8000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0001:00000840       finish_pass                0000000180001840 f   jcarith.obj
+ 0001:00000be0       arith_encode               0000000180001be0 f   jcarith.obj
+ 0001:00000ee0       emit_restart               0000000180001ee0 f   jcarith.obj
+ 0001:00001040       encode_mcu_DC_first        0000000180002040 f   jcarith.obj
+ 0001:000012a0       encode_mcu_AC_first        00000001800022a0 f   jcarith.obj
+ 0001:00001580       encode_mcu_DC_refine       0000000180002580 f   jcarith.obj
+ 0001:00001640       encode_mcu_AC_refine       0000000180002640 f   jcarith.obj
+ 0001:000018a0       encode_mcu                 00000001800028a0 f   jcarith.obj
+ 0001:00001d90       start_pass                 0000000180002d90 f   jcarith.obj
+ 0001:000020a0       start_pass_coef            00000001800030a0 f   jccoefct.obj
+ 0001:00002190       compress_data              0000000180003190 f   jccoefct.obj
+ 0001:00002490       compress_first_pass        0000000180003490 f   jccoefct.obj
+ 0001:000027b0       compress_output            00000001800037b0 f   jccoefct.obj
+ 0001:00002b60       rgb_ycc_start              0000000180003b60 f   jccolor.obj
+ 0001:00002dd0       rgb_ycc_convert            0000000180003dd0 f   jccolor.obj
+ 0001:00002f20       rgb_gray_convert           0000000180003f20 f   jccolor.obj
+ 0001:00002fe0       cmyk_ycck_convert          0000000180003fe0 f   jccolor.obj
+ 0001:00003190       rgb_rgb1_convert           0000000180004190 f   jccolor.obj
+ 0001:00003260       grayscale_convert          0000000180004260 f   jccolor.obj
+ 0001:000032e0       rgb_convert                00000001800042e0 f   jccolor.obj
+ 0001:000033a0       null_convert               00000001800043a0 f   jccolor.obj
+ 0001:00003460       null_method                0000000180004460 f   jccolor.obj
+ 0001:00003460       start_pass_downsample      0000000180004460 f   jcsample.obj
+ 0001:00003460       finish_pass                0000000180004460 f   jdarith.obj
+ 0001:00003460       init_mem_destination       0000000180004460 f   jdatadst.obj
+ 0001:00003460       init_mem_source            0000000180004460 f   jdatasrc.obj
+ 0001:00003460       term_source                0000000180004460 f   jdatasrc.obj
+ 0001:00003460       start_pass_dcolor          0000000180004460 f   jdcolor.obj
+ 0001:00003460       finish_pass_1_quant        0000000180004460 f   jquant1.obj
+ 0001:00003460       finish_pass2               0000000180004460 f   jquant2.obj
+ 0001:00003740       $LN80                      0000000180004740     jccolor.obj
+ 0001:0000375c       $LN79                      000000018000475c     jccolor.obj
+ 0001:00003780       forward_DCT                0000000180004780 f   jcdctmgr.obj
+ 0001:000038a0       forward_DCT_float          00000001800048a0 f   jcdctmgr.obj
+ 0001:00003b80       start_pass_fdctmgr         0000000180004b80 f   jcdctmgr.obj
+ 0001:00004940       jpeg_make_c_derived_tbl    0000000180005940 f   jchuff.obj
+ 0001:00004ba0       emit_bits_s                0000000180005ba0 f   jchuff.obj
+ 0001:00004ca0       emit_bits_e                0000000180005ca0 f   jchuff.obj
+ 0001:00004e30       emit_eobrun                0000000180005e30 f   jchuff.obj
+ 0001:00004f40       emit_restart_e             0000000180005f40 f   jchuff.obj
+ 0001:000050b0       encode_mcu_DC_first        00000001800060b0 f   jchuff.obj
+ 0001:00005270       encode_mcu_AC_first        0000000180006270 f   jchuff.obj
+ 0001:000054e0       encode_mcu_DC_refine       00000001800064e0 f   jchuff.obj
+ 0001:000055e0       encode_mcu_AC_refine       00000001800065e0 f   jchuff.obj
+ 0001:00005990       encode_one_block           0000000180006990 f   jchuff.obj
+ 0001:00005b80       encode_mcu_huff            0000000180006b80 f   jchuff.obj
+ 0001:00005db0       finish_pass_huff           0000000180006db0 f   jchuff.obj
+ 0001:00005ed0       encode_mcu_gather          0000000180006ed0 f   jchuff.obj
+ 0001:00006160       jpeg_gen_optimal_table     0000000180007160 f   jchuff.obj
+ 0001:00006500       finish_pass_gather         0000000180007500 f   jchuff.obj
+ 0001:00006660       start_pass_huff            0000000180007660 f   jchuff.obj
+ 0001:00007070       start_pass_main            0000000180008070 f   jcmainct.obj
+ 0001:000070b0       process_data_simple_main   00000001800080b0 f   jcmainct.obj
+ 0001:00007270       emit_dqt                   0000000180008270 f   jcmarker.obj
+ 0001:000074d0       emit_dht                   00000001800084d0 f   jcmarker.obj
+ 0001:00007740       emit_dac                   0000000180008740 f   jcmarker.obj
+ 0001:00007a00       emit_dri                   0000000180008a00 f   jcmarker.obj
+ 0001:00007b40       emit_lse_ict               0000000180008b40 f   jcmarker.obj
+ 0001:00008070       emit_sof                   0000000180009070 f   jcmarker.obj
+ 0001:00008380       emit_sos                   0000000180009380 f   jcmarker.obj
+ 0001:00008620       emit_pseudo_sos            0000000180009620 f   jcmarker.obj
+ 0001:000087c0       emit_jfif_app0             00000001800097c0 f   jcmarker.obj
+ 0001:00008b60       emit_adobe_app14           0000000180009b60 f   jcmarker.obj
+ 0001:00008e90       write_marker_header        0000000180009e90 f   jcmarker.obj
+ 0001:00008fa0       write_marker_byte          0000000180009fa0 f   jcmarker.obj
+ 0001:00008ff0       write_file_header          0000000180009ff0 f   jcmarker.obj
+ 0001:000090a0       write_frame_header         000000018000a0a0 f   jcmarker.obj
+ 0001:000091f0       write_scan_header          000000018000a1f0 f   jcmarker.obj
+ 0001:000092d0       write_file_trailer         000000018000a2d0 f   jcmarker.obj
+ 0001:00009350       write_tables_only          000000018000a350 f   jcmarker.obj
+ 0001:00009530       initial_setup              000000018000a530 f   jcmaster.obj
+ 0001:00009928       $LN83                      000000018000a928     jcmaster.obj
+ 0001:00009940       validate_script            000000018000a940 f   jcmaster.obj
+ 0001:00009d90       select_scan_parameters     000000018000ad90 f   jcmaster.obj
+ 0001:00009ed0       per_scan_setup             000000018000aed0 f   jcmaster.obj
+ 0001:0000a0c0       prepare_for_pass           000000018000b0c0 f   jcmaster.obj
+ 0001:0000a280       pass_startup               000000018000b280 f   jcmaster.obj
+ 0001:0000a2c0       finish_pass_master         000000018000b2c0 f   jcmaster.obj
+ 0001:0000ad70       std_huff_tables            000000018000bd70 f   jcparam.obj
+ 0001:0000b608       $LN231                     000000018000c608     jcparam.obj
+ 0001:0000bb14       $LN32                      000000018000cb14     jcparam.obj
+ 0001:0000bfa0       start_pass_prep            000000018000cfa0 f   jcprepct.obj
+ 0001:0000bff0       pre_process_data           000000018000cff0 f   jcprepct.obj
+ 0001:0000c270       pre_process_context        000000018000d270 f   jcprepct.obj
+ 0001:0000c770       expand_right_edge          000000018000d770 f   jcsample.obj
+ 0001:0000c7f0       sep_downsample             000000018000d7f0 f   jcsample.obj
+ 0001:0000c890       int_downsample             000000018000d890 f   jcsample.obj
+ 0001:0000caf0       fullsize_downsample        000000018000daf0 f   jcsample.obj
+ 0001:0000cb90       h2v1_downsample            000000018000db90 f   jcsample.obj
+ 0001:0000cc40       h2v2_downsample            000000018000dc40 f   jcsample.obj
+ 0001:0000cd20       h2v2_smooth_downsample     000000018000dd20 f   jcsample.obj
+ 0001:0000cfe0       fullsize_smooth_downsample 000000018000dfe0 f   jcsample.obj
+ 0001:0000d850       start_pass_coef            000000018000e850 f   jctrans.obj
+ 0001:0000d8f0       compress_output            000000018000e8f0 f   jctrans.obj
+ 0001:0000ddb0       default_decompress_parms   000000018000edb0 f   jdapimin.obj
+ 0001:0000e154       $LN17                      000000018000f154     jdapimin.obj
+ 0001:0000e450       output_pass_setup          000000018000f450 f   jdapistd.obj
+ 0001:0000e850       arith_decode               000000018000f850 f   jdarith.obj
+ 0001:0000ea20       process_restart            000000018000fa20 f   jdarith.obj
+ 0001:0000eb40       decode_mcu_DC_first        000000018000fb40 f   jdarith.obj
+ 0001:0000ed60       decode_mcu_AC_first        000000018000fd60 f   jdarith.obj
+ 0001:0000efa0       decode_mcu_DC_refine       000000018000ffa0 f   jdarith.obj
+ 0001:0000f050       decode_mcu_AC_refine       0000000180010050 f   jdarith.obj
+ 0001:0000f260       decode_mcu                 0000000180010260 f   jdarith.obj
+ 0001:0000f630       start_pass                 0000000180010630 f   jdarith.obj
+ 0001:0000fb60       init_destination           0000000180010b60 f   jdatadst.obj
+ 0001:0000fb90       empty_output_buffer        0000000180010b90 f   jdatadst.obj
+ 0001:0000fbf0       empty_mem_output_buffer    0000000180010bf0 f   jdatadst.obj
+ 0001:0000fc90       term_destination           0000000180010c90 f   jdatadst.obj
+ 0001:0000fd20       term_mem_destination       0000000180010d20 f   jdatadst.obj
+ 0001:0000fea0       init_source                0000000180010ea0 f   jdatasrc.obj
+ 0001:0000feb0       fill_input_buffer          0000000180010eb0 f   jdatasrc.obj
+ 0001:0000ff50       fill_mem_input_buffer      0000000180010f50 f   jdatasrc.obj
+ 0001:0000ff90       skip_input_data            0000000180010f90 f   jdatasrc.obj
+ 0001:00010130       start_input_pass           0000000180011130 f   jdcoefct.obj
+ 0001:00010180       start_output_pass          0000000180011180 f   jdcoefct.obj
+ 0001:00010360       decompress_onepass         0000000180011360 f   jdcoefct.obj
+ 0001:00010650       dummy_consume_data         0000000180011650 f   jdcoefct.obj
+ 0001:00010660       consume_data               0000000180011660 f   jdcoefct.obj
+ 0001:00010900       decompress_data            0000000180011900 f   jdcoefct.obj
+ 0001:00010b00       decompress_smooth_data     0000000180011b00 f   jdcoefct.obj
+ 0001:00011430       build_ycc_rgb_table        0000000180012430 f   jdcolor.obj
+ 0001:00011520       ycc_rgb_convert            0000000180012520 f   jdcolor.obj
+ 0001:000116d0       rgb_gray_convert           00000001800126d0 f   jdcolor.obj
+ 0001:000117b0       rgb1_rgb_convert           00000001800127b0 f   jdcolor.obj
+ 0001:00011880       rgb1_gray_convert          0000000180012880 f   jdcolor.obj
+ 0001:00011970       rgb_convert                0000000180012970 f   jdcolor.obj
+ 0001:00011a30       null_convert               0000000180012a30 f   jdcolor.obj
+ 0001:00011af0       grayscale_convert          0000000180012af0 f   jdcolor.obj
+ 0001:00011b60       gray_rgb_convert           0000000180012b60 f   jdcolor.obj
+ 0001:00011bd0       ycck_cmyk_convert          0000000180012bd0 f   jdcolor.obj
+ 0001:000122a4       $LN97                      00000001800132a4     jdcolor.obj
+ 0001:000122c0       start_pass                 00000001800132c0 f   jddctmgr.obj
+ 0001:00012b60       jpeg_make_d_derived_tbl    0000000180013b60 f   jdhuff.obj
+ 0001:00012e70       jpeg_fill_bit_buffer       0000000180013e70 f   jdhuff.obj
+ 0001:00012fc0       jpeg_huff_decode           0000000180013fc0 f   jdhuff.obj
+ 0001:000130e0       finish_pass_huff           00000001800140e0 f   jdhuff.obj
+ 0001:00013110       process_restart            0000000180014110 f   jdhuff.obj
+ 0001:000131c0       decode_mcu_DC_first        00000001800141c0 f   jdhuff.obj
+ 0001:00013400       decode_mcu_AC_first        0000000180014400 f   jdhuff.obj
+ 0001:00013690       decode_mcu_DC_refine       0000000180014690 f   jdhuff.obj
+ 0001:000137b0       decode_mcu_AC_refine       00000001800147b0 f   jdhuff.obj
+ 0001:00013c60       decode_mcu_sub             0000000180014c60 f   jdhuff.obj
+ 0001:000140f0       decode_mcu                 00000001800150f0 f   jdhuff.obj
+ 0001:00014570       start_pass_huff_decoder    0000000180015570 f   jdhuff.obj
+ 0001:00014af4       $LN131                     0000000180015af4     jdhuff.obj
+ 0001:00014b14       $LN130                     0000000180015b14     jdhuff.obj
+ 0001:000150a0       initial_setup              00000001800160a0 f   jdinput.obj
+ 0001:000154f4       $LN67                      00000001800164f4     jdinput.obj
+ 0001:00015534       $LN66                      0000000180016534     jdinput.obj
+ 0001:00015620       per_scan_setup             0000000180016620 f   jdinput.obj
+ 0001:000157f0       start_input_pass           00000001800167f0 f   jdinput.obj
+ 0001:00015940       finish_input_pass          0000000180016940 f   jdinput.obj
+ 0001:00015970       consume_markers            0000000180016970 f   jdinput.obj
+ 0001:00015a90       reset_input_controller     0000000180016a90 f   jdinput.obj
+ 0001:00015b40       start_pass_main            0000000180016b40 f   jdmainct.obj
+ 0001:00015d70       process_data_simple_main   0000000180016d70 f   jdmainct.obj
+ 0001:00015e10       process_data_context_main  0000000180016e10 f   jdmainct.obj
+ 0001:00016170       process_data_crank_post    0000000180017170 f   jdmainct.obj
+ 0001:00016380       get_sof                    0000000180017380 f   jdmarker.obj
+ 0001:00016710       get_sos                    0000000180017710 f   jdmarker.obj
+ 0001:00016aa0       get_dac                    0000000180017aa0 f   jdmarker.obj
+ 0001:00016c60       get_dht                    0000000180017c60 f   jdmarker.obj
+ 0001:00016f90       get_dqt                    0000000180017f90 f   jdmarker.obj
+ 0001:00017300       $LN99                      0000000180018300     jdmarker.obj
+ 0001:0001731c       $LN98                      000000018001831c     jdmarker.obj
+ 0001:00017350       get_lse                    0000000180018350 f   jdmarker.obj
+ 0001:00017810       examine_app0               0000000180018810 f   jdmarker.obj
+ 0001:00017aa0       examine_app14              0000000180018aa0 f   jdmarker.obj
+ 0001:00017b80       get_interesting_appn       0000000180018b80 f   jdmarker.obj
+ 0001:00017d00       save_marker                0000000180018d00 f   jdmarker.obj
+ 0001:00017f90       skip_variable              0000000180018f90 f   jdmarker.obj
+ 0001:00018070       next_marker                0000000180019070 f   jdmarker.obj
+ 0001:000181b0       read_markers               00000001800191b0 f   jdmarker.obj
+ 0001:00018638       $LN167                     0000000180019638     jdmarker.obj
+ 0001:00018684       $LN166                     0000000180019684     jdmarker.obj
+ 0001:00018790       read_restart_marker        0000000180019790 f   jdmarker.obj
+ 0001:00018950       reset_marker_reader        0000000180019950 f   jdmarker.obj
+ 0001:00018ba0       use_merged_upsample        0000000180019ba0 f   jdmaster.obj
+ 0001:00018e84       $LN46                      0000000180019e84     jdmaster.obj
+ 0001:00018ea0       master_selection           0000000180019ea0 f   jdmaster.obj
+ 0001:00019140       prepare_for_output_pass    000000018001a140 f   jdmaster.obj
+ 0001:000192a0       finish_output_pass         000000018001a2a0 f   jdmaster.obj
+ 0001:000193b0       start_pass_merged_upsample 000000018001a3b0 f   jdmerge.obj
+ 0001:000193d0       merged_2v_upsample         000000018001a3d0 f   jdmerge.obj
+ 0001:000194b0       merged_1v_upsample         000000018001a4b0 f   jdmerge.obj
+ 0001:000194f0       h2v1_merged_upsample       000000018001a4f0 f   jdmerge.obj
+ 0001:00019680       h2v2_merged_upsample       000000018001a680 f   jdmerge.obj
+ 0001:00019b40       start_pass_dpost           000000018001ab40 f   jdpostct.obj
+ 0001:00019c30       post_process_1pass         000000018001ac30 f   jdpostct.obj
+ 0001:00019ce0       post_process_prepass       000000018001ace0 f   jdpostct.obj
+ 0001:00019dd0       post_process_2pass         000000018001add0 f   jdpostct.obj
+ 0001:00019f60       start_pass_upsample        000000018001af60 f   jdsample.obj
+ 0001:00019f80       sep_upsample               000000018001af80 f   jdsample.obj
+ 0001:0001a0d0       fullsize_upsample          000000018001b0d0 f   jdsample.obj
+ 0001:0001a0e0       noop_upsample              000000018001b0e0 f   jdsample.obj
+ 0001:0001a0f0       int_upsample               000000018001b0f0 f   jdsample.obj
+ 0001:0001a290       h2v1_upsample              000000018001b290 f   jdsample.obj
+ 0001:0001a300       h2v2_upsample              000000018001b300 f   jdsample.obj
+ 0001:0001a7d0       error_exit                 000000018001b7d0 f   jerror.obj
+ 0001:0001a800       output_message             000000018001b800 f   jerror.obj
+ 0001:0001a860       emit_message               000000018001b860 f   jerror.obj
+ 0001:0001a8b0       format_message             000000018001b8b0 f   jerror.obj
+ 0001:0001a9a0       reset_error_mgr            000000018001b9a0 f   jerror.obj
+ 0001:00034920       alloc_small                0000000180035920 f   jmemmgr.obj
+ 0001:00034ab0       alloc_large                0000000180035ab0 f   jmemmgr.obj
+ 0001:00034ba0       alloc_sarray               0000000180035ba0 f   jmemmgr.obj
+ 0001:00034c90       alloc_barray               0000000180035c90 f   jmemmgr.obj
+ 0001:00034d80       request_virt_sarray        0000000180035d80 f   jmemmgr.obj
+ 0001:00034e30       request_virt_barray        0000000180035e30 f   jmemmgr.obj
+ 0001:00034ee0       realize_virt_arrays        0000000180035ee0 f   jmemmgr.obj
+ 0001:000350b0       access_virt_sarray         00000001800360b0 f   jmemmgr.obj
+ 0001:00035320       access_virt_barray         0000000180036320 f   jmemmgr.obj
+ 0001:00035590       free_pool                  0000000180036590 f   jmemmgr.obj
+ 0001:000356d0       self_destruct              00000001800366d0 f   jmemmgr.obj
+ 0001:000358e0       create_colormap            00000001800368e0 f   jquant1.obj
+ 0001:00035b60       create_colorindex          0000000180036b60 f   jquant1.obj
+ 0001:00035cf0       make_odither_array         0000000180036cf0 f   jquant1.obj
+ 0001:00035ee0       color_quantize             0000000180036ee0 f   jquant1.obj
+ 0001:00035f90       color_quantize3            0000000180036f90 f   jquant1.obj
+ 0001:00036030       quantize_ord_dither        0000000180037030 f   jquant1.obj
+ 0001:000361a0       quantize3_ord_dither       00000001800371a0 f   jquant1.obj
+ 0001:00036350       quantize_fs_dither         0000000180037350 f   jquant1.obj
+ 0001:000365b0       alloc_fs_workspace         00000001800375b0 f   jquant1.obj
+ 0001:00036630       start_pass_1_quant         0000000180037630 f   jquant1.obj
+ 0001:00036800       new_color_map_1_quant      0000000180037800 f   jquant1.obj
+ 0001:000368d0       prescan_quantize           00000001800378d0 f   jquant2.obj
+ 0001:00036970       update_box                 0000000180037970 f   jquant2.obj
+ 0001:00036d20       median_cut                 0000000180037d20 f   jquant2.obj
+ 0001:00036ef0       select_colors              0000000180037ef0 f   jquant2.obj
+ 0001:00037190       find_nearby_colors         0000000180038190 f   jquant2.obj
+ 0001:00037390       find_best_colors           0000000180038390 f   jquant2.obj
+ 0001:00037690       fill_inverse_cmap          0000000180038690 f   jquant2.obj
+ 0001:000377f0       pass2_no_dither            00000001800387f0 f   jquant2.obj
+ 0001:00037900       pass2_fs_dither            0000000180038900 f   jquant2.obj
+ 0001:00037cb0       init_error_limit           0000000180038cb0 f   jquant2.obj
+ 0001:00037e50       finish_pass1               0000000180038e50 f   jquant2.obj
+ 0001:00037e80       start_pass_2_quant         0000000180038e80 f   jquant2.obj
+ 0001:00037fd0       new_color_map_2_quant      0000000180038fd0 f   jquant2.obj
+ 0001:00038220       $$000000                   0000000180039220     MSVCRT:amdsecgs.obj
+ 0001:0003840c       capture_current_context    000000018003940c f   MSVCRT:gs_report.obj
+ 0001:0003847c       capture_previous_context   000000018003947c f   MSVCRT:gs_report.obj
+ 0001:000384f0       ?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 00000001800394f0 f   MSVCRT:dll_dllmain.obj
+ 0001:00038540       ?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180039540 f   MSVCRT:dll_dllmain.obj
+ 0001:00038658       ?dllmain_crt_process_detach@@YAH_N@Z 0000000180039658 f   MSVCRT:dll_dllmain.obj
+ 0001:000386dc       ?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 00000001800396dc f   MSVCRT:dll_dllmain.obj
+ 0001:000390c0       $$000000                   000000018003a0c0     MSVCRT:guard_dispatch.obj
+ 0001:000390e0       $$000000                   000000018003a0e0     MSVCRT:guard_xfg_dispatch.obj
+ 0001:000390f6       ?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 000000018003a0f6 f   MSVCRT:dll_dllmain.obj
+ 0001:0003910d       ?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 000000018003a10d f   MSVCRT:dll_dllmain.obj
+ 0001:00039126       ?fin$1@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 000000018003a126 f   MSVCRT:dll_dllmain.obj
+ 0001:0003913a       ?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 000000018003a13a f   MSVCRT:dll_dllmain.obj
+ 0001:00039170       __scrt_is_nonwritable_in_current_image$filt$0 000000018003a170 f   MSVCRT:utility.obj
+ 0002:000001e0       GS_ExceptionPointers       000000018003b1e0     MSVCRT:gs_report.obj
+ 0002:000003c8       ?bits_ac_chrominance@?1??jpeg_std_huff_table@@9@9 000000018003b3c8     jcomapi.obj
+ 0002:000003e0       ?aanscalefactor@?N@??start_pass_fdctmgr@@9@9 000000018003b3e0     jcdctmgr.obj
+ 0002:00000420       ?aanscales@?9??start_pass_fdctmgr@@9@9 000000018003b420     jcdctmgr.obj
+ 0002:000004a0       ?val_ac_chrominance@?1??jpeg_std_huff_table@@9@9 000000018003b4a0     jcomapi.obj
+ 0002:00000544       ?mybuffer@?1??fill_mem_input_buffer@@9@9 000000018003b544     jdatasrc.obj
+ 0002:00000548       ?val_dc_luminance@?1??jpeg_std_huff_table@@9@9 000000018003b548     jcomapi.obj
+ 0002:00000558       ?val_dc_chrominance@?1??jpeg_std_huff_table@@9@9 000000018003b558     jcomapi.obj
+ 0002:00000568       ?bits_dc_luminance@?1??jpeg_std_huff_table@@9@9 000000018003b568     jcomapi.obj
+ 0002:00000580       ?val_ac_luminance@?1??jpeg_std_huff_table@@9@9 000000018003b580     jcomapi.obj
+ 0002:00000628       ?bits_ac_luminance@?1??jpeg_std_huff_table@@9@9 000000018003b628     jcomapi.obj
+ 0002:00000640       ?bits_dc_chrominance@?1??jpeg_std_huff_table@@9@9 000000018003b640     jcomapi.obj
+ 0002:00000658       jpeg_zigzag_order3         000000018003b658     jdhuff.obj
+ 0002:00000680       std_luminance_quant_tbl    000000018003b680     jcparam.obj
+ 0002:00000780       std_chrominance_quant_tbl  000000018003b780     jcparam.obj
+ 0002:00000880       ?aanscalefactor@?O@??start_pass@@9@9 000000018003b880     jddctmgr.obj
+ 0002:000008c0       ?aanscales@?L@??start_pass@@9@9 000000018003b8c0     jddctmgr.obj
+ 0002:00000940       jpeg_zigzag_order          000000018003b940     jdhuff.obj
+ 0002:00000a40       jpeg_zigzag_order4         000000018003ba40     jdhuff.obj
+ 0002:00000a80       jpeg_zigzag_order7         000000018003ba80     jdhuff.obj
+ 0002:00000b50       jpeg_zigzag_order6         000000018003bb50     jdhuff.obj
+ 0002:00000be0       bmask                      000000018003bbe0     jdhuff.obj
+ 0002:00000c20       jpeg_zigzag_order5         000000018003bc20     jdhuff.obj
+ 0002:00000c88       jpeg_zigzag_order2         000000018003bc88     jdhuff.obj
+ 0002:000010a0       first_pool_slop            000000018003c0a0     jmemmgr.obj
+ 0002:000010b0       extra_pool_slop            000000018003c0b0     jmemmgr.obj
+ 0002:000010c0       ?RGB_order@?1??select_ncolors@@9@9 000000018003c0c0     jquant1.obj
+ 0002:000010d0       base_dither_matrix         000000018003c0d0     jquant1.obj
+ 0002:00003170       $unwind$jpeg_CreateCompress 000000018003e170     jcapimin.obj
+ 0002:00003170       $unwind$jpeg_write_marker  000000018003e170     jcapimin.obj
+ 0002:00003170       $unwind$write_tables_only  000000018003e170     jcmarker.obj
+ 0002:00003170       $unwind$jpeg_add_quant_table 000000018003e170     jcparam.obj
+ 0002:00003170       $unwind$h2v1_downsample    000000018003e170     jcsample.obj
+ 0002:00003170       $unwind$jpeg_CreateDecompress 000000018003e170     jdapimin.obj
+ 0002:00003170       $unwind$empty_mem_output_buffer 000000018003e170     jdatadst.obj
+ 0002:00003170       $unwind$grayscale_convert  000000018003e170     jdcolor.obj
+ 0002:00003170       $unwind$initial_setup      000000018003e170     jdinput.obj
+ 0002:00003170       $unwind$jpeg_resync_to_restart 000000018003e170     jdmarker.obj
+ 0002:00003170       $unwind$master_selection   000000018003e170     jdmaster.obj
+ 0002:00003170       $unwind$alloc_fs_workspace 000000018003e170     jquant1.obj
+ 0002:00003170       $unwind$jinit_2pass_quantizer 000000018003e170     jquant2.obj
+ 0002:00003170       $unwind$jcopy_sample_rows  000000018003e170     jutils.obj
+ 0002:00003170       $unwind$__scrt_dllmain_exception_filter 000000018003e170     MSVCRT:utility.obj
+ 0002:00003184       $unwind$jpeg_abort_compress 000000018003e184     jcapimin.obj
+ 0002:00003184       $unwind$jpeg_destroy_compress 000000018003e184     jcapimin.obj
+ 0002:00003184       $unwind$jpeg_finish_compress 000000018003e184     jcapimin.obj
+ 0002:00003184       $unwind$jpeg_write_tables  000000018003e184     jcapimin.obj
+ 0002:00003184       $unwind$jinit_arith_encoder 000000018003e184     jcarith.obj
+ 0002:00003184       $unwind$start_pass_coef    000000018003e184     jccoefct.obj
+ 0002:00003184       $unwind$emit_eobrun        000000018003e184     jchuff.obj
+ 0002:00003184       $unwind$jinit_huff_encoder 000000018003e184     jchuff.obj
+ 0002:00003184       $unwind$jinit_compress_master 000000018003e184     jcinit.obj
+ 0002:00003184       $unwind$jpeg_calc_jpeg_dimensions 000000018003e184     jcinit.obj
+ 0002:00003184       $unwind$emit_adobe_app14   000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$emit_lse_ict       000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$emit_pseudo_sos    000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$emit_sos           000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$jinit_marker_writer 000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$write_file_trailer 000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$write_marker_byte  000000018003e184     jcmarker.obj
+ 0002:00003184       $unwind$pass_startup       000000018003e184     jcmaster.obj
+ 0002:00003184       $unwind$per_scan_setup     000000018003e184     jcmaster.obj
+ 0002:00003184       $unwind$select_scan_parameters 000000018003e184     jcmaster.obj
+ 0002:00003184       $unwind$jpeg_abort         000000018003e184     jcomapi.obj
+ 0002:00003184       $unwind$jpeg_destroy       000000018003e184     jcomapi.obj
+ 0002:00003184       $unwind$jpeg_default_colorspace 000000018003e184     jcparam.obj
+ 0002:00003184       $unwind$jpeg_abort_decompress 000000018003e184     jdapimin.obj
+ 0002:00003184       $unwind$jpeg_consume_input 000000018003e184     jdapimin.obj
+ 0002:00003184       $unwind$jpeg_destroy_decompress 000000018003e184     jdapimin.obj
+ 0002:00003184       $unwind$jpeg_finish_decompress 000000018003e184     jdapimin.obj
+ 0002:00003184       $unwind$jpeg_has_multiple_scans 000000018003e184     jdapimin.obj
+ 0002:00003184       $unwind$jpeg_input_complete 000000018003e184     jdapimin.obj
+ 0002:00003184       $unwind$jpeg_finish_output 000000018003e184     jdapistd.obj
+ 0002:00003184       $unwind$jpeg_start_decompress 000000018003e184     jdapistd.obj
+ 0002:00003184       $unwind$init_destination   000000018003e184     jdatadst.obj
+ 0002:00003184       $unwind$fill_mem_input_buffer 000000018003e184     jdatasrc.obj
+ 0002:00003184       $unwind$finish_input_pass  000000018003e184     jdinput.obj
+ 0002:00003184       $unwind$jinit_input_controller 000000018003e184     jdinput.obj
+ 0002:00003184       $unwind$reset_input_controller 000000018003e184     jdinput.obj
+ 0002:00003184       $unwind$jinit_marker_reader 000000018003e184     jdmarker.obj
+ 0002:00003184       $unwind$read_restart_marker 000000018003e184     jdmarker.obj
+ 0002:00003184       $unwind$finish_output_pass 000000018003e184     jdmaster.obj
+ 0002:00003184       $unwind$jinit_master_decompress 000000018003e184     jdmaster.obj
+ 0002:00003184       $unwind$jpeg_read_coefficients 000000018003e184     jdtrans.obj
+ 0002:00003184       $unwind$emit_message       000000018003e184     jerror.obj
+ 0002:00003184       $unwind$error_exit         000000018003e184     jerror.obj
+ 0002:00003184       $unwind$jinit_1pass_quantizer 000000018003e184     jquant1.obj
+ 0002:00003184       $unwind$make_odither_array 000000018003e184     jquant1.obj
+ 0002:00003184       $unwind$finish_pass1       000000018003e184     jquant2.obj
+ 0002:00003184       $unwind$init_error_limit   000000018003e184     jquant2.obj
+ 0002:00003184       $unwind$__raise_securityfailure 000000018003e184     MSVCRT:gs_report.obj
+ 0002:00003184       $unwind$__scrt_initialize_crt 000000018003e184     MSVCRT:utility.obj
+ 0002:00003184       $unwind$__scrt_initialize_onexit_tables 000000018003e184     MSVCRT:utility.obj
+ 0002:00003184       $unwind$__scrt_release_startup_lock 000000018003e184     MSVCRT:utility.obj
+ 0002:00003184       $unwind$__scrt_uninitialize_crt 000000018003e184     MSVCRT:utility.obj
+ 0002:0000318c       $chain$0$jpeg_finish_compress 000000018003e18c     jcapimin.obj
+ 0002:000031a0       $chain$1$jpeg_finish_compress 000000018003e1a0     jcapimin.obj
+ 0002:000031b0       $unwind$jpeg_write_m_header 000000018003e1b0     jcapimin.obj
+ 0002:000031b0       $unwind$jinit_color_converter 000000018003e1b0     jccolor.obj
+ 0002:000031b0       $unwind$jinit_forward_dct  000000018003e1b0     jcdctmgr.obj
+ 0002:000031b0       $unwind$emit_sof           000000018003e1b0     jcmarker.obj
+ 0002:000031b0       $unwind$write_marker_header 000000018003e1b0     jcmarker.obj
+ 0002:000031b0       $unwind$jinit_c_master_control 000000018003e1b0     jcmaster.obj
+ 0002:000031b0       $unwind$jpeg_simple_progression 000000018003e1b0     jcparam.obj
+ 0002:000031b0       $unwind$jpeg_write_coefficients 000000018003e1b0     jctrans.obj
+ 0002:000031b0       $unwind$term_destination   000000018003e1b0     jdatadst.obj
+ 0002:000031b0       $unwind$jpeg_mem_src       000000018003e1b0     jdatasrc.obj
+ 0002:000031b0       $unwind$process_restart    000000018003e1b0     jdhuff.obj
+ 0002:000031b0       $unwind$examine_app0       000000018003e1b0     jdmarker.obj
+ 0002:000031b0       $unwind$jinit_merged_upsampler 000000018003e1b0     jdmerge.obj
+ 0002:000031b0       $unwind$jpeg_fdct_1x1      000000018003e1b0     jfdctint.obj
+ 0002:000031b0       $unwind$jpeg_fdct_1x2      000000018003e1b0     jfdctint.obj
+ 0002:000031b0       $unwind$jpeg_fdct_2x1      000000018003e1b0     jfdctint.obj
+ 0002:000031b0       $unwind$jpeg_fdct_2x2      000000018003e1b0     jfdctint.obj
+ 0002:000031b0       $unwind$_DllMainCRTStartup 000000018003e1b0     MSVCRT:dll_dllmain.obj
+ 0002:000031c0       $unwind$jpeg_start_compress 000000018003e1c0     jcapistd.obj
+ 0002:000031c0       $unwind$finish_pass        000000018003e1c0     jcarith.obj
+ 0002:000031c0       $unwind$emit_dri           000000018003e1c0     jcmarker.obj
+ 0002:000031c0       $unwind$emit_jfif_app0     000000018003e1c0     jcmarker.obj
+ 0002:000031c0       $unwind$write_file_header  000000018003e1c0     jcmarker.obj
+ 0002:000031c0       $unwind$finish_pass_master 000000018003e1c0     jcmaster.obj
+ 0002:000031c0       $unwind$prepare_for_pass   000000018003e1c0     jcmaster.obj
+ 0002:000031c0       $unwind$jpeg_set_colorspace 000000018003e1c0     jcparam.obj
+ 0002:000031c0       $unwind$start_pass_prep    000000018003e1c0     jcprepct.obj
+ 0002:000031c0       $unwind$start_pass_coef    000000018003e1c0     jctrans.obj
+ 0002:000031c0       $unwind$default_decompress_parms 000000018003e1c0     jdapimin.obj
+ 0002:000031c0       $unwind$jpeg_read_header   000000018003e1c0     jdapimin.obj
+ 0002:000031c0       $unwind$jpeg_start_output  000000018003e1c0     jdapistd.obj
+ 0002:000031c0       $unwind$jinit_arith_decoder 000000018003e1c0     jdarith.obj
+ 0002:000031c0       $unwind$empty_output_buffer 000000018003e1c0     jdatadst.obj
+ 0002:000031c0       $unwind$jpeg_stdio_dest    000000018003e1c0     jdatadst.obj
+ 0002:000031c0       $unwind$fill_input_buffer  000000018003e1c0     jdatasrc.obj
+ 0002:000031c0       $unwind$build_ycc_rgb_table 000000018003e1c0     jdcolor.obj
+ 0002:000031c0       $unwind$jinit_huff_decoder 000000018003e1c0     jdhuff.obj
+ 0002:000031c0       $unwind$consume_markers    000000018003e1c0     jdinput.obj
+ 0002:000031c0       $unwind$jpeg_new_colormap  000000018003e1c0     jdmaster.obj
+ 0002:000031c0       $unwind$prepare_for_output_pass 000000018003e1c0     jdmaster.obj
+ 0002:000031c0       $unwind$merged_1v_upsample 000000018003e1c0     jdmerge.obj
+ 0002:000031c0       $unwind$self_destruct      000000018003e1c0     jmemmgr.obj
+ 0002:000031c0       $unwind$_RTC_Initialize    000000018003e1c0     MSVCRT:initsect.obj
+ 0002:000031c0       $unwind$_RTC_Terminate     000000018003e1c0     MSVCRT:initsect.obj
+ 0002:000031cc       $unwind$jpeg_write_scanlines 000000018003e1cc     jcapistd.obj
+ 0002:000031cc       $unwind$jpeg_read_scanlines 000000018003e1cc     jdapistd.obj
+ 0002:000031e0       $unwind$jpeg_write_raw_data 000000018003e1e0     jcapistd.obj
+ 0002:000031f4       $unwind$arith_encode       000000018003e1f4     jcarith.obj
+ 0002:000031f4       $unwind$start_pass_2_quant 000000018003e1f4     jquant2.obj
+ 0002:00003204       $chain$0$arith_encode      000000018003e204     jcarith.obj
+ 0002:00003218       $chain$1$arith_encode      000000018003e218     jcarith.obj
+ 0002:00003228       $unwind$emit_restart       000000018003e228     jcarith.obj
+ 0002:0000323c       $chain$0$emit_restart      000000018003e23c     jcarith.obj
+ 0002:00003250       $chain$1$emit_restart      000000018003e250     jcarith.obj
+ 0002:00003260       $unwind$encode_mcu_DC_first 000000018003e260     jcarith.obj
+ 0002:00003260       $unwind$pass2_no_dither    000000018003e260     jquant2.obj
+ 0002:00003270       $chain$3$encode_mcu_DC_first 000000018003e270     jcarith.obj
+ 0002:00003290       $chain$4$encode_mcu_DC_first 000000018003e290     jcarith.obj
+ 0002:000032a0       $unwind$encode_mcu_AC_first 000000018003e2a0     jcarith.obj
+ 0002:000032ac       $chain$3$encode_mcu_AC_first 000000018003e2ac     jcarith.obj
+ 0002:000032cc       $chain$4$encode_mcu_AC_first 000000018003e2cc     jcarith.obj
+ 0002:000032e0       $chain$5$encode_mcu_AC_first 000000018003e2e0     jcarith.obj
+ 0002:000032f0       $chain$6$encode_mcu_AC_first 000000018003e2f0     jcarith.obj
+ 0002:00003300       $unwind$encode_mcu_DC_refine 000000018003e300     jcarith.obj
+ 0002:00003314       $chain$0$encode_mcu_DC_refine 000000018003e314     jcarith.obj
+ 0002:00003328       $chain$1$encode_mcu_DC_refine 000000018003e328     jcarith.obj
+ 0002:00003338       $unwind$encode_mcu_AC_refine 000000018003e338     jcarith.obj
+ 0002:00003338       $unwind$get_dqt            000000018003e338     jdmarker.obj
+ 0002:00003350       $unwind$encode_mcu         000000018003e350     jcarith.obj
+ 0002:0000335c       $chain$5$encode_mcu        000000018003e35c     jcarith.obj
+ 0002:00003384       $chain$6$encode_mcu        000000018003e384     jcarith.obj
+ 0002:00003394       $unwind$start_pass         000000018003e394     jcarith.obj
+ 0002:000033a4       $chain$3$start_pass        000000018003e3a4     jcarith.obj
+ 0002:000033c4       $chain$4$start_pass        000000018003e3c4     jcarith.obj
+ 0002:000033d4       $unwind$compress_data      000000018003e3d4     jccoefct.obj
+ 0002:000033ec       $unwind$compress_first_pass 000000018003e3ec     jccoefct.obj
+ 0002:000033fc       $chain$4$compress_first_pass 000000018003e3fc     jccoefct.obj
+ 0002:00003420       $chain$5$compress_first_pass 000000018003e420     jccoefct.obj
+ 0002:00003430       $unwind$compress_output    000000018003e430     jccoefct.obj
+ 0002:0000344c       $unwind$jinit_c_coef_controller 000000018003e44c     jccoefct.obj
+ 0002:0000344c       $unwind$post_process_2pass 000000018003e44c     jdpostct.obj
+ 0002:00003460       $unwind$rgb_ycc_start      000000018003e460     jccolor.obj
+ 0002:0000346c       $chain$7$rgb_ycc_start     000000018003e46c     jccolor.obj
+ 0002:0000349c       $chain$9$rgb_ycc_start     000000018003e49c     jccolor.obj
+ 0002:000034b0       $unwind$rgb_ycc_convert    000000018003e4b0     jccolor.obj
+ 0002:000034c0       $chain$3$rgb_ycc_convert   000000018003e4c0     jccolor.obj
+ 0002:000034e0       $chain$4$rgb_ycc_convert   000000018003e4e0     jccolor.obj
+ 0002:000034f0       $unwind$rgb_gray_convert   000000018003e4f0     jccolor.obj
+ 0002:000034f0       $unwind$rgb_rgb1_convert   000000018003e4f0     jccolor.obj
+ 0002:000034f0       $unwind$rgb1_rgb_convert   000000018003e4f0     jdcolor.obj
+ 0002:00003504       $chain$0$rgb_gray_convert  000000018003e504     jccolor.obj
+ 0002:00003518       $chain$1$rgb_gray_convert  000000018003e518     jccolor.obj
+ 0002:00003528       $unwind$cmyk_ycck_convert  000000018003e528     jccolor.obj
+ 0002:00003534       $chain$5$cmyk_ycck_convert 000000018003e534     jccolor.obj
+ 0002:0000355c       $chain$6$cmyk_ycck_convert 000000018003e55c     jccolor.obj
+ 0002:0000356c       $chain$0$rgb_rgb1_convert  000000018003e56c     jccolor.obj
+ 0002:00003580       $chain$1$rgb_rgb1_convert  000000018003e580     jccolor.obj
+ 0002:00003590       $unwind$grayscale_convert  000000018003e590     jccolor.obj
+ 0002:000035a4       $unwind$rgb_convert        000000018003e5a4     jccolor.obj
+ 0002:000035b8       $chain$0$rgb_convert       000000018003e5b8     jccolor.obj
+ 0002:000035cc       $chain$1$rgb_convert       000000018003e5cc     jccolor.obj
+ 0002:000035dc       $unwind$null_convert       000000018003e5dc     jccolor.obj
+ 0002:000035dc       $unwind$null_convert       000000018003e5dc     jdcolor.obj
+ 0002:000035f0       $chain$1$null_convert      000000018003e5f0     jccolor.obj
+ 0002:00003608       $chain$2$null_convert      000000018003e608     jccolor.obj
+ 0002:00003618       $unwind$forward_DCT        000000018003e618     jcdctmgr.obj
+ 0002:00003634       $chain$1$forward_DCT       000000018003e634     jcdctmgr.obj
+ 0002:0000364c       $chain$2$forward_DCT       000000018003e64c     jcdctmgr.obj
+ 0002:0000365c       $unwind$forward_DCT_float  000000018003e65c     jcdctmgr.obj
+ 0002:00003674       $chain$4$forward_DCT_float 000000018003e674     jcdctmgr.obj
+ 0002:00003698       $chain$5$forward_DCT_float 000000018003e698     jcdctmgr.obj
+ 0002:000036a8       $unwind$start_pass_fdctmgr 000000018003e6a8     jcdctmgr.obj
+ 0002:000036bc       $chain$11$start_pass_fdctmgr 000000018003e6bc     jcdctmgr.obj
+ 0002:000036fc       $chain$12$start_pass_fdctmgr 000000018003e6fc     jcdctmgr.obj
+ 0002:0000370c       $unwind$jpeg_make_c_derived_tbl 000000018003e70c     jchuff.obj
+ 0002:0000370c       $unwind$jpeg_make_d_derived_tbl 000000018003e70c     jdhuff.obj
+ 0002:00003728       $unwind$emit_bits_s        000000018003e728     jchuff.obj
+ 0002:00003740       $unwind$emit_bits_e        000000018003e740     jchuff.obj
+ 0002:0000374c       $chain$0$emit_bits_e       000000018003e74c     jchuff.obj
+ 0002:00003760       $chain$2$emit_bits_e       000000018003e760     jchuff.obj
+ 0002:00003778       $chain$3$emit_bits_e       000000018003e778     jchuff.obj
+ 0002:00003788       $chain$4$emit_bits_e       000000018003e788     jchuff.obj
+ 0002:00003798       $chain$1$emit_eobrun       000000018003e798     jchuff.obj
+ 0002:000037b0       $chain$2$emit_eobrun       000000018003e7b0     jchuff.obj
+ 0002:000037c0       $unwind$emit_restart_e     000000018003e7c0     jchuff.obj
+ 0002:000037cc       $chain$0$emit_restart_e    000000018003e7cc     jchuff.obj
+ 0002:000037e0       $chain$1$emit_restart_e    000000018003e7e0     jchuff.obj
+ 0002:000037f4       $chain$2$emit_restart_e    000000018003e7f4     jchuff.obj
+ 0002:00003804       $chain$3$emit_restart_e    000000018003e804     jchuff.obj
+ 0002:00003814       $unwind$encode_mcu_DC_first 000000018003e814     jchuff.obj
+ 0002:0000381c       $chain$2$encode_mcu_DC_first 000000018003e81c     jchuff.obj
+ 0002:00003838       $chain$6$encode_mcu_DC_first 000000018003e838     jchuff.obj
+ 0002:00003858       $chain$7$encode_mcu_DC_first 000000018003e858     jchuff.obj
+ 0002:00003868       $chain$8$encode_mcu_DC_first 000000018003e868     jchuff.obj
+ 0002:00003878       $unwind$encode_mcu_AC_first 000000018003e878     jchuff.obj
+ 0002:00003878       $unwind$jinit_color_deconverter 000000018003e878     jdcolor.obj
+ 0002:00003880       $chain$4$encode_mcu_AC_first 000000018003e880     jchuff.obj
+ 0002:000038a4       $chain$6$encode_mcu_AC_first 000000018003e8a4     jchuff.obj
+ 0002:000038bc       $chain$7$encode_mcu_AC_first 000000018003e8bc     jchuff.obj
+ 0002:000038cc       $chain$8$encode_mcu_AC_first 000000018003e8cc     jchuff.obj
+ 0002:000038dc       $unwind$encode_mcu_DC_refine 000000018003e8dc     jchuff.obj
+ 0002:000038dc       $unwind$write_frame_header 000000018003e8dc     jcmarker.obj
+ 0002:000038dc       $unwind$decode_mcu_DC_refine 000000018003e8dc     jdarith.obj
+ 0002:000038dc       $unwind$jpeg_huff_decode   000000018003e8dc     jdhuff.obj
+ 0002:000038dc       $unwind$next_marker        000000018003e8dc     jdmarker.obj
+ 0002:000038dc       $unwind$skip_variable      000000018003e8dc     jdmarker.obj
+ 0002:000038dc       $unwind$alloc_large        000000018003e8dc     jmemmgr.obj
+ 0002:000038dc       $unwind$request_virt_barray 000000018003e8dc     jmemmgr.obj
+ 0002:000038dc       $unwind$request_virt_sarray 000000018003e8dc     jmemmgr.obj
+ 0002:000038f4       $unwind$encode_mcu_AC_refine 000000018003e8f4     jchuff.obj
+ 0002:00003900       $chain$3$encode_mcu_AC_refine 000000018003e900     jchuff.obj
+ 0002:00003920       $chain$6$encode_mcu_AC_refine 000000018003e920     jchuff.obj
+ 0002:0000393c       $chain$7$encode_mcu_AC_refine 000000018003e93c     jchuff.obj
+ 0002:0000394c       $chain$8$encode_mcu_AC_refine 000000018003e94c     jchuff.obj
+ 0002:0000395c       $unwind$encode_one_block   000000018003e95c     jchuff.obj
+ 0002:00003974       $unwind$encode_mcu_huff    000000018003e974     jchuff.obj
+ 0002:00003994       $unwind$finish_pass_huff   000000018003e994     jchuff.obj
+ 0002:000039a0       $unwind$encode_mcu_gather  000000018003e9a0     jchuff.obj
+ 0002:000039ac       $chain$5$encode_mcu_gather 000000018003e9ac     jchuff.obj
+ 0002:000039d4       $chain$6$encode_mcu_gather 000000018003e9d4     jchuff.obj
+ 0002:000039e4       $unwind$jpeg_gen_optimal_table 000000018003e9e4     jchuff.obj
+ 0002:00003a08       $unwind$finish_pass_gather 000000018003ea08     jchuff.obj
+ 0002:00003a1c       $chain$2$finish_pass_gather 000000018003ea1c     jchuff.obj
+ 0002:00003a38       $chain$3$finish_pass_gather 000000018003ea38     jchuff.obj
+ 0002:00003a48       $unwind$start_pass_huff    000000018003ea48     jchuff.obj
+ 0002:00003a58       $chain$2$start_pass_huff   000000018003ea58     jchuff.obj
+ 0002:00003a74       $chain$3$start_pass_huff   000000018003ea74     jchuff.obj
+ 0002:00003a84       $unwind$process_data_simple_main 000000018003ea84     jcmainct.obj
+ 0002:00003a94       $chain$2$process_data_simple_main 000000018003ea94     jcmainct.obj
+ 0002:00003ab0       $chain$3$process_data_simple_main 000000018003eab0     jcmainct.obj
+ 0002:00003ac0       $unwind$jinit_c_main_controller 000000018003eac0     jcmainct.obj
+ 0002:00003acc       $chain$0$jinit_c_main_controller 000000018003eacc     jcmainct.obj
+ 0002:00003ae0       $chain$1$jinit_c_main_controller 000000018003eae0     jcmainct.obj
+ 0002:00003af4       $chain$2$jinit_c_main_controller 000000018003eaf4     jcmainct.obj
+ 0002:00003b04       $chain$3$jinit_c_main_controller 000000018003eb04     jcmainct.obj
+ 0002:00003b14       $unwind$emit_dqt           000000018003eb14     jcmarker.obj
+ 0002:00003b28       $chain$0$emit_dqt          000000018003eb28     jcmarker.obj
+ 0002:00003b3c       $chain$1$emit_dqt          000000018003eb3c     jcmarker.obj
+ 0002:00003b4c       $unwind$emit_dht           000000018003eb4c     jcmarker.obj
+ 0002:00003b5c       $chain$0$emit_dht          000000018003eb5c     jcmarker.obj
+ 0002:00003b70       $chain$1$emit_dht          000000018003eb70     jcmarker.obj
+ 0002:00003b84       $chain$2$emit_dht          000000018003eb84     jcmarker.obj
+ 0002:00003b94       $chain$3$emit_dht          000000018003eb94     jcmarker.obj
+ 0002:00003ba4       $unwind$emit_dac           000000018003eba4     jcmarker.obj
+ 0002:00003bb0       $chain$0$emit_dac          000000018003ebb0     jcmarker.obj
+ 0002:00003bc4       $chain$2$emit_dac          000000018003ebc4     jcmarker.obj
+ 0002:00003bdc       $chain$3$emit_dac          000000018003ebdc     jcmarker.obj
+ 0002:00003bec       $chain$4$emit_dac          000000018003ebec     jcmarker.obj
+ 0002:00003bfc       $chain$1$emit_sos          000000018003ebfc     jcmarker.obj
+ 0002:00003c14       $chain$2$emit_sos          000000018003ec14     jcmarker.obj
+ 0002:00003c28       $chain$3$emit_sos          000000018003ec28     jcmarker.obj
+ 0002:00003c38       $chain$4$emit_sos          000000018003ec38     jcmarker.obj
+ 0002:00003c48       $unwind$write_scan_header  000000018003ec48     jcmarker.obj
+ 0002:00003c54       $chain$0$write_scan_header 000000018003ec54     jcmarker.obj
+ 0002:00003c68       $chain$2$write_scan_header 000000018003ec68     jcmarker.obj
+ 0002:00003c80       $chain$3$write_scan_header 000000018003ec80     jcmarker.obj
+ 0002:00003c90       $chain$4$write_scan_header 000000018003ec90     jcmarker.obj
+ 0002:00003ca0       $unwind$initial_setup      000000018003eca0     jcmaster.obj
+ 0002:00003cb0       $chain$0$initial_setup     000000018003ecb0     jcmaster.obj
+ 0002:00003cc4       $chain$1$initial_setup     000000018003ecc4     jcmaster.obj
+ 0002:00003cd8       $chain$2$initial_setup     000000018003ecd8     jcmaster.obj
+ 0002:00003ce8       $unwind$validate_script    000000018003ece8     jcmaster.obj
+ 0002:00003d00       $chain$0$validate_script   000000018003ed00     jcmaster.obj
+ 0002:00003d14       $chain$1$validate_script   000000018003ed14     jcmaster.obj
+ 0002:00003d28       $chain$4$validate_script   000000018003ed28     jcmaster.obj
+ 0002:00003d44       $chain$5$validate_script   000000018003ed44     jcmaster.obj
+ 0002:00003d54       $chain$6$validate_script   000000018003ed54     jcmaster.obj
+ 0002:00003d54       $chain$8$validate_script   000000018003ed54     jcmaster.obj
+ 0002:00003d64       $chain$7$validate_script   000000018003ed64     jcmaster.obj
+ 0002:00003d84       $chain$9$validate_script   000000018003ed84     jcmaster.obj
+ 0002:00003d94       $chain$0$per_scan_setup    000000018003ed94     jcmaster.obj
+ 0002:00003da8       $chain$2$per_scan_setup    000000018003eda8     jcmaster.obj
+ 0002:00003dc0       $chain$3$per_scan_setup    000000018003edc0     jcmaster.obj
+ 0002:00003dd0       $chain$4$per_scan_setup    000000018003edd0     jcmaster.obj
+ 0002:00003de0       $unwind$jpeg_alloc_huff_table 000000018003ede0     jcomapi.obj
+ 0002:00003de0       $unwind$jpeg_alloc_quant_table 000000018003ede0     jcomapi.obj
+ 0002:00003de0       $unwind$__scrt_initialize_default_local_stdio_options 000000018003ede0     MSVCRT:default_local_stdio_options.obj
+ 0002:00003de0       $unwind$?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 000000018003ede0     MSVCRT:dll_dllmain.obj
+ 0002:00003de0       $unwind$__report_rangecheckfailure 000000018003ede0     MSVCRT:gs_report.obj
+ 0002:00003de0       $unwind$__GSHandlerCheck   000000018003ede0     MSVCRT:gshandler.obj
+ 0002:00003de0       $unwind$__scrt_acquire_startup_lock 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de0       $unwind$__scrt_dllmain_after_initialize_c 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de0       $unwind$__scrt_dllmain_before_initialize_c 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de0       $unwind$__scrt_dllmain_crt_thread_attach 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de0       $unwind$__scrt_dllmain_crt_thread_detach 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de0       $unwind$__scrt_dllmain_uninitialize_c 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de0       $unwind$__scrt_dllmain_uninitialize_critical 000000018003ede0     MSVCRT:utility.obj
+ 0002:00003de8       $unwind$jpeg_std_huff_table 000000018003ede8     jcomapi.obj
+ 0002:00003dfc       $chain$3$jpeg_std_huff_table 000000018003edfc     jcomapi.obj
+ 0002:00003e10       $chain$4$jpeg_std_huff_table 000000018003ee10     jcomapi.obj
+ 0002:00003e20       $unwind$jpeg_default_qtables 000000018003ee20     jcparam.obj
+ 0002:00003e20       $unwind$jpeg_set_defaults  000000018003ee20     jcparam.obj
+ 0002:00003e2c       $unwind$jpeg_set_linear_quality 000000018003ee2c     jcparam.obj
+ 0002:00003e2c       $unwind$jpeg_set_quality   000000018003ee2c     jcparam.obj
+ 0002:00003e2c       $unwind$jinit_d_post_controller 000000018003ee2c     jdpostct.obj
+ 0002:00003e3c       $unwind$std_huff_tables    000000018003ee3c     jcparam.obj
+ 0002:00003e54       $unwind$pre_process_data   000000018003ee54     jcprepct.obj
+ 0002:00003e60       $chain$4$pre_process_data  000000018003ee60     jcprepct.obj
+ 0002:00003e84       $chain$5$pre_process_data  000000018003ee84     jcprepct.obj
+ 0002:00003e94       $unwind$pre_process_context 000000018003ee94     jcprepct.obj
+ 0002:00003ea4       $chain$3$pre_process_context 000000018003eea4     jcprepct.obj
+ 0002:00003ec4       $chain$4$pre_process_context 000000018003eec4     jcprepct.obj
+ 0002:00003ed4       $chain$5$pre_process_context 000000018003eed4     jcprepct.obj
+ 0002:00003ef4       $unwind$jinit_c_prep_controller 000000018003eef4     jcprepct.obj
+ 0002:00003f14       $chain$6$jinit_c_prep_controller 000000018003ef14     jcprepct.obj
+ 0002:00003f28       $chain$7$jinit_c_prep_controller 000000018003ef28     jcprepct.obj
+ 0002:00003f38       $unwind$expand_right_edge  000000018003ef38     jcsample.obj
+ 0002:00003f40       $chain$0$expand_right_edge 000000018003ef40     jcsample.obj
+ 0002:00003f54       $chain$3$expand_right_edge 000000018003ef54     jcsample.obj
+ 0002:00003f70       $chain$4$expand_right_edge 000000018003ef70     jcsample.obj
+ 0002:00003f80       $chain$5$expand_right_edge 000000018003ef80     jcsample.obj
+ 0002:00003f90       $unwind$sep_downsample     000000018003ef90     jcsample.obj
+ 0002:00003fa0       $chain$2$sep_downsample    000000018003efa0     jcsample.obj
+ 0002:00003fbc       $chain$3$sep_downsample    000000018003efbc     jcsample.obj
+ 0002:00003fcc       $unwind$int_downsample     000000018003efcc     jcsample.obj
+ 0002:00003fe0       $chain$0$int_downsample    000000018003efe0     jcsample.obj
+ 0002:00003ff4       $chain$1$int_downsample    000000018003eff4     jcsample.obj
+ 0002:00004004       $unwind$fullsize_downsample 000000018003f004     jcsample.obj
+ 0002:00004020       $unwind$h2v2_downsample    000000018003f020     jcsample.obj
+ 0002:00004034       $chain$0$h2v2_downsample   000000018003f034     jcsample.obj
+ 0002:00004048       $chain$1$h2v2_downsample   000000018003f048     jcsample.obj
+ 0002:00004058       $unwind$h2v2_smooth_downsample 000000018003f058     jcsample.obj
+ 0002:00004068       $chain$2$h2v2_smooth_downsample 000000018003f068     jcsample.obj
+ 0002:00004084       $chain$3$h2v2_smooth_downsample 000000018003f084     jcsample.obj
+ 0002:00004094       $unwind$fullsize_smooth_downsample 000000018003f094     jcsample.obj
+ 0002:000040a8       $chain$0$fullsize_smooth_downsample 000000018003f0a8     jcsample.obj
+ 0002:000040bc       $chain$1$fullsize_smooth_downsample 000000018003f0bc     jcsample.obj
+ 0002:000040cc       $unwind$jinit_downsampler  000000018003f0cc     jcsample.obj
+ 0002:000040d8       $chain$1$jinit_downsampler 000000018003f0d8     jcsample.obj
+ 0002:000040f0       $chain$5$jinit_downsampler 000000018003f0f0     jcsample.obj
+ 0002:00004110       $chain$6$jinit_downsampler 000000018003f110     jcsample.obj
+ 0002:00004120       $chain$7$jinit_downsampler 000000018003f120     jcsample.obj
+ 0002:00004130       $unwind$jpeg_copy_critical_parameters 000000018003f130     jctrans.obj
+ 0002:0000413c       $chain$4$jpeg_copy_critical_parameters 000000018003f13c     jctrans.obj
+ 0002:00004160       $chain$5$jpeg_copy_critical_parameters 000000018003f160     jctrans.obj
+ 0002:00004174       $chain$6$jpeg_copy_critical_parameters 000000018003f174     jctrans.obj
+ 0002:00004184       $chain$7$jpeg_copy_critical_parameters 000000018003f184     jctrans.obj
+ 0002:00004194       $unwind$compress_output    000000018003f194     jctrans.obj
+ 0002:000041bc       $chain$0$jpeg_consume_input 000000018003f1bc     jdapimin.obj
+ 0002:000041d0       $chain$1$jpeg_consume_input 000000018003f1d0     jdapimin.obj
+ 0002:000041e0       $unwind$output_pass_setup  000000018003f1e0     jdapistd.obj
+ 0002:000041f4       $unwind$jpeg_read_raw_data 000000018003f1f4     jdapistd.obj
+ 0002:00004208       $unwind$arith_decode       000000018003f208     jdarith.obj
+ 0002:00004208       $unwind$jpeg_mem_dest      000000018003f208     jdatadst.obj
+ 0002:0000421c       $unwind$process_restart    000000018003f21c     jdarith.obj
+ 0002:0000422c       $chain$1$process_restart   000000018003f22c     jdarith.obj
+ 0002:00004244       $chain$2$process_restart   000000018003f244     jdarith.obj
+ 0002:00004254       $unwind$decode_mcu_DC_first 000000018003f254     jdarith.obj
+ 0002:00004278       $unwind$decode_mcu_AC_first 000000018003f278     jdarith.obj
+ 0002:00004284       $chain$4$decode_mcu_AC_first 000000018003f284     jdarith.obj
+ 0002:000042a8       $chain$5$decode_mcu_AC_first 000000018003f2a8     jdarith.obj
+ 0002:000042b8       $unwind$decode_mcu_AC_refine 000000018003f2b8     jdarith.obj
+ 0002:000042c4       $chain$4$decode_mcu_AC_refine 000000018003f2c4     jdarith.obj
+ 0002:000042e8       $chain$5$decode_mcu_AC_refine 000000018003f2e8     jdarith.obj
+ 0002:000042f8       $unwind$decode_mcu         000000018003f2f8     jdarith.obj
+ 0002:0000431c       $unwind$start_pass         000000018003f31c     jdarith.obj
+ 0002:0000431c       $unwind$start_pass_huff_decoder 000000018003f31c     jdhuff.obj
+ 0002:0000431c       $unwind$jpeg_fdct_3x3      000000018003f31c     jfdctint.obj
+ 0002:0000431c       $unwind$jpeg_fdct_6x6      000000018003f31c     jfdctint.obj
+ 0002:00004338       $unwind$skip_input_data    000000018003f338     jdatasrc.obj
+ 0002:00004344       $chain$0$skip_input_data   000000018003f344     jdatasrc.obj
+ 0002:00004358       $chain$1$skip_input_data   000000018003f358     jdatasrc.obj
+ 0002:00004368       $unwind$jpeg_stdio_src     000000018003f368     jdatasrc.obj
+ 0002:00004374       $chain$0$jpeg_stdio_src    000000018003f374     jdatasrc.obj
+ 0002:00004388       $chain$1$jpeg_stdio_src    000000018003f388     jdatasrc.obj
+ 0002:00004398       $unwind$start_output_pass  000000018003f398     jdcoefct.obj
+ 0002:00004398       $unwind$start_input_pass   000000018003f398     jdinput.obj
+ 0002:000043a4       $chain$2$start_output_pass 000000018003f3a4     jdcoefct.obj
+ 0002:000043c0       $chain$4$start_output_pass 000000018003f3c0     jdcoefct.obj
+ 0002:000043dc       $chain$5$start_output_pass 000000018003f3dc     jdcoefct.obj
+ 0002:000043ec       $unwind$decompress_onepass 000000018003f3ec     jdcoefct.obj
+ 0002:00004404       $unwind$consume_data       000000018003f404     jdcoefct.obj
+ 0002:00004420       $unwind$decompress_data    000000018003f420     jdcoefct.obj
+ 0002:00004438       $chain$3$decompress_data   000000018003f438     jdcoefct.obj
+ 0002:00004450       $chain$4$decompress_data   000000018003f450     jdcoefct.obj
+ 0002:00004460       $unwind$decompress_smooth_data 000000018003f460     jdcoefct.obj
+ 0002:00004478       $chain$4$decompress_smooth_data 000000018003f478     jdcoefct.obj
+ 0002:0000449c       $chain$5$decompress_smooth_data 000000018003f49c     jdcoefct.obj
+ 0002:0000449c       $chain$8$decompress_smooth_data 000000018003f49c     jdcoefct.obj
+ 0002:000044ac       $chain$6$decompress_smooth_data 000000018003f4ac     jdcoefct.obj
+ 0002:000044d0       $chain$7$decompress_smooth_data 000000018003f4d0     jdcoefct.obj
+ 0002:000044e4       $unwind$jinit_d_coef_controller 000000018003f4e4     jdcoefct.obj
+ 0002:000044f4       $chain$1$jinit_d_coef_controller 000000018003f4f4     jdcoefct.obj
+ 0002:0000450c       $chain$2$jinit_d_coef_controller 000000018003f50c     jdcoefct.obj
+ 0002:0000451c       $unwind$ycc_rgb_convert    000000018003f51c     jdcolor.obj
+ 0002:0000452c       $chain$2$ycc_rgb_convert   000000018003f52c     jdcolor.obj
+ 0002:00004548       $chain$3$ycc_rgb_convert   000000018003f548     jdcolor.obj
+ 0002:00004558       $unwind$rgb_gray_convert   000000018003f558     jdcolor.obj
+ 0002:0000456c       $chain$1$rgb_gray_convert  000000018003f56c     jdcolor.obj
+ 0002:00004584       $chain$2$rgb_gray_convert  000000018003f584     jdcolor.obj
+ 0002:00004594       $chain$0$rgb1_rgb_convert  000000018003f594     jdcolor.obj
+ 0002:000045a8       $chain$1$rgb1_rgb_convert  000000018003f5a8     jdcolor.obj
+ 0002:000045b8       $unwind$rgb1_gray_convert  000000018003f5b8     jdcolor.obj
+ 0002:000045c8       $chain$2$rgb1_gray_convert 000000018003f5c8     jdcolor.obj
+ 0002:000045e4       $chain$3$rgb1_gray_convert 000000018003f5e4     jdcolor.obj
+ 0002:000045f4       $unwind$rgb_convert        000000018003f5f4     jdcolor.obj
+ 0002:00004608       $chain$1$null_convert      000000018003f608     jdcolor.obj
+ 0002:00004620       $chain$2$null_convert      000000018003f620     jdcolor.obj
+ 0002:00004630       $unwind$gray_rgb_convert   000000018003f630     jdcolor.obj
+ 0002:00004630       $unwind$jpeg_idct_2x2      000000018003f630     jidctint.obj
+ 0002:0000463c       $unwind$ycck_cmyk_convert  000000018003f63c     jdcolor.obj
+ 0002:0000464c       $chain$3$ycck_cmyk_convert 000000018003f64c     jdcolor.obj
+ 0002:0000466c       $chain$4$ycck_cmyk_convert 000000018003f66c     jdcolor.obj
+ 0002:0000467c       $chain$0$jinit_color_deconverter 000000018003f67c     jdcolor.obj
+ 0002:00004690       $chain$3$jinit_color_deconverter 000000018003f690     jdcolor.obj
+ 0002:000046ac       $chain$4$jinit_color_deconverter 000000018003f6ac     jdcolor.obj
+ 0002:000046bc       $chain$5$jinit_color_deconverter 000000018003f6bc     jdcolor.obj
+ 0002:000046cc       $unwind$start_pass         000000018003f6cc     jddctmgr.obj
+ 0002:000046e4       $chain$8$start_pass        000000018003f6e4     jddctmgr.obj
+ 0002:00004718       $chain$9$start_pass        000000018003f718     jddctmgr.obj
+ 0002:00004728       $unwind$jinit_inverse_dct  000000018003f728     jddctmgr.obj
+ 0002:00004738       $chain$0$jinit_inverse_dct 000000018003f738     jddctmgr.obj
+ 0002:0000474c       $chain$1$jinit_inverse_dct 000000018003f74c     jddctmgr.obj
+ 0002:0000475c       $unwind$jpeg_fill_bit_buffer 000000018003f75c     jdhuff.obj
+ 0002:0000475c       $unwind$get_dac            000000018003f75c     jdmarker.obj
+ 0002:0000475c       $unwind$jpeg_fdct_4x2      000000018003f75c     jfdctint.obj
+ 0002:0000475c       $unwind$alloc_barray       000000018003f75c     jmemmgr.obj
+ 0002:0000475c       $unwind$alloc_sarray       000000018003f75c     jmemmgr.obj
+ 0002:00004778       $unwind$decode_mcu_DC_first 000000018003f778     jdhuff.obj
+ 0002:00004794       $unwind$decode_mcu_AC_first 000000018003f794     jdhuff.obj
+ 0002:000047ac       $unwind$decode_mcu_DC_refine 000000018003f7ac     jdhuff.obj
+ 0002:000047c4       $unwind$decode_mcu_AC_refine 000000018003f7c4     jdhuff.obj
+ 0002:000047e8       $unwind$decode_mcu_sub     000000018003f7e8     jdhuff.obj
+ 0002:00004804       $unwind$decode_mcu         000000018003f804     jdhuff.obj
+ 0002:0000481c       $unwind$per_scan_setup     000000018003f81c     jdinput.obj
+ 0002:00004828       $chain$1$per_scan_setup    000000018003f828     jdinput.obj
+ 0002:00004840       $chain$2$per_scan_setup    000000018003f840     jdinput.obj
+ 0002:00004850       $chain$2$start_input_pass  000000018003f850     jdinput.obj
+ 0002:0000486c       $chain$3$start_input_pass  000000018003f86c     jdinput.obj
+ 0002:0000487c       $unwind$start_pass_main    000000018003f87c     jdmainct.obj
+ 0002:00004888       $chain$1$start_pass_main   000000018003f888     jdmainct.obj
+ 0002:000048a0       $chain$5$start_pass_main   000000018003f8a0     jdmainct.obj
+ 0002:000048c0       $chain$6$start_pass_main   000000018003f8c0     jdmainct.obj
+ 0002:000048d0       $chain$7$start_pass_main   000000018003f8d0     jdmainct.obj
+ 0002:000048e0       $unwind$process_data_simple_main 000000018003f8e0     jdmainct.obj
+ 0002:000048e0       $unwind$post_process_prepass 000000018003f8e0     jdpostct.obj
+ 0002:000048fc       $unwind$process_data_context_main 000000018003f8fc     jdmainct.obj
+ 0002:0000490c       $chain$2$process_data_context_main 000000018003f90c     jdmainct.obj
+ 0002:00004928       $chain$3$process_data_context_main 000000018003f928     jdmainct.obj
+ 0002:00004938       $unwind$process_data_crank_post 000000018003f938     jdmainct.obj
+ 0002:00004940       $unwind$jinit_d_main_controller 000000018003f940     jdmainct.obj
+ 0002:00004950       $chain$1$jinit_d_main_controller 000000018003f950     jdmainct.obj
+ 0002:00004968       $chain$2$jinit_d_main_controller 000000018003f968     jdmainct.obj
+ 0002:0000497c       $chain$3$jinit_d_main_controller 000000018003f97c     jdmainct.obj
+ 0002:0000498c       $chain$4$jinit_d_main_controller 000000018003f98c     jdmainct.obj
+ 0002:0000499c       $unwind$get_sof            000000018003f99c     jdmarker.obj
+ 0002:0000499c       $unwind$jpeg_fdct_2x4      000000018003f99c     jfdctint.obj
+ 0002:000049b4       $unwind$get_sos            000000018003f9b4     jdmarker.obj
+ 0002:000049d4       $unwind$get_dht            000000018003f9d4     jdmarker.obj
+ 0002:000049fc       $unwind$get_lse            000000018003f9fc     jdmarker.obj
+ 0002:00004a14       $unwind$examine_app14      000000018003fa14     jdmarker.obj
+ 0002:00004a1c       $chain$0$examine_app14     000000018003fa1c     jdmarker.obj
+ 0002:00004a30       $chain$1$examine_app14     000000018003fa30     jdmarker.obj
+ 0002:00004a40       $unwind$get_interesting_appn 000000018003fa40     jdmarker.obj
+ 0002:00004a64       $unwind$save_marker        000000018003fa64     jdmarker.obj
+ 0002:00004a7c       $unwind$read_markers       000000018003fa7c     jdmarker.obj
+ 0002:00004a9c       $unwind$jpeg_calc_output_dimensions 000000018003fa9c     jdmaster.obj
+ 0002:00004aa8       $chain$0$jpeg_calc_output_dimensions 000000018003faa8     jdmaster.obj
+ 0002:00004abc       $chain$1$jpeg_calc_output_dimensions 000000018003fabc     jdmaster.obj
+ 0002:00004ad0       $chain$4$jpeg_calc_output_dimensions 000000018003fad0     jdmaster.obj
+ 0002:00004aec       $chain$5$jpeg_calc_output_dimensions 000000018003faec     jdmaster.obj
+ 0002:00004afc       $chain$6$jpeg_calc_output_dimensions 000000018003fafc     jdmaster.obj
+ 0002:00004b0c       $chain$7$jpeg_calc_output_dimensions 000000018003fb0c     jdmaster.obj
+ 0002:00004b1c       $unwind$merged_2v_upsample 000000018003fb1c     jdmerge.obj
+ 0002:00004b34       $unwind$h2v1_merged_upsample 000000018003fb34     jdmerge.obj
+ 0002:00004b4c       $unwind$h2v2_merged_upsample 000000018003fb4c     jdmerge.obj
+ 0002:00004b64       $unwind$start_pass_dpost   000000018003fb64     jdpostct.obj
+ 0002:00004b6c       $unwind$post_process_1pass 000000018003fb6c     jdpostct.obj
+ 0002:00004b84       $unwind$sep_upsample       000000018003fb84     jdsample.obj
+ 0002:00004b8c       $chain$4$sep_upsample      000000018003fb8c     jdsample.obj
+ 0002:00004bb0       $chain$5$sep_upsample      000000018003fbb0     jdsample.obj
+ 0002:00004bc4       $chain$6$sep_upsample      000000018003fbc4     jdsample.obj
+ 0002:00004bd8       $chain$7$sep_upsample      000000018003fbd8     jdsample.obj
+ 0002:00004be8       $chain$8$sep_upsample      000000018003fbe8     jdsample.obj
+ 0002:00004bf8       $chain$9$sep_upsample      000000018003fbf8     jdsample.obj
+ 0002:00004c08       $unwind$int_upsample       000000018003fc08     jdsample.obj
+ 0002:00004c14       $chain$4$int_upsample      000000018003fc14     jdsample.obj
+ 0002:00004c38       $chain$5$int_upsample      000000018003fc38     jdsample.obj
+ 0002:00004c48       $unwind$h2v1_upsample      000000018003fc48     jdsample.obj
+ 0002:00004c50       $unwind$h2v2_upsample      000000018003fc50     jdsample.obj
+ 0002:00004c64       $chain$0$h2v2_upsample     000000018003fc64     jdsample.obj
+ 0002:00004c78       $chain$1$h2v2_upsample     000000018003fc78     jdsample.obj
+ 0002:00004c88       $unwind$jinit_upsampler    000000018003fc88     jdsample.obj
+ 0002:00004c98       $chain$3$jinit_upsampler   000000018003fc98     jdsample.obj
+ 0002:00004cb8       $chain$4$jinit_upsampler   000000018003fcb8     jdsample.obj
+ 0002:00004cc8       $unwind$fprintf            000000018003fcc8     jerror.obj
+ 0002:00004cc8       $unwind$sprintf            000000018003fcc8     jerror.obj
+ 0002:00004cc8       $unwind$sscanf             000000018003fcc8     jmemmgr.obj
+ 0002:00004cd4       $unwind$output_message     000000018003fcd4     jerror.obj
+ 0002:00004ce4       $unwind$format_message     000000018003fce4     jerror.obj
+ 0002:00004cec       $unwind$jpeg_fdct_float    000000018003fcec     jfdctflt.obj
+ 0002:00004d20       $unwind$jpeg_fdct_ifast    000000018003fd20     jfdctfst.obj
+ 0002:00004d3c       $unwind$jpeg_fdct_8x4      000000018003fd3c     jfdctint.obj
+ 0002:00004d3c       $unwind$jpeg_fdct_islow    000000018003fd3c     jfdctint.obj
+ 0002:00004d54       $unwind$jpeg_fdct_10x5     000000018003fd54     jfdctint.obj
+ 0002:00004d54       $unwind$jpeg_fdct_7x7      000000018003fd54     jfdctint.obj
+ 0002:00004d6c       $unwind$jpeg_fdct_5x5      000000018003fd6c     jfdctint.obj
+ 0002:00004d84       $unwind$jpeg_fdct_3x6      000000018003fd84     jfdctint.obj
+ 0002:00004d84       $unwind$jpeg_fdct_4x4      000000018003fd84     jfdctint.obj
+ 0002:00004d84       $unwind$jpeg_fdct_6x3      000000018003fd84     jfdctint.obj
+ 0002:00004d9c       $unwind$jpeg_fdct_9x9      000000018003fd9c     jfdctint.obj
+ 0002:00004dc0       $unwind$jpeg_fdct_10x10    000000018003fdc0     jfdctint.obj
+ 0002:00004de8       $unwind$jpeg_fdct_11x11    000000018003fde8     jfdctint.obj
+ 0002:00004e10       $unwind$jpeg_fdct_12x12    000000018003fe10     jfdctint.obj
+ 0002:00004e38       $unwind$jpeg_fdct_13x13    000000018003fe38     jfdctint.obj
+ 0002:00004e38       $unwind$jpeg_fdct_6x12     000000018003fe38     jfdctint.obj
+ 0002:00004e60       $unwind$jpeg_fdct_14x14    000000018003fe60     jfdctint.obj
+ 0002:00004e88       $unwind$jpeg_fdct_15x15    000000018003fe88     jfdctint.obj
+ 0002:00004eb0       $unwind$jpeg_fdct_16x16    000000018003feb0     jfdctint.obj
+ 0002:00004eb0       $unwind$jpeg_fdct_8x16     000000018003feb0     jfdctint.obj
+ 0002:00004ed8       $unwind$jpeg_fdct_14x7     000000018003fed8     jfdctint.obj
+ 0002:00004ed8       $unwind$jpeg_fdct_16x8     000000018003fed8     jfdctint.obj
+ 0002:00004ef0       $unwind$jpeg_fdct_12x6     000000018003fef0     jfdctint.obj
+ 0002:00004f08       $unwind$jpeg_fdct_7x14     000000018003ff08     jfdctint.obj
+ 0002:00004f30       $unwind$jpeg_fdct_5x10     000000018003ff30     jfdctint.obj
+ 0002:00004f58       $unwind$jpeg_fdct_4x8      000000018003ff58     jfdctint.obj
+ 0002:00004f74       $unwind$jpeg_idct_float    000000018003ff74     jidctflt.obj
+ 0002:00004fb8       $unwind$jpeg_idct_ifast    000000018003ffb8     jidctfst.obj
+ 0002:00004fe0       $unwind$jpeg_idct_islow    000000018003ffe0     jidctint.obj
+ 0002:00005008       $unwind$jpeg_idct_7x7      0000000180040008     jidctint.obj
+ 0002:00005030       $unwind$jpeg_idct_6x6      0000000180040030     jidctint.obj
+ 0002:00005030       $unwind$jpeg_idct_8x4      0000000180040030     jidctint.obj
+ 0002:00005058       $unwind$jpeg_idct_5x5      0000000180040058     jidctint.obj
+ 0002:00005074       $unwind$jpeg_idct_4x4      0000000180040074     jidctint.obj
+ 0002:00005090       $unwind$jpeg_idct_2x4      0000000180040090     jidctint.obj
+ 0002:00005090       $unwind$jpeg_idct_3x3      0000000180040090     jidctint.obj
+ 0002:000050ac       $unwind$jpeg_idct_16x8     00000001800400ac     jidctint.obj
+ 0002:000050ac       $unwind$jpeg_idct_9x9      00000001800400ac     jidctint.obj
+ 0002:000050d4       $unwind$jpeg_idct_10x10    00000001800400d4     jidctint.obj
+ 0002:000050fc       $unwind$jpeg_idct_11x11    00000001800400fc     jidctint.obj
+ 0002:00005124       $unwind$jpeg_idct_12x12    0000000180040124     jidctint.obj
+ 0002:0000514c       $unwind$jpeg_idct_13x13    000000018004014c     jidctint.obj
+ 0002:0000514c       $unwind$jpeg_idct_7x14     000000018004014c     jidctint.obj
+ 0002:00005174       $unwind$jpeg_idct_14x14    0000000180040174     jidctint.obj
+ 0002:0000519c       $unwind$jpeg_idct_15x15    000000018004019c     jidctint.obj
+ 0002:000051c4       $unwind$jpeg_idct_16x16    00000001800401c4     jidctint.obj
+ 0002:000051ec       $unwind$jpeg_idct_14x7     00000001800401ec     jidctint.obj
+ 0002:00005214       $unwind$jpeg_idct_12x6     0000000180040214     jidctint.obj
+ 0002:0000523c       $unwind$jpeg_idct_10x5     000000018004023c     jidctint.obj
+ 0002:00005264       $unwind$jpeg_idct_3x6      0000000180040264     jidctint.obj
+ 0002:00005264       $unwind$jpeg_idct_6x3      0000000180040264     jidctint.obj
+ 0002:00005280       $unwind$jpeg_idct_4x2      0000000180040280     jidctint.obj
+ 0002:0000529c       $unwind$jpeg_idct_8x16     000000018004029c     jidctint.obj
+ 0002:000052c4       $unwind$jpeg_idct_6x12     00000001800402c4     jidctint.obj
+ 0002:000052ec       $unwind$jpeg_idct_5x10     00000001800402ec     jidctint.obj
+ 0002:00005314       $unwind$jpeg_idct_4x8      0000000180040314     jidctint.obj
+ 0002:0000533c       $unwind$alloc_small        000000018004033c     jmemmgr.obj
+ 0002:00005354       $chain$0$alloc_small       0000000180040354     jmemmgr.obj
+ 0002:00005368       $chain$1$alloc_small       0000000180040368     jmemmgr.obj
+ 0002:00005378       $unwind$realize_virt_arrays 0000000180040378     jmemmgr.obj
+ 0002:0000538c       $chain$0$realize_virt_arrays 000000018004038c     jmemmgr.obj
+ 0002:000053a0       $chain$1$realize_virt_arrays 00000001800403a0     jmemmgr.obj
+ 0002:000053b0       $unwind$access_virt_sarray 00000001800403b0     jmemmgr.obj
+ 0002:000053c8       $chain$1$access_virt_sarray 00000001800403c8     jmemmgr.obj
+ 0002:000053dc       $chain$2$access_virt_sarray 00000001800403dc     jmemmgr.obj
+ 0002:000053ec       $unwind$access_virt_barray 00000001800403ec     jmemmgr.obj
+ 0002:00005404       $chain$2$access_virt_barray 0000000180040404     jmemmgr.obj
+ 0002:00005418       $chain$3$access_virt_barray 0000000180040418     jmemmgr.obj
+ 0002:00005428       $unwind$free_pool          0000000180040428     jmemmgr.obj
+ 0002:00005434       $chain$2$free_pool         0000000180040434     jmemmgr.obj
+ 0002:00005450       $chain$3$free_pool         0000000180040450     jmemmgr.obj
+ 0002:00005464       $unwind$jinit_memory_mgr   0000000180040464     jmemmgr.obj
+ 0002:0000547c       $unwind$create_colormap    000000018004047c     jquant1.obj
+ 0002:00005494       $unwind$create_colorindex  0000000180040494     jquant1.obj
+ 0002:000054a4       $chain$2$create_colorindex 00000001800404a4     jquant1.obj
+ 0002:000054c0       $chain$3$create_colorindex 00000001800404c0     jquant1.obj
+ 0002:000054d0       $unwind$color_quantize     00000001800404d0     jquant1.obj
+ 0002:000054e4       $chain$0$color_quantize    00000001800404e4     jquant1.obj
+ 0002:000054f8       $chain$1$color_quantize    00000001800404f8     jquant1.obj
+ 0002:00005508       $unwind$color_quantize3    0000000180040508     jquant1.obj
+ 0002:00005520       $unwind$quantize_ord_dither 0000000180040520     jquant1.obj
+ 0002:00005530       $chain$2$quantize_ord_dither 0000000180040530     jquant1.obj
+ 0002:0000554c       $chain$3$quantize_ord_dither 000000018004054c     jquant1.obj
+ 0002:0000555c       $unwind$quantize3_ord_dither 000000018004055c     jquant1.obj
+ 0002:00005568       $chain$4$quantize3_ord_dither 0000000180040568     jquant1.obj
+ 0002:0000558c       $chain$5$quantize3_ord_dither 000000018004058c     jquant1.obj
+ 0002:0000559c       $unwind$quantize_fs_dither 000000018004059c     jquant1.obj
+ 0002:000055b0       $chain$1$quantize_fs_dither 00000001800405b0     jquant1.obj
+ 0002:000055c8       $chain$2$quantize_fs_dither 00000001800405c8     jquant1.obj
+ 0002:000055d8       $unwind$start_pass_1_quant 00000001800405d8     jquant1.obj
+ 0002:000055e4       $chain$1$start_pass_1_quant 00000001800405e4     jquant1.obj
+ 0002:000055fc       $chain$3$start_pass_1_quant 00000001800405fc     jquant1.obj
+ 0002:000055fc       $chain$5$start_pass_1_quant 00000001800405fc     jquant1.obj
+ 0002:00005614       $chain$6$start_pass_1_quant 0000000180040614     jquant1.obj
+ 0002:00005628       $chain$9$start_pass_1_quant 0000000180040628     jquant1.obj
+ 0002:00005644       $chain$10$start_pass_1_quant 0000000180040644     jquant1.obj
+ 0002:00005654       $chain$11$start_pass_1_quant 0000000180040654     jquant1.obj
+ 0002:00005664       $chain$12$start_pass_1_quant 0000000180040664     jquant1.obj
+ 0002:00005674       $unwind$prescan_quantize   0000000180040674     jquant2.obj
+ 0002:00005684       $unwind$update_box         0000000180040684     jquant2.obj
+ 0002:0000569c       $unwind$median_cut         000000018004069c     jquant2.obj
+ 0002:000056a4       $chain$6$median_cut        00000001800406a4     jquant2.obj
+ 0002:000056d0       $chain$8$median_cut        00000001800406d0     jquant2.obj
+ 0002:000056fc       $chain$9$median_cut        00000001800406fc     jquant2.obj
+ 0002:0000570c       $unwind$select_colors      000000018004070c     jquant2.obj
+ 0002:0000571c       $chain$3$select_colors     000000018004071c     jquant2.obj
+ 0002:0000573c       $chain$4$select_colors     000000018004073c     jquant2.obj
+ 0002:0000574c       $unwind$find_nearby_colors 000000018004074c     jquant2.obj
+ 0002:00005764       $unwind$find_best_colors   0000000180040764     jquant2.obj
+ 0002:00005778       $chain$5$find_best_colors  0000000180040778     jquant2.obj
+ 0002:000057a0       $chain$6$find_best_colors  00000001800407a0     jquant2.obj
+ 0002:000057b0       $unwind$fill_inverse_cmap  00000001800407b0     jquant2.obj
+ 0002:000057d0       $chain$3$pass2_no_dither   00000001800407d0     jquant2.obj
+ 0002:000057f0       $chain$4$pass2_no_dither   00000001800407f0     jquant2.obj
+ 0002:00005800       $unwind$pass2_fs_dither    0000000180040800     jquant2.obj
+ 0002:0000580c       $chain$5$pass2_fs_dither   000000018004080c     jquant2.obj
+ 0002:00005834       $chain$6$pass2_fs_dither   0000000180040834     jquant2.obj
+ 0002:00005844       $chain$0$start_pass_2_quant 0000000180040844     jquant2.obj
+ 0002:00005858       $chain$1$start_pass_2_quant 0000000180040858     jquant2.obj
+ 0002:00005868       $xdatasym                  0000000180040868     MSVCRT:amdsecgs.obj
+ 0002:0000586c       $unwind$__report_securityfailure 000000018004086c     MSVCRT:gs_report.obj
+ 0002:00005874       $unwind$__report_gsfailure 0000000180040874     MSVCRT:gs_report.obj
+ 0002:0000587c       $unwind$capture_current_context 000000018004087c     MSVCRT:gs_report.obj
+ 0002:00005888       $unwind$capture_previous_context 0000000180040888     MSVCRT:gs_report.obj
+ 0002:00005894       $unwind$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180040894     MSVCRT:dll_dllmain.obj
+ 0002:000058d0       $unwind$?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 00000001800408d0     MSVCRT:dll_dllmain.obj
+ 0002:000058d0       $unwind$?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 00000001800408d0     MSVCRT:dll_dllmain.obj
+ 0002:000058d0       $unwind$?fin$1@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 00000001800408d0     MSVCRT:dll_dllmain.obj
+ 0002:000058d8       $unwind$?dllmain_crt_process_detach@@YAH_N@Z 00000001800408d8     MSVCRT:dll_dllmain.obj
+ 0002:0000592c       $unwind$?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 000000018004092c     MSVCRT:dll_dllmain.obj
+ 0002:00005954       $unwind$?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 0000000180040954     MSVCRT:dll_dllmain.obj
+ 0002:0000595c       $unwind$__security_init_cookie 000000018004095c     MSVCRT:gs_support.obj
+ 0002:00005968       $unwind$__scrt_is_nonwritable_in_current_image 0000000180040968     MSVCRT:utility.obj
+ 0002:00005988       $unwind$__scrt_is_nonwritable_in_current_image$filt$0 0000000180040988     MSVCRT:utility.obj
+ 0002:00005990       $unwind$__scrt_fastfail    0000000180040990     MSVCRT:utility_desktop.obj
+ 0002:000059a0       $unwind$__isa_available_init 00000001800409a0     MSVCRT:cpu_disp.obj
+ 0002:000059b0       $xdatasym                  00000001800409b0     MSVCRT:guard_dispatch.obj
+ 0002:000059b8       $xdatasym                  00000001800409b8     MSVCRT:guard_xfg_dispatch.obj
+ 0002:000059bc       $unwind$__GSHandlerCheckCommon 00000001800409bc     MSVCRT:gshandler.obj
+ 0002:000059d0       .edata                     00000001800409d0     Jpeg9d.exp
+ 0002:000059f8       rgpv                       00000001800409f8     Jpeg9d.exp
+ 0002:00005c78       rgszName                   0000000180040c78     Jpeg9d.exp
+ 0002:00005ef8       rgwOrd                     0000000180040ef8     Jpeg9d.exp
+ 0002:00006038       szName                     0000000180041038     Jpeg9d.exp
+ 0002:00006043       $N00001                    0000000180041043     Jpeg9d.exp
+ 0002:00006053       $N00002                    0000000180041053     Jpeg9d.exp
+ 0002:00006065       $N00003                    0000000180041065     Jpeg9d.exp
+ 0002:00006073       $N00004                    0000000180041073     Jpeg9d.exp
+ 0002:00006089       $N00005                    0000000180041089     Jpeg9d.exp
+ 0002:0000609f       $N00006                    000000018004109f     Jpeg9d.exp
+ 0002:000060b3       $N00007                    00000001800410b3     Jpeg9d.exp
+ 0002:000060c7       $N00008                    00000001800410c7     Jpeg9d.exp
+ 0002:000060df       $N00009                    00000001800410df     Jpeg9d.exp
+ 0002:000060f7       $N00010                    00000001800410f7     Jpeg9d.exp
+ 0002:0000610e       $N00011                    000000018004110e     Jpeg9d.exp
+ 0002:00006126       $N00012                    0000000180041126     Jpeg9d.exp
+ 0002:0000613c       $N00013                    000000018004113c     Jpeg9d.exp
+ 0002:00006154       $N00014                    0000000180041154     Jpeg9d.exp
+ 0002:0000616a       $N00015                    000000018004116a     Jpeg9d.exp
+ 0002:00006182       $N00016                    0000000180041182     Jpeg9d.exp
+ 0002:0000619a       $N00017                    000000018004119a     Jpeg9d.exp
+ 0002:000061b2       $N00018                    00000001800411b2     Jpeg9d.exp
+ 0002:000061c4       $N00019                    00000001800411c4     Jpeg9d.exp
+ 0002:000061d6       $N00020                    00000001800411d6     Jpeg9d.exp
+ 0002:000061e9       $N00021                    00000001800411e9     Jpeg9d.exp
+ 0002:000061fc       $N00022                    00000001800411fc     Jpeg9d.exp
+ 0002:00006213       $N00023                    0000000180041213     Jpeg9d.exp
+ 0002:00006225       $N00024                    0000000180041225     Jpeg9d.exp
+ 0002:00006239       $N00025                    0000000180041239     Jpeg9d.exp
+ 0002:0000624d       $N00026                    000000018004124d     Jpeg9d.exp
+ 0002:00006265       $N00027                    0000000180041265     Jpeg9d.exp
+ 0002:00006276       $N00028                    0000000180041276     Jpeg9d.exp
+ 0002:0000628d       $N00029                    000000018004128d     Jpeg9d.exp
+ 0002:0000629d       $N00030                    000000018004129d     Jpeg9d.exp
+ 0002:000062b1       $N00031                    00000001800412b1     Jpeg9d.exp
+ 0002:000062c7       $N00032                    00000001800412c7     Jpeg9d.exp
+ 0002:000062d2       $N00033                    00000001800412d2     Jpeg9d.exp
+ 0002:000062e6       $N00034                    00000001800412e6     Jpeg9d.exp
+ 0002:000062fc       $N00035                    00000001800412fc     Jpeg9d.exp
+ 0002:00006311       $N00036                    0000000180041311     Jpeg9d.exp
+ 0002:00006327       $N00037                    0000000180041327     Jpeg9d.exp
+ 0002:0000633e       $N00038                    000000018004133e     Jpeg9d.exp
+ 0002:00006358       $N00039                    0000000180041358     Jpeg9d.exp
+ 0002:00006374       $N00040                    0000000180041374     Jpeg9d.exp
+ 0002:00006387       $N00041                    0000000180041387     Jpeg9d.exp
+ 0002:000063a5       $N00042                    00000001800413a5     Jpeg9d.exp
+ 0002:000063c1       $N00043                    00000001800413c1     Jpeg9d.exp
+ 0002:000063d9       $N00044                    00000001800413d9     Jpeg9d.exp
+ 0002:000063ee       $N00045                    00000001800413ee     Jpeg9d.exp
+ 0002:000063fb       $N00046                    00000001800413fb     Jpeg9d.exp
+ 0002:00006411       $N00047                    0000000180041411     Jpeg9d.exp
+ 0002:00006429       $N00048                    0000000180041429     Jpeg9d.exp
+ 0002:00006439       $N00049                    0000000180041439     Jpeg9d.exp
+ 0002:00006448       $N00050                    0000000180041448     Jpeg9d.exp
+ 0002:00006458       $N00051                    0000000180041458     Jpeg9d.exp
+ 0002:00006468       $N00052                    0000000180041468     Jpeg9d.exp
+ 0002:00006477       $N00053                    0000000180041477     Jpeg9d.exp
+ 0002:00006487       $N00054                    0000000180041487     Jpeg9d.exp
+ 0002:00006497       $N00055                    0000000180041497     Jpeg9d.exp
+ 0002:000064a6       $N00056                    00000001800414a6     Jpeg9d.exp
+ 0002:000064b6       $N00057                    00000001800414b6     Jpeg9d.exp
+ 0002:000064c6       $N00058                    00000001800414c6     Jpeg9d.exp
+ 0002:000064d5       $N00059                    00000001800414d5     Jpeg9d.exp
+ 0002:000064e3       $N00060                    00000001800414e3     Jpeg9d.exp
+ 0002:000064f1       $N00061                    00000001800414f1     Jpeg9d.exp
+ 0002:000064ff       $N00062                    00000001800414ff     Jpeg9d.exp
+ 0002:0000650d       $N00063                    000000018004150d     Jpeg9d.exp
+ 0002:0000651b       $N00064                    000000018004151b     Jpeg9d.exp
+ 0002:00006529       $N00065                    0000000180041529     Jpeg9d.exp
+ 0002:00006537       $N00066                    0000000180041537     Jpeg9d.exp
+ 0002:00006545       $N00067                    0000000180041545     Jpeg9d.exp
+ 0002:00006553       $N00068                    0000000180041553     Jpeg9d.exp
+ 0002:00006561       $N00069                    0000000180041561     Jpeg9d.exp
+ 0002:00006570       $N00070                    0000000180041570     Jpeg9d.exp
+ 0002:0000657e       $N00071                    000000018004157e     Jpeg9d.exp
+ 0002:0000658d       $N00072                    000000018004158d     Jpeg9d.exp
+ 0002:0000659b       $N00073                    000000018004159b     Jpeg9d.exp
+ 0002:000065a9       $N00074                    00000001800415a9     Jpeg9d.exp
+ 0002:000065b8       $N00075                    00000001800415b8     Jpeg9d.exp
+ 0002:000065c6       $N00076                    00000001800415c6     Jpeg9d.exp
+ 0002:000065d5       $N00077                    00000001800415d5     Jpeg9d.exp
+ 0002:000065e3       $N00078                    00000001800415e3     Jpeg9d.exp
+ 0002:000065f1       $N00079                    00000001800415f1     Jpeg9d.exp
+ 0002:00006601       $N00080                    0000000180041601     Jpeg9d.exp
+ 0002:00006611       $N00081                    0000000180041611     Jpeg9d.exp
+ 0002:00006621       $N00082                    0000000180041621     Jpeg9d.exp
+ 0002:00006636       $N00083                    0000000180041636     Jpeg9d.exp
+ 0002:0000664d       $N00084                    000000018004164d     Jpeg9d.exp
+ 0002:00006660       $N00085                    0000000180041660     Jpeg9d.exp
+ 0002:00006670       $N00086                    0000000180041670     Jpeg9d.exp
+ 0002:00006680       $N00087                    0000000180041680     Jpeg9d.exp
+ 0002:0000668f       $N00088                    000000018004168f     Jpeg9d.exp
+ 0002:0000669e       $N00089                    000000018004169e     Jpeg9d.exp
+ 0002:000066b6       $N00090                    00000001800416b6     Jpeg9d.exp
+ 0002:000066c6       $N00091                    00000001800416c6     Jpeg9d.exp
+ 0002:000066d5       $N00092                    00000001800416d5     Jpeg9d.exp
+ 0002:000066e5       $N00093                    00000001800416e5     Jpeg9d.exp
+ 0002:000066f5       $N00094                    00000001800416f5     Jpeg9d.exp
+ 0002:00006704       $N00095                    0000000180041704     Jpeg9d.exp
+ 0002:00006714       $N00096                    0000000180041714     Jpeg9d.exp
+ 0002:00006724       $N00097                    0000000180041724     Jpeg9d.exp
+ 0002:00006733       $N00098                    0000000180041733     Jpeg9d.exp
+ 0002:00006743       $N00099                    0000000180041743     Jpeg9d.exp
+ 0002:00006753       $N00100                    0000000180041753     Jpeg9d.exp
+ 0002:00006762       $N00101                    0000000180041762     Jpeg9d.exp
+ 0002:00006770       $N00102                    0000000180041770     Jpeg9d.exp
+ 0002:0000677e       $N00103                    000000018004177e     Jpeg9d.exp
+ 0002:0000678c       $N00104                    000000018004178c     Jpeg9d.exp
+ 0002:0000679a       $N00105                    000000018004179a     Jpeg9d.exp
+ 0002:000067a8       $N00106                    00000001800417a8     Jpeg9d.exp
+ 0002:000067b6       $N00107                    00000001800417b6     Jpeg9d.exp
+ 0002:000067c4       $N00108                    00000001800417c4     Jpeg9d.exp
+ 0002:000067d2       $N00109                    00000001800417d2     Jpeg9d.exp
+ 0002:000067e0       $N00110                    00000001800417e0     Jpeg9d.exp
+ 0002:000067ee       $N00111                    00000001800417ee     Jpeg9d.exp
+ 0002:000067fd       $N00112                    00000001800417fd     Jpeg9d.exp
+ 0002:0000680b       $N00113                    000000018004180b     Jpeg9d.exp
+ 0002:0000681a       $N00114                    000000018004181a     Jpeg9d.exp
+ 0002:00006828       $N00115                    0000000180041828     Jpeg9d.exp
+ 0002:00006836       $N00116                    0000000180041836     Jpeg9d.exp
+ 0002:00006845       $N00117                    0000000180041845     Jpeg9d.exp
+ 0002:00006853       $N00118                    0000000180041853     Jpeg9d.exp
+ 0002:00006862       $N00119                    0000000180041862     Jpeg9d.exp
+ 0002:00006870       $N00120                    0000000180041870     Jpeg9d.exp
+ 0002:0000687e       $N00121                    000000018004187e     Jpeg9d.exp
+ 0002:0000688e       $N00122                    000000018004188e     Jpeg9d.exp
+ 0002:0000689e       $N00123                    000000018004189e     Jpeg9d.exp
+ 0002:000068ae       $N00124                    00000001800418ae     Jpeg9d.exp
+ 0002:000068c2       $N00125                    00000001800418c2     Jpeg9d.exp
+ 0002:000068d5       $N00126                    00000001800418d5     Jpeg9d.exp
+ 0002:000068e3       $N00127                    00000001800418e3     Jpeg9d.exp
+ 0002:000068f1       $N00128                    00000001800418f1     Jpeg9d.exp
+ 0002:000068fe       $N00129                    00000001800418fe     Jpeg9d.exp
+ 0002:0000690c       $N00130                    000000018004190c     Jpeg9d.exp
+ 0002:0000691e       $N00131                    000000018004191e     Jpeg9d.exp
+ 0002:00006936       $N00132                    0000000180041936     Jpeg9d.exp
+ 0002:0000694b       $N00133                    000000018004194b     Jpeg9d.exp
+ 0002:00006962       $N00134                    0000000180041962     Jpeg9d.exp
+ 0002:00006973       $N00135                    0000000180041973     Jpeg9d.exp
+ 0002:00006986       $N00136                    0000000180041986     Jpeg9d.exp
+ 0002:0000699a       $N00137                    000000018004199a     Jpeg9d.exp
+ 0002:000069b1       $N00138                    00000001800419b1     Jpeg9d.exp
+ 0002:000069c3       $N00139                    00000001800419c3     Jpeg9d.exp
+ 0002:000069d7       $N00140                    00000001800419d7     Jpeg9d.exp
+ 0002:000069e9       $N00141                    00000001800419e9     Jpeg9d.exp
+ 0002:00006a01       $N00142                    0000000180041a01     Jpeg9d.exp
+ 0002:00006a1b       $N00143                    0000000180041a1b     Jpeg9d.exp
+ 0002:00006a2c       $N00144                    0000000180041a2c     Jpeg9d.exp
+ 0002:00006a44       $N00145                    0000000180041a44     Jpeg9d.exp
+ 0002:00006a58       $N00146                    0000000180041a58     Jpeg9d.exp
+ 0002:00006a6e       $N00147                    0000000180041a6e     Jpeg9d.exp
+ 0002:00006a80       $N00148                    0000000180041a80     Jpeg9d.exp
+ 0002:00006a8f       $N00149                    0000000180041a8f     Jpeg9d.exp
+ 0002:00006aa3       $N00150                    0000000180041aa3     Jpeg9d.exp
+ 0002:00006ab3       $N00151                    0000000180041ab3     Jpeg9d.exp
+ 0002:00006ac2       $N00152                    0000000180041ac2     Jpeg9d.exp
+ 0002:00006ad7       $N00153                    0000000180041ad7     Jpeg9d.exp
+ 0002:00006aef       $N00154                    0000000180041aef     Jpeg9d.exp
+ 0002:00006b01       $N00155                    0000000180041b01     Jpeg9d.exp
+ 0002:00006b15       $N00156                    0000000180041b15     Jpeg9d.exp
+ 0002:00006b27       $N00157                    0000000180041b27     Jpeg9d.exp
+ 0002:00006b3b       $N00158                    0000000180041b3b     Jpeg9d.exp
+ 0002:00006b50       $N00159                    0000000180041b50     Jpeg9d.exp
+ 0002:00006b62       $N00160                    0000000180041b62     Jpeg9d.exp
+ 0002:00006dc2       .idata$6                   0000000180041dc2     vcruntime:VCRUNTIME140.dll
+ 0002:00006f2e       .idata$6                   0000000180041f2e     ucrt:api-ms-win-crt-stdio-l1-1-0.dll
+ 0002:00006f4e       .idata$6                   0000000180041f4e     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00006f6e       .idata$6                   0000000180041f6e     ucrt:api-ms-win-crt-string-l1-1-0.dll
+ 0002:00006f90       .idata$6                   0000000180041f90     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:00006fb2       .idata$6                   0000000180041fb2     ucrt:api-ms-win-crt-environment-l1-1-0.dll
+ 0002:00007122       .idata$6                   0000000180042122     kernel32:KERNEL32.dll
+ 0003:00000040       GS_ExceptionRecord         0000000180043040     MSVCRT:gs_report.obj
+ 0003:000000e0       GS_ContextRecord           00000001800430e0     MSVCRT:gs_report.obj
+ 0003:000005b0       ?__proc_attached@@3HA      00000001800435b0     MSVCRT:dll_dllmain.obj
+ 0003:000005e0       ?is_initialized_as_dll@@3_NA 00000001800435e0     MSVCRT:utility.obj
+ 0003:000005e1       ?module_local_atexit_table_initialized@@3_NA 00000001800435e1     MSVCRT:utility.obj
+ 0003:000005e8       ?module_local_atexit_table@@3U_onexit_table_t@@A 00000001800435e8     MSVCRT:utility.obj
+ 0003:00000600       ?module_local_at_quick_exit_table@@3U_onexit_table_t@@A 0000000180043600     MSVCRT:utility.obj
+ 0005:00000060       $R000000                   0000000180046060     * linker generated manifest res *
