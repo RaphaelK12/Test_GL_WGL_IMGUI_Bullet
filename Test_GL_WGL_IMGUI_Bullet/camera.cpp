@@ -9,8 +9,7 @@
 
 camera* activecamera = new camera(0, vec3(4, 0, 0), vec3(0, 1, 0), vec3(0.f, 1.f, 0.f));
 
-
-camera::camera(void):
+camera::camera(void) :
 	nearClip(0.1f),
 	farClip(100.f),
 	left(-1.f),
@@ -19,24 +18,21 @@ camera::camera(void):
 	top(1.f),
 	fov(1.500f),
 	aspect(1.0f),
-	dir(0,0,0),
+	dir(0, 0, 0),
 	//rot(0,0,0),
-	up(0.0f, 1.0f, 0.0f)
-{
+	up(0.0f, 1.0f, 0.0f) {
 	lpos = vec3(-5, -5, 0);
 	gpos = vec3(-10, 0, 0);
 	dir = vec3(0, 0, 0);
 
 	matrix.V = glm::lookAt(gpos, dir, up); //pos, center, up
 	matrix.P = glm::perspective(fov, aspect, nearClip, farClip);	//perspective(fovy, aspect, zNear, zFar)
-
 }
 
 camera::camera(objetob* Parent, vec3 localPos, vec3 lookAt, vec3 vectorUp,
 			   float Aspect, float NearClip, float FarClip, float Left, float Right,
-			   float Botton, float Top, float Fov
-			   /*, float Rot(0,0,0)*/):
-	dir			(lookAt			),
+			   float Botton, float Top, float Fov/*, float Rot(0,0,0)*/) :
+	dir				(lookAt			),
 	nearClip		(NearClip		),
 	farClip			(FarClip		),
 	left			(Left			),
@@ -47,7 +43,7 @@ camera::camera(objetob* Parent, vec3 localPos, vec3 lookAt, vec3 vectorUp,
 	aspect			(Aspect			),
 	//rot			(Rot			),
 	up				(vectorUp		)
-{
+ {
 	grot.x = -F_PI;
 	lpos = vec3(localPos);
 	gpos = vec3(localPos);
@@ -61,13 +57,9 @@ camera::camera(objetob* Parent, vec3 localPos, vec3 lookAt, vec3 vectorUp,
 	calcMatrix();
 }
 
+camera::~camera(void) {}
 
-camera::~camera(void)
-{
-}
-
-void camera::calcMatrix()
-{
+void camera::calcMatrix() {
 	fov = clamp(fov, 0.0f, F_PI);
 	grot.y = clamp(grot.y, -F_PI_2, F_PI_2);
 	grot.x = fmodf(grot.x, F_2PI);
@@ -78,39 +70,34 @@ void camera::calcMatrix()
 	//m = glm::rotate(m, grot.x, vec3(0, 0, 1));
 	//m = glm::rotate(m, length(grot), vec3(grot));
 	//gpos = vec4(lpos,1) * m;
-	dir = normalize(rotateYRad(rot, -grot.y*0.99f));
+	dir = normalize(rotateYRad(rot, -grot.y * 0.99f));
 	dir = normalize(rotateZRad(dir, grot.x));
 
-	matrix.V = glm::lookAt(gpos, gpos+dir, vec3(0.0f, 0.0f, 1.0f)) /**m*/ ; //pos, center, up
+	matrix.V = glm::lookAt(gpos, gpos + dir, vec3(0.0f, 0.0f, 1.0f)) /**m*/; //pos, center, up
 	//matrix.P = glm::perspective(clamp(fov, 0.00001f, 3.14f), aspect, nearClip, farClip);	//perspective(fovy, aspect, zNear, zFar)
-	matrix.P = glm::perspective(clamp(smootherstep( fov/ F_PI, 0, 1)* F_PI, 0.00001f, 3.14f), aspect, nearClip, farClip);	//perspective(fovy, aspect, zNear, zFar)
+	matrix.P = glm::perspective(clamp(smootherstep(fov / F_PI, 0, 1) * F_PI, 0.00001f, 3.14f), aspect, nearClip, farClip);	//perspective(fovy, aspect, zNear, zFar)
 }
 
-void camera::moveF(float delta){
-	gpos += dir * delta/200.f;
+void camera::moveF(float delta) {
+	gpos += dir * delta / 200.f;
 }
-void camera::moveB(float delta){
+void camera::moveB(float delta) {
 	gpos -= dir * delta / 200.f;
 }
-void camera::moveL(float delta){
+void camera::moveL(float delta) {
 	vec3 rot = vec3(1, 0, 0);
 	rot = normalize(rotateZRad(rot, grot.x));
-	gpos += rotateZDeg(rot,90) * delta / 500.f;
-
+	gpos += rotateZDeg(rot, 90) * delta / 500.f;
 }
-void camera::moveR(float delta){
+void camera::moveR(float delta) {
 	vec3 rot = vec3(1, 0, 0);
 	rot = normalize(rotateZRad(rot, grot.x));
 	gpos -= rotateZDeg(rot, 90) * delta / 500.f;
-
 }
 
 void camera::rotate(vec3 v) {
-	dir = normalize(rotateRad(dir, v*fov));
+	dir = normalize(rotateRad(dir, v * fov));
 }
-
-
-
 
 void MVPexample() {
 	vec3 objPoss = vec3(1, 1, 1);
@@ -128,4 +115,3 @@ void MVPexample() {
 	mat4 light_proj_matrix = glm::frustum(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 200.0f);	//frustum( left,  right,  bottom,  top,  nearVal,  farVal)
 	mat4 light_view_matrix = glm::lookAt(light_position, vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
 }
-

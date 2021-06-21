@@ -85,9 +85,9 @@ MaterialData::~MaterialData() {
 			delete mTextures[i];
 		 mTextures[i]=0;
 	}
+	if (mFileName.length() > 4)
+		g_material_list.erase(mFileName);
 }
-
-
 
 Material::Material(void) :
 	mData(0),
@@ -107,31 +107,33 @@ Material::Material(string mname) : mData(0), mName(mname), mFileName(" ") {
 
 Material::~Material(void)
 {
-	mName.clear();
-	mFileName.clear();
 	if (mData && mData->RemoveReference()) 	{
-		if (mFileName.length() > 4)
-			g_material_list.erase(mFileName);
 		delete mData;
+		mData = 0;
 	}
 }
 
 int Material::reload() {
-
 	mFileName = searchMaterialFileName(mName);
 	if (mFileName.length() > 4) {
 		std::ifstream f;
 		f.open(mFileName);
 		if (f.is_open()) {
 			json j = json::parse(f);
-			if (mData)
-				delete mData;
+			if (!mData) {
 				mData = new MaterialData;
+			}
 			from_json(j, *mData);
 			//*mData = j;
 			f.close();
 			return 1;
 		}
+		else {
+			printf("!f.is_open() %s", mName.c_str());
+		}
+	}
+	else {
+		printf("searchMaterialFileName(%s); failed", mName.c_str());
 	}
 	return 0;
 	/*
@@ -241,15 +243,14 @@ void Material::setShaderVariables() {
 	mData->mShader->setUniform("mt.shinines", mData->mShinines);
 
 	for (int i = 0; uint(i) < mData->mTextures.size(); i++) {
-		char txt[3] = { '0',0,0 };
+		char txt[] = "texture1";
 		glActiveTexture(GL_TEXTURE0+i); // activate the texture unit first before binding texture
 		mData->mTextures[i]->bind();
 		//mData->mTextures[i]->setTextureVariables();
 
-		txt[0] += i+1;
-		string s = "texture" + string(txt);
+		txt[7] = '1' + i;
 		//glUniform1i(glGetUniformLocation(mShader->program, s.c_str()), i);
-		mData->mShader->setUniform(s, i);
+		mData->mShader->setUniform(txt, i);
 	}
 }
 
@@ -275,9 +276,7 @@ void Material::setMatrix(matrix_block* m) {
 	mData->mShader->setUniform("mt_modelView", m->MV);					  //	uniform mat4 mt_modelView;
 	mData->mShader->setUniform("mt_modelViewProjection", m->MVP);		  // 	uniform mat4 mt_modelViewProjection;
 	mData->mShader->setUniform("viewPos", vec3(activecamera->gpos));		  // 	uniform mat4 mt_modelViewProjection;
-
 }
-
 
 string Material::searchMaterialFileName(string & filename) const {
 	static const vector<string> dirs = {
@@ -313,20 +312,23 @@ string Material::searchMaterialFileName(string & filename) const {
 	}
 	return "";
 }
+
 MaterialData* Material::getMaterial(string& name) {
 	MaterialData* m =0;
 	std::map<std::string, MaterialData*>::const_iterator it = g_material_list.find(name);
 	if (it != g_material_list.end()) {
 		m = it->second;
-		m->AddReference();
 	}
 	return m;
 }
+
 MaterialData* Material::loadMaterial(string& name) {
 	MaterialData* m = 0;
 	m = getMaterial(name);
-	if (m)
+	if (m) {
+		m->AddReference();
 		return m;
+	}
 	m = new MaterialData;
 	g_material_list.insert(std::pair<std::string, MaterialData*>(name,m));
 	if (mFileName.length() > 4) {
@@ -342,44 +344,55 @@ MaterialData* Material::loadMaterial(string& name) {
 }
 
 void from_json(const json& j, MaterialData& v) {
-	j.at("castShadows"		).get_to(v.castShadows       );
-	j.at("receiveShadows"	).get_to(v.receiveShadows    );
-	j.at("renderable"		).get_to(v.renderable        );
-	j.at("transparent"		).get_to(v.transparent       );
-	j.at("alphaBlendMode"	).get_to(v.alphaBlendMode    );
-	j.at("colorBlendMode"	).get_to(v.colorBlendMode    );
-	j.at("cullFace"			).get_to(v.cullFace          );
-	j.at("dephtTest"		).get_to(v.dephtTest         );
-	j.at("dephtWrite"		).get_to(v.dephtWrite        );
-	j.at("shadingModel"		).get_to(v.shadingModel      );
-	j.at("lineWidth"		).get_to(v.lineWidth		 );
-	j.at("polygonOffset") [0].get_to(v.polygonOffset.x);j.at("polygonOffset")[1].get_to(v.polygonOffset .y);
-	j.at("color1")		  [0].get_to(v.mColor1		.x);j.at("color1")		 [1].get_to(v.mColor1		.y);j.at("color1")		[2].get_to(v.mColor1		.z);j.at("color1")		[3].get_to(v.mColor1		.w);
-	j.at("color2")		  [0].get_to(v.mColor2		.x);j.at("color2")		 [1].get_to(v.mColor2		.y);j.at("color2")		[2].get_to(v.mColor2		.z);j.at("color2")		[3].get_to(v.mColor2		.w);
-	j.at("color3")		  [0].get_to(v.mColor3		.x);j.at("color3")		 [1].get_to(v.mColor3		.y);j.at("color3")		[2].get_to(v.mColor3		.z);j.at("color3")		[3].get_to(v.mColor3		.w);
-	j.at("diffuse")		  [0].get_to(v.mDifuse		.x);j.at("diffuse")		 [1].get_to(v.mDifuse		.y);j.at("diffuse")		[2].get_to(v.mDifuse		.z);j.at("diffuse")		[3].get_to(v.mDifuse		.w);
-	j.at("ambient")		  [0].get_to(v.mAmbient		.x);j.at("ambient")		 [1].get_to(v.mAmbient		.y);j.at("ambient")		[2].get_to(v.mAmbient		.z);j.at("ambient")		[3].get_to(v.mAmbient		.w);
-	j.at("emission")	  [0].get_to(v.mEmission	.x);j.at("emission")	 [1].get_to(v.mEmission		.y);j.at("emission")	[2].get_to(v.mEmission		.z);j.at("emission")	[3].get_to(v.mEmission		.w);
-	j.at("translucenci")  [0].get_to(v.mTranslucenci.x);j.at("translucenci") [1].get_to(v.mTranslucenci	.y);j.at("translucenci")[2].get_to(v.mTranslucenci	.z);j.at("translucenci")[3].get_to(v.mTranslucenci	.w);
-	j.at("sadowsColor")	  [0].get_to(v.mSadowsColor	.x);j.at("sadowsColor")	 [1].get_to(v.mSadowsColor	.y);j.at("sadowsColor")	[2].get_to(v.mSadowsColor	.z);j.at("sadowsColor")	[3].get_to(v.mSadowsColor	.w);
-	j.at("specular")	  [0].get_to(v.mSpecular	.x);j.at("specular")	 [1].get_to(v.mSpecular		.y);j.at("specular")	[2].get_to(v.mSpecular		.z);j.at("specular")	[3].get_to(v.mSpecular		.w);
-	j.at("reflex")		  [0].get_to(v.mReflex		.x);j.at("reflex")		 [1].get_to(v.mReflex		.y);j.at("reflex")		[2].get_to(v.mReflex		.z);j.at("reflex")		[3].get_to(v.mReflex		.w);
-	j.at("shinines")	  [0].get_to(v.mShinines	.x);j.at("shinines")	 [1].get_to(v.mShinines		.y);j.at("shinines")	[2].get_to(v.mShinines		.z);j.at("shinines")	[3].get_to(v.mShinines		.w);
-	j.at("name")		     .get_to(v.mName		);
-	j.at("fileName")	     .get_to(v.mFileName	);
-	j.at("shaderName")	     .get_to(v.mShaderName	);
+	if(j.find("castShadows"		) != j.end())	{j.at("castShadows"			  ).get_to(v.castShadows		);																																									}
+	if(j.find("receiveShadows"	) != j.end())	{j.at("receiveShadows"		  ).get_to(v.receiveShadows		);																																									}
+	if(j.find("renderable"		) != j.end())	{j.at("renderable"			  ).get_to(v.renderable			);																																									}
+	if(j.find("transparent"		) != j.end())	{j.at("transparent"			  ).get_to(v.transparent		);																																									}
+	if(j.find("alphaBlendMode"	) != j.end())	{j.at("alphaBlendMode"		  ).get_to(v.alphaBlendMode		);																																									}
+	if(j.find("colorBlendMode"	) != j.end())	{j.at("colorBlendMode"		  ).get_to(v.colorBlendMode		);																																									}
+	if(j.find("cullFace"		) != j.end())	{j.at("cullFace"			  ).get_to(v.cullFace			);																																									}
+	if(j.find("dephtTest"		) != j.end())	{j.at("dephtTest"			  ).get_to(v.dephtTest			);																																									}
+	if(j.find("dephtWrite"		) != j.end())	{j.at("dephtWrite"			  ).get_to(v.dephtWrite			);																																									}
+	if(j.find("shadingModel"	) != j.end())	{j.at("shadingModel"		  ).get_to(v.shadingModel		);																																									}
+	if(j.find("lineWidth"		) != j.end())	{j.at("lineWidth"			  ).get_to(v.lineWidth			);																																									}
+	if(j.find("polygonOffset"	) != j.end())	{j.at("polygonOffset")		[0].get_to(v.polygonOffset	.x);j.at("polygonOffset")[1].get_to(v.polygonOffset .y);																												}
+	if(j.find("color1"		 	) != j.end())	{j.at("color1")				[0].get_to(v.mColor1		.x);j.at("color1")		 [1].get_to(v.mColor1		.y);j.at("color1")		[2].get_to(v.mColor1		.z);j.at("color1")		[3].get_to(v.mColor1		.w);		}
+	if(j.find("color2"		 	) != j.end())	{j.at("color2")				[0].get_to(v.mColor2		.x);j.at("color2")		 [1].get_to(v.mColor2		.y);j.at("color2")		[2].get_to(v.mColor2		.z);j.at("color2")		[3].get_to(v.mColor2		.w);		}
+	if(j.find("color3"		 	) != j.end())	{j.at("color3")				[0].get_to(v.mColor3		.x);j.at("color3")		 [1].get_to(v.mColor3		.y);j.at("color3")		[2].get_to(v.mColor3		.z);j.at("color3")		[3].get_to(v.mColor3		.w);		}
+	if(j.find("diffuse"			) != j.end()) 	{j.at("diffuse")			[0].get_to(v.mDifuse		.x);j.at("diffuse")		 [1].get_to(v.mDifuse		.y);j.at("diffuse")		[2].get_to(v.mDifuse		.z);j.at("diffuse")		[3].get_to(v.mDifuse		.w);		}
+	if(j.find("ambient"			) != j.end()) 	{j.at("ambient")			[0].get_to(v.mAmbient		.x);j.at("ambient")		 [1].get_to(v.mAmbient		.y);j.at("ambient")		[2].get_to(v.mAmbient		.z);j.at("ambient")		[3].get_to(v.mAmbient		.w);		}
+	if(j.find("emission"	 	) != j.end())	{j.at("emission")			[0].get_to(v.mEmission		.x);j.at("emission")	 [1].get_to(v.mEmission		.y);j.at("emission")	[2].get_to(v.mEmission		.z);j.at("emission")	[3].get_to(v.mEmission		.w);		}
+	if(j.find("translucenci" 	) != j.end())	{j.at("translucenci")		[0].get_to(v.mTranslucenci	.x);j.at("translucenci") [1].get_to(v.mTranslucenci	.y);j.at("translucenci")[2].get_to(v.mTranslucenci	.z);j.at("translucenci")[3].get_to(v.mTranslucenci	.w);		}
+	if(j.find("sadowsColor"		) != j.end()) 	{j.at("sadowsColor")		[0].get_to(v.mSadowsColor	.x);j.at("sadowsColor")	 [1].get_to(v.mSadowsColor	.y);j.at("sadowsColor")	[2].get_to(v.mSadowsColor	.z);j.at("sadowsColor")	[3].get_to(v.mSadowsColor	.w);		}
+	if(j.find("specular"	 	) != j.end())	{j.at("specular")			[0].get_to(v.mSpecular		.x);j.at("specular")	 [1].get_to(v.mSpecular		.y);j.at("specular")	[2].get_to(v.mSpecular		.z);j.at("specular")	[3].get_to(v.mSpecular		.w);		}
+	if(j.find("reflex"		 	) != j.end())	{j.at("reflex")				[0].get_to(v.mReflex		.x);j.at("reflex")		 [1].get_to(v.mReflex		.y);j.at("reflex")		[2].get_to(v.mReflex		.z);j.at("reflex")		[3].get_to(v.mReflex		.w);		}
+	if(j.find("shinines"	 	) != j.end())	{j.at("shinines")			[0].get_to(v.mShinines		.x);j.at("shinines")	 [1].get_to(v.mShinines		.y);j.at("shinines")	[2].get_to(v.mShinines		.z);j.at("shinines")	[3].get_to(v.mShinines		.w);		}
+	if(j.find("name"		 	) != j.end())	{j.at("name")				   .get_to(v.mName				);																																									}
+	if(j.find("fileName"	 	) != j.end())	{j.at("fileName")			   .get_to(v.mFileName			);																																									}
+	if(j.find("shaderName"	 	) != j.end())	{j.at("shaderName")			   .get_to(v.mShaderName		);																																									}
+	if (v.mShader) {
+		delete v.mShader;;
+	}
 	v.mShader = new shader(v.mShaderName);
+	if(j.find("shaderList")!= j.end())
 	for (unsigned int i = 0; i < j["shaderList"].size(); i++) {
 		v.mShaderNames.push_back(j["shaderList"][i]);
 	}
+	for (unsigned int i = 0; i < v.mTextures.size(); i++) {
+		delete v.mTextures[i];
+		v.mTextures[i]=0;
+	}
+	v.mTextures.clear();
+	v.mTextures.resize(0);
+	if(j.find("textures")!= j.end())
 	for (unsigned int i = 0; i < j["textures"].size(); i++) {
 		v.mTextures.push_back(new Texture( j["textures"][i]));
 	}
 	//for(uint i = 0; i<)
-	printf("%s", "");
+	//printf("%s", "");
 }
-void to_json(json& j, const MaterialData& p) {
 
+void to_json(json& j, const MaterialData& p) {
 	j = json{
 		{"castShadows" 		     , p.castShadows       },
 		{"receiveShadows" 	     , p.receiveShadows    },
@@ -415,3 +428,4 @@ void to_json(json& j, const MaterialData& p) {
 		j["textures"][i] = *p.mTextures[i]->mData;
 	}
 }
+

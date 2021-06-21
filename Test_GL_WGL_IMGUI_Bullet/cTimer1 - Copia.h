@@ -1,11 +1,11 @@
 #pragma once
-class cTimer {
+class cTimer1 {
 public:
 	LONGLONG fr, // processador frequencia
 		c1, // primeiro tempo
 		c2; // segundo tempo
-	cTimer();
-	~cTimer();
+	cTimer1();
+	~cTimer1();
 	void   reset();
 	LONGLONG get();
 	float  getns();

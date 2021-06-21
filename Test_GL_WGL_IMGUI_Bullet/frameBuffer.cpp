@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "objetob.h"
 #include "camera.h"
+#include "cTimer.h"
 #include "frameBuffer.h"
 
 frameBuffer::frameBuffer() :
@@ -62,7 +63,7 @@ frameBuffer::frameBuffer(uint n, uivec2 sz) :
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i , GL_TEXTURE_2D, textures[i], 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, textures[i], 0);
 	}
 
 	glGenRenderbuffers(1, &rbo);
@@ -89,10 +90,9 @@ void frameBuffer::resize(uivec2 sz) {
 	}
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size.x, size.y);
-
 }
 
-int frameBuffer::gen(uint n, uivec2 sz)	{
+int frameBuffer::gen(uint n, uivec2 sz) {
 	size = sz;
 	n = clamp(n, 1u, 8u);
 	glGenFramebuffers(1, &fbo);
@@ -131,23 +131,25 @@ frameBuffer::~frameBuffer() {
 		glDeleteTextures((int)textures.size(), &textures[0]);
 }
 //extern camera* activecamera;
-void frameBuffer::bind() {
+void frameBuffer::bind(cTimer& t) {
 	//glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	// first pass
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	//t.setTimer(" - glBindFramebuffer");
 	activecamera->aspect = max(float(size.x), 1.0f) / max(float(size.y), 1.0f);
 	activecamera->calcMatrix();
+	//t.setTimer(" - activecamera->calcMatrix()");
 	glViewport(0, 0, size.x, size.y);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we’re not using the stencil	buffer now
+	//t.setTimer(" - glViewport");
+	glClear(GL_DEPTH_BUFFER_BIT); // we’re not using the stencil	buffer now
+	t.setTimer("glClear");
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	//t.setTimer(" - glDisable glCullFace");
 }
 
 void frameBuffer::unbind() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
-
-

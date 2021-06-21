@@ -225,6 +225,11 @@ using json = nlohmann::json;
 #include "GL_GET_FUNCTIONS.h"
 #include "WGL_GET_FUNCTIONS.h"
 
+#define GLFW_INCLUDE_NONE
+
+#include "glfw/include/GLFW/glfw3.h"
+
+
 //#include "wgl+wglext.h"
 //#include "WGlGetFunctions.h"
 
@@ -238,5 +243,6 @@ struct matrix_block {
 
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "Imagem004.lib")
+#pragma comment(lib, "glfw.lib")
 
 

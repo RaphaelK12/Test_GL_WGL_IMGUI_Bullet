@@ -380,7 +380,7 @@ inline float magnitude(const vec2& v) {
 	return sqrt(pow(v.x, 2.f) + pow(v.y, 2.f));
 }
 
-inline float angle(const vec2& v) {
+inline float Angle(const vec2& v) {
 	return atan2(v.y, v.x);
 }
 inline bool  is_normalized(const vec2& v) {

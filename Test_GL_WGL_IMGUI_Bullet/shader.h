@@ -50,7 +50,9 @@ class shader
 {
 
 public:
-	
+	static string defaultIncludeGeral;
+	static string defaultIncludeVS;
+	static string defaultIncludeFS;
 	static uint g_count;	// total number of shaders actual in the program
 	uint count;				// number of times the shader is used
 	uint mIndex;			// index of this shader in global list of shaders
@@ -110,7 +112,11 @@ public:
 
 	uint readSrcFromFilenames();
 
-	string searchShaderFileName(string& filename);
+
+	uint readIncludeFiles();
+
+
+	string searchShaderFileName(const string& filename);
 
     // activate the shader
 	int compile();
@@ -142,6 +148,18 @@ public:
     void setUniform(const string &uname, const mat2 &val) const;
     void setUniform(const string &uname, const mat3 &val) const;
     void setUniform(const string &uname, const mat4 &val) const;
+
+    void setUniform(const char *uname, const bool &val) const;
+    void setUniform(const char *uname, const int &val) const;
+    void setUniform(const char *uname, const uint &val) const;
+    void setUniform(const char *uname, const float &val) const;
+    void setUniform(const char *uname, const double &val) const;
+    void setUniform(const char *uname, const vec2 &val) const;
+    void setUniform(const char *uname, const vec3 &val) const;
+    void setUniform(const char *uname, const vec4 &val) const;
+    void setUniform(const char *uname, const mat2 &val) const;
+    void setUniform(const char *uname, const mat3 &val) const;
+    void setUniform(const char *uname, const mat4 &val) const;
 
 private:
     // utility function for checking shader compilation/linking errors.

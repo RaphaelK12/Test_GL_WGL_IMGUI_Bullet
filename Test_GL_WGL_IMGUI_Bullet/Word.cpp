@@ -54,4 +54,16 @@ void Word::addObj(objType t, vec3 Pos, vec3 Rot, vec3 Size, uint3 Res, string ma
 	objetos.push_back(new objeto(0,t, Pos, Rot, Size, Res, matName));
 }
 
+int Word::reloadMaterials() {
+	int count = 0;
+	for (uint i = 0; i < objetos.size(); i++) {
+		if (objetos[i])
+			if (objetos[i]->malhas[0])
+				if (objetos[i]->malhas[0]->mMaterial) {
+					objetos[i]->malhas[0]->mMaterial->reload();
+					count++;
+				}
+	}
 
+	return count;
+}

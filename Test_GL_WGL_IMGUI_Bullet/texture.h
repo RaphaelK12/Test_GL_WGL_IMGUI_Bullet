@@ -3,17 +3,17 @@ class TextureData :public ReferenceCounter{
 public:
 	TextureData(void);
 	~TextureData(void);
-
-	string mFileName;
-	string mName;
+		
+	string mFileName;	// complete filename (directory) of file
+	string mName;		// name of this texture
 	int filter_mag;
 	int filter_min;
 	int wrap_s;
 	int wrap_t;
 	int wrap_r;
 
-	uint globj;
-	usvec2 res;
+	uint globj;			// OpenGL texture object
+	usvec2 res;			// Resolution
 	uint format;
 	uint dataType;
 };

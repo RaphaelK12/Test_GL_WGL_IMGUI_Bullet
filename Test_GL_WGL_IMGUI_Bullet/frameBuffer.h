@@ -11,7 +11,7 @@ public:
 	frameBuffer();
 	frameBuffer(uint n, uivec2 sz);
 
-	void bind();
+	void bind(cTimer & t);
 	void resize(uivec2 sz);
 	void unbind();
 

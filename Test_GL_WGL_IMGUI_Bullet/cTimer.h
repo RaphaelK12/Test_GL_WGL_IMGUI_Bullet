@@ -4,20 +4,23 @@ class tuple {
 public:
 	tuple();
 	~tuple();
-	tuple(LONGLONG st, float fps, string desc);
+	tuple(float _ms, string _desc);
 	tuple& operator = (tuple& v);
 	tuple& operator = (const tuple& v);
 	tuple(tuple& v);
 	tuple(const tuple& v);
 
-	LONGLONG st;
-	float fps;
+	float ms;
 	string desc;
 };
 
 class cTimer {
 public:
+	//std::vector<tuple>& frame;
+	//std::list<std::vector<tuple>> timers;
+
 	std::list<tuple> timers;
+
 	std::list<float> FPSs;
 	std::list<float> framesMS;
 	LONGLONG fr; // processador frequencia
@@ -32,7 +35,7 @@ public:
 	~cTimer();
 	void   clear();
 
-	void   setTimer(const string &info);
+	void   setTimer(const string& info);
 	void   setTimer(string info);
 	void   setTimer(const char* info);
 	float  getTimerMS();

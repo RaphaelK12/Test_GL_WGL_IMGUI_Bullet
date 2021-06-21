@@ -11,23 +11,19 @@ std::vector<objeto*> g_objeto_list;
 
 uint objeto::g_count = 0;
 
-
-
-objeto::objeto():
+objeto::objeto() :
 	count(0),
 	mIndex(0),
-	parent(0)
-{
+	parent(0) {
 	g_count++;
 	g_objeto_list.push_back(this);
-	mIndex = (uint) g_objeto_list.size() - 1;
+	mIndex = (uint)g_objeto_list.size() - 1;
 }
 
 objeto::objeto(objeto* prev) :
 	count(0),
 	mIndex(0),
-	parent(0)
-{
+	parent(0) {
 	g_count++;
 	g_objeto_list.push_back(this);
 	mIndex = (uint)g_objeto_list.size() - 1;
@@ -36,109 +32,107 @@ objeto::objeto(objeto* prev) :
 objeto::objeto(objeto* prev, objType t, vec3 Pos, vec3 Rot, vec3 Size, uint3 Res, string matName) :
 	count(0),
 	mIndex(0),
-	parent(0)
-{
+	parent(0) {
 	g_count++;
 	g_objeto_list.push_back(this);
 	mIndex = (uint)g_objeto_list.size() - 1;
 	this->lpos = Pos;
 	this->gpos = Pos;
-	switch (t)
-	{
-	case objType::objNone:
-		break;
-	case objType::objTorus:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeTorus(Res.x, Res.y, Size, 1.0f, 1.5f);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objEsfera:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeSphere(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objCapsule:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeCapsule(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objCilindro:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeCilinder(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objCone:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeCone(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objBox:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeBox(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objSkyBox:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeSkyBox(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objQuad:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeQuad(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objTriangulo:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeTriangle(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objGrid:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeGrid(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objAxis:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeAxis(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	case objType::objAxisS:
-		malhas.push_back(new malha());
-		malhas[malhas.size() - 1]->atach();
-		malhas[malhas.size() - 1]->makeAxisS(Res.x, Res.y, Size);
-		malhas[malhas.size() - 1]->mMaterial = new Material(matName);
-		//malhas[malhas.size() - 1]->mMaterial->atach();
-		break;
-	default:
-		break;
+	this->lrot = vec4(Rot, 1);
+	this->grot = vec4(Rot, 1);
+	switch (t) 	{
+		case objType::objNone:
+			break;
+		case objType::objTorus:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeTorus(Res.x, Res.y, Size, 1.0f, 1.5f);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objEsfera:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeSphere(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objCapsule:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeCapsule(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objCilindro:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeCilinder(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objCone:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeCone(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objBox:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeBox(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objSkyBox:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeSkyBox(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objQuad:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeQuad(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objTriangulo:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeTriangle(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objGrid:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeGrid(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objAxis:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeAxis(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		case objType::objAxisS:
+			malhas.push_back(new malha());
+			malhas[malhas.size() - 1]->atach();
+			malhas[malhas.size() - 1]->makeAxisS(Res.x, Res.y, Size);
+			malhas[malhas.size() - 1]->mMaterial = new Material(matName);
+			//malhas[malhas.size() - 1]->mMaterial->atach();
+			break;
+		default:
+			break;
 	}
 }
 
-
-objeto::~objeto()
-{
+objeto::~objeto() {
 	//for (int i = 0; i < Material.size(); i++) {
 	//	Material[i]->detach();
 	//	delete Material[i];
@@ -172,7 +166,6 @@ void objeto::detach() {
 	}
 }
 
-
 vec4 ToQuaternion(vec3 v/*, float yaw, double pitch, double roll*/) // yaw (Z), pitch (Y), roll (X)
 {
 	// Abbreviations for the various angular functions
@@ -192,27 +185,27 @@ vec4 ToQuaternion(vec3 v/*, float yaw, double pitch, double roll*/) // yaw (Z), 
 	return q;
 }
 
-void ToAxisAngle(const vec3& inAxis, float angle, mat4 &m) {
+void ToAxisAngle(const vec3& inAxis, float angle, mat4& m) {
 	vec3 axis = normalize(inAxis);
 	float s = (float)sin(angle);
 	float c = (float)cos(angle);
 	float x = axis.x, y = axis.y, z = axis.z;
-	m[1-1][1-1] = x * x * (1 - c) + c;
-	m[2-1][1-1] = x * y * (1 - c) - (z * s);
-	m[3-1][1-1] = x * z * (1 - c) + (y * s);
-	m[4-1][1-1] = 0;
-	m[1-1][2-1] = y * x * (1 - c) + (z * s);
-	m[2-1][2-1] = y * y * (1 - c) + c;
-	m[3-1][2-1] = y * z * (1 - c) - (x * s);
-	m[4-1][2-1] = 0;
-	m[1-1][3-1] = z * x * (1 - c) - (y * s);
-	m[2-1][3-1] = z * y * (1 - c) + (x * s);
-	m[3-1][3-1] = z * z * (1 - c) + c;
-	m[4-1][3-1] = 0;
-	m[1-1][4-1] = 0;
-	m[2-1][4-1] = 0;
-	m[3-1][4-1] = 0;
-	m[4-1][4-1] = 1;
+	m[1 - 1][1 - 1] = x * x * (1 - c) + c;
+	m[2 - 1][1 - 1] = x * y * (1 - c) - (z * s);
+	m[3 - 1][1 - 1] = x * z * (1 - c) + (y * s);
+	m[4 - 1][1 - 1] = 0;
+	m[1 - 1][2 - 1] = y * x * (1 - c) + (z * s);
+	m[2 - 1][2 - 1] = y * y * (1 - c) + c;
+	m[3 - 1][2 - 1] = y * z * (1 - c) - (x * s);
+	m[4 - 1][2 - 1] = 0;
+	m[1 - 1][3 - 1] = z * x * (1 - c) - (y * s);
+	m[2 - 1][3 - 1] = z * y * (1 - c) + (x * s);
+	m[3 - 1][3 - 1] = z * z * (1 - c) + c;
+	m[4 - 1][3 - 1] = 0;
+	m[1 - 1][4 - 1] = 0;
+	m[2 - 1][4 - 1] = 0;
+	m[3 - 1][4 - 1] = 0;
+	m[4 - 1][4 - 1] = 1;
 }
 
 void setEulerZYX(vec3 euler, mat4& m) {
@@ -230,31 +223,29 @@ void setEulerZYX(vec3 euler, mat4& m) {
 
 	m[0][0] = cj * ch;
 	m[0][1] = sj * sc - cs;
-	m[0][2] = sj* cc + ss;
+	m[0][2] = sj * cc + ss;
 	m[1][0] = cj * sh;
 	m[1][1] = sj * ss + cc;
-	m[1][2] = sj* cs - sc;
+	m[1][2] = sj * cs - sc;
 	m[2][0] = -sj;
 	m[2][1] = cj * si;
-	m[2][2] = cj* ci;
+	m[2][2] = cj * ci;
 }
 
 void objeto::calcMatrix() {
 	grot = vec4(vmod(grot, F_2PI), grot.w);
-
 
 	matrix.V = activecamera->matrix.V;
 	matrix.P = activecamera->matrix.P;
 	//vec4 q = ToQuaternion(grot);
 	mat4 m = mat4(1.0f);
 
-
-	 //m = glm::rotate(m, q.w, vec3(grot));
-	 //m = glm::rotate(m, grot.y, vec3(1, 0, 0));
-	 //m = glm::rotate(m, grot.z, vec3(0, 1, 0));
-	 //m = glm::rotate(m, grot.x, vec3(0, 0, 1));
+	//m = glm::rotate(m, q.w, vec3(grot));
+	m = glm::rotate(m, grot.y, vec3(1, 0, 0));
+	m = glm::rotate(m, grot.z, vec3(0, 1, 0));
+	m = glm::rotate(m, grot.x, vec3(0, 0, 1));
 	//ToAxisAngle(grot, length(grot), m);
-	setEulerZYX(grot,  m);
+	//setEulerZYX(grot,  m);
 	 //m = glm::rotate(mat4(1.0f), length(vec3(grot)), vec3(grot.y,grot.z,grot.x));
 	matrix.M = glm::scale(m, gsize);
 	//matrix.M = glm::rotate(matrix.M, 1.0f, grot);
@@ -268,7 +259,6 @@ void objeto::calcMatrix() {
 }
 
 void objeto::setMatrix() {
-
 }
 
 void objeto::draw() {
@@ -288,7 +278,6 @@ void objeto::draw() {
 			child[i]->draw();
 		}
 	//printf("	*rendered %i objetos %s\n", i, name.c_str());
-
 }
 
 void objeto::refreshGlobal(vec3 p, vec3 s, vec4 r) {
@@ -296,4 +285,3 @@ void objeto::refreshGlobal(vec3 p, vec3 s, vec4 r) {
 	gsize = lsize * s;
 	grot = lrot + r;
 }
-

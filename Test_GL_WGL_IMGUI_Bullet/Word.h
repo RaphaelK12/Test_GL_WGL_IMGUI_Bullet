@@ -19,10 +19,11 @@ public:
 	vector<texto*> textos;
 	vector<camera*> cameras;
 	vector<projetor*> projetors;
-
-
+	objeto* screenQuad;
+	objeto* skyBox;
 	uint draw();
 	void addObj(objType t, vec3 Pos, vec3 Rot, vec3 Size, uint3 Res, string matName);
 	void refreshShaders();
+	int reloadMaterials();
 };
 

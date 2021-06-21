@@ -16,21 +16,24 @@ TextureData::TextureData(void) :
 	res(0),
 	format(0),
 	dataType(0) {};
+
 TextureData::~TextureData(void) {
 	if (globj) 
 		glDeleteTextures(1, &globj);
+		g_texture_list.erase(mFileName);
 }
-
 
 Texture::Texture(void):	 mData(0), mName("default"),mFileName(" "){
 
 }
+
 Texture::Texture(const json& j) : mData(0), mName("default"), mFileName("") {
 	img_basis* im = 0;
-	j["name"].get_to(mName);
+	if(j.find("name")!=j.end())
+		j["name"].get_to(mName);
 	mFileName = searchTextureFileName(mName);
-	if (mFileName.length() < 5)
-		return;
+	//if (mFileName.length() < 5)
+	//	return;
 	mData = getTexture(mFileName);
 	if (mData)
 		return;
@@ -87,15 +90,13 @@ Texture::Texture(string& mname) : mData(0), mName(mname), mFileName("") {
 }
 
 Texture::~Texture(void) {
-	//mName.clear();
-	//mFileName.clear();
 	if (mData)
 		if (mData->RemoveReference()) {
-			if (mFileName.length() > 2)
-				g_texture_list.erase(mFileName);
 			delete mData;
 			mData = 0;;
 		}
+	mName.clear();
+	mFileName.clear();
 }
 
 void Texture::setTextureVariables() {
@@ -198,45 +199,43 @@ TextureData* Texture::getTexture(string& name) {
 	}
 	return m;
 }
+
 TextureData* Texture::loadTexture(string& name) {
 	TextureData* m = 0;
 	m = getTexture(name);
 	if (m)
 		return m;
-
-	if (mFileName.length() > 4) {
-		img_basis* im = 0;
-		m = new TextureData;
-		if (!m)
-			return 0;
-		im = OpenImg(mFileName.c_str());
-		if (!im) {
-			delete m;
-			return 0;
-		}
-		im->convertoToOPenGLCompatible();
-		g_texture_list.insert(std::pair<std::string, TextureData*>(name, m));
-		m->res.x = im->xres;
-		m->res.y = im->yres;
-		glGenTextures(1, &mData->globj);
-		glBindTexture(GL_TEXTURE_2D, mData->globj);
-		glTexImage2D(GL_TEXTURE_2D, 0, im->glInternalFormat, im->xres, im->yres, GL_FALSE, im->glFormat, im->glType, im->pixels);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		GLfloat value, max_anisotropy = 16.0f; /* don't exceed this value...*/
-		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &value);
-		value = (value > max_anisotropy) ? max_anisotropy : value;
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, value);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		delete im;
-
+	if (mFileName.length() < 4)
+		return 0;
+	img_basis* im = 0;
+	m = new TextureData;
+	if (!m)
+		return 0;
+	im = OpenImg(mFileName.c_str());
+	if (!im) {
+		delete m;
+		return 0;
 	}
+	im->convertoToOPenGLCompatible();
+
+	g_texture_list.insert(std::pair<std::string, TextureData*>(name, m));
+
+	m->res.x = im->xres;
+	m->res.y = im->yres;
+	glGenTextures(1, &mData->globj);
+	glBindTexture(GL_TEXTURE_2D, mData->globj);
+	glTexImage2D(GL_TEXTURE_2D, 0, im->glInternalFormat, im->xres, im->yres, GL_FALSE, im->glFormat, im->glType, im->pixels);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	GLfloat value, max_anisotropy = 16.0f; /* don't exceed this value...*/
+	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &value);
+	value = (value > max_anisotropy) ? max_anisotropy : value;
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, value);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	delete im;
 	return m;
 }
-
-
-
 
 
 void to_json(json& j, const TextureData& p) {
@@ -249,13 +248,14 @@ void to_json(json& j, const TextureData& p) {
 		{"wrap_r"       , p.wrap_r          }
 	};
 }
+
 void from_json(const json& j, TextureData& p) {
-		j.at("name").get_to(p.mName);
-		j.at("filter_mag").get_to(p.filter_mag);
-		j.at("filter_min").get_to(p.filter_min);
-		j.at("wrap_s").get_to(p.wrap_s);
-		j.at("wrap_t").get_to(p.wrap_t);
-		j.at("wrap_r").get_to(p.wrap_r);
+		if(j.find("name")		!= j.end()) j.at("name").get_to(p.mName);
+		if(j.find("filter_mag")	!= j.end()) j.at("filter_mag").get_to(p.filter_mag);
+		if(j.find("filter_min")	!= j.end()) j.at("filter_min").get_to(p.filter_min);
+		if(j.find("wrap_s")		!= j.end()) j.at("wrap_s").get_to(p.wrap_s);
+		if(j.find("wrap_t")		!= j.end()) j.at("wrap_t").get_to(p.wrap_t);
+		if(j.find("wrap_r")		!= j.end()) j.at("wrap_r").get_to(p.wrap_r);
 }
 
 

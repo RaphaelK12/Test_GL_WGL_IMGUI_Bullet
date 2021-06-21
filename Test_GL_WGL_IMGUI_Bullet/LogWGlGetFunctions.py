@@ -1,89 +1,89 @@
 
 WGL_VERSION_1_0
-	00000000 : DescribePixelFormat
-	00000000 : GetEnhMetaFilePixelFormat
-	7A7C8150 : wglDescribeLayerPlane
-	7A7C8280 : wglGetLayerPaletteEntries
+	0000000000000000 : DescribePixelFormat
+	0000000000000000 : GetEnhMetaFilePixelFormat
+	00007FFE3CAFC3B0 : wglDescribeLayerPlane
+	00007FFE3CAFC5A0 : wglGetLayerPaletteEntries
 
 WGL_ARB_buffer_region
-	03815EC0 : wglCreateBufferRegionARB
-	03815FB0 : wglDeleteBufferRegionARB
-	03816040 : wglSaveBufferRegionARB
-	038160D0 : wglRestoreBufferRegionARB
+	00000000614DD240 : wglCreateBufferRegionARB
+	00000000614DD380 : wglDeleteBufferRegionARB
+	00000000614DD460 : wglSaveBufferRegionARB
+	00000000614DD550 : wglRestoreBufferRegionARB
 
 WGL_ARB_create_context
-	03816990 : wglCreateContextAttribsARB
+	00000000614DDF00 : wglCreateContextAttribsARB
 
 WGL_ARB_extensions_string
-	03811320 : wglGetExtensionsStringARB
+	00000000614D7DE0 : wglGetExtensionsStringARB
 
 WGL_ARB_make_current_read
-	03816160 : wglMakeContextCurrentARB
-	03816540 : wglGetCurrentReadDCARB
+	00000000614DD660 : wglMakeContextCurrentARB
+	00000000614DDA50 : wglGetCurrentReadDCARB
 
 WGL_ARB_pbuffer
-	03814F50 : wglCreatePbufferARB
-	03815480 : wglGetPbufferDCARB
-	038154E0 : wglReleasePbufferDCARB
-	03815560 : wglDestroyPbufferARB
-	03815680 : wglQueryPbufferARB
+	00000000614DBDA0 : wglCreatePbufferARB
+	00000000614DC200 : wglGetPbufferDCARB
+	00000000614DC340 : wglReleasePbufferDCARB
+	00000000614DC4B0 : wglDestroyPbufferARB
+	00000000614DC710 : wglQueryPbufferARB
 
 WGL_ARB_pixel_format
-	03813C30 : wglGetPixelFormatAttribivARB
-	03814650 : wglGetPixelFormatAttribfvARB
-	03814800 : wglChoosePixelFormatARB
+	00000000614DAA30 : wglGetPixelFormatAttribivARB
+	00000000614DB2C0 : wglGetPixelFormatAttribfvARB
+	00000000614DB420 : wglChoosePixelFormatARB
 
 WGL_ARB_render_texture
-	03815CE0 : wglBindTexImageARB
-	03815DD0 : wglReleaseTexImageARB
-	03815AF0 : wglSetPbufferAttribARB
+	00000000614DCEC0 : wglBindTexImageARB
+	00000000614DD080 : wglReleaseTexImageARB
+	00000000614DCC00 : wglSetPbufferAttribARB
 
 WGL_AMD_gpu_association
-	03811690 : wglGetGPUIDsAMD
-	03811740 : wglGetGPUInfoAMD
-	03812290 : wglGetContextGPUIDAMD
-	03811A00 : wglCreateAssociatedContextAMD
-	03811BF0 : wglCreateAssociatedContextAttribsAMD
-	03812090 : wglDeleteAssociatedContextAMD
-	03811EC0 : wglMakeAssociatedContextCurrentAMD
-	03812320 : wglGetCurrentAssociatedContextAMD
-	03812470 : wglBlitContextFramebufferAMD
+	00000000614D82B0 : wglGetGPUIDsAMD
+	00000000614D8330 : wglGetGPUInfoAMD
+	00000000614D8FA0 : wglGetContextGPUIDAMD
+	00000000614D8630 : wglCreateAssociatedContextAMD
+	00000000614D8840 : wglCreateAssociatedContextAttribsAMD
+	00000000614D8D20 : wglDeleteAssociatedContextAMD
+	00000000614D8BB0 : wglMakeAssociatedContextCurrentAMD
+	00000000614D8FE0 : wglGetCurrentAssociatedContextAMD
+	00000000614D9170 : wglBlitContextFramebufferAMD
 
 WGL_EXT_extensions_string
-	03811330 : wglGetExtensionsStringEXT
+	00000000614D7DE0 : wglGetExtensionsStringEXT
 
 WGL_EXT_swap_control
-	03811340 : wglSwapIntervalEXT
-	03811620 : wglGetSwapIntervalEXT
+	00000000614D7DF0 : wglSwapIntervalEXT
+	00000000614D8230 : wglGetSwapIntervalEXT
 
 WGL_I3D_genlock
-	03812900 : wglEnableGenlockI3D
-	03812950 : wglDisableGenlockI3D
-	03812A50 : wglIsEnabledGenlockI3D
-	03812AC0 : wglGenlockSourceI3D
-	03812CF0 : wglGetGenlockSourceI3D
-	03812ED0 : wglGenlockSourceEdgeI3D
-	03813090 : wglGetGenlockSourceEdgeI3D
-	038131A0 : wglGenlockSampleRateI3D
-	03813350 : wglGetGenlockSampleRateI3D
-	03813430 : wglGenlockSourceDelayI3D
-	03813710 : wglGetGenlockSourceDelayI3D
-	038138F0 : wglQueryGenlockMaxSourceDelayI3D
+	00000000614D95A0 : wglEnableGenlockI3D
+	00000000614D9600 : wglDisableGenlockI3D
+	00000000614D9730 : wglIsEnabledGenlockI3D
+	00000000614D97C0 : wglGenlockSourceI3D
+	00000000614D99F0 : wglGetGenlockSourceI3D
+	00000000614D9BB0 : wglGenlockSourceEdgeI3D
+	00000000614D9D80 : wglGetGenlockSourceEdgeI3D
+	00000000614D9EA0 : wglGenlockSampleRateI3D
+	00000000614DA060 : wglGetGenlockSampleRateI3D
+	00000000614DA160 : wglGenlockSourceDelayI3D
+	00000000614DA420 : wglGetGenlockSourceDelayI3D
+	00000000614DA5E0 : wglQueryGenlockMaxSourceDelayI3D
 
 WGL_NV_DX_interop
-	03817600 : wglDXSetResourceShareHandleNV
-	03817660 : wglDXOpenDeviceNV
-	038176D0 : wglDXCloseDeviceNV
-	03817720 : wglDXRegisterObjectNV
-	03817790 : wglDXUnregisterObjectNV
-	038177F0 : wglDXObjectAccessNV
-	03817850 : wglDXLockObjectsNV
-	038178B0 : wglDXUnlockObjectsNV
+	00000000614DE950 : wglDXSetResourceShareHandleNV
+	00000000614DE9D0 : wglDXOpenDeviceNV
+	00000000614DEA60 : wglDXCloseDeviceNV
+	00000000614DEAD0 : wglDXRegisterObjectNV
+	00000000614DEB90 : wglDXUnregisterObjectNV
+	00000000614DEC40 : wglDXObjectAccessNV
+	00000000614DECD0 : wglDXLockObjectsNV
+	00000000614DED50 : wglDXUnlockObjectsNV
 
 WGL_NV_swap_group
-	03813A00 : wglJoinSwapGroupNV
-	03813A60 : wglBindSwapBarrierNV
-	03813AB0 : wglQuerySwapGroupNV
-	03813B10 : wglQueryMaxSwapGroupsNV
-	03813B30 : wglQueryFrameCountNV
-	03813BB0 : wglResetFrameCountNV
+	00000000614DA720 : wglJoinSwapGroupNV
+	00000000614DA7A0 : wglBindSwapBarrierNV
+	00000000614DA7F0 : wglQuerySwapGroupNV
+	00000000614DA890 : wglQueryMaxSwapGroupsNV
+	00000000614DA8D0 : wglQueryFrameCountNV
+	00000000614DA990 : wglResetFrameCountNV

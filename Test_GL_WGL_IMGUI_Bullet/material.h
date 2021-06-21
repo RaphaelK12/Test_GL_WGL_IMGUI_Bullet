@@ -34,12 +34,12 @@ public:
 	vec4 mReflex;			// color passed to program
 	vec4 mShinines;			// color passed to program
 
-	std::string mName;
-	std::string mFileName;
-	std::string mShaderName;
-	std::vector<std::string> mShaderNames;
-	std::vector<Texture*> mTextures;	// textures objects
-	shader* mShader;
+	std::string mName;							// name of material
+	std::string mFileName;						// complete filename (directory) of file	
+	std::string mShaderName;					// main shader name	
+	std::vector<std::string> mShaderNames;		// detailed shaders names	
+	std::vector<Texture*> mTextures;			// textures objects	
+	shader* mShader;							// shader used by this material
 };
 
 class Material

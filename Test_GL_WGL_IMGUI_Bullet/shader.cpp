@@ -4,6 +4,10 @@
 std::vector<shader*> g_shader_list;
 
 uint shader::g_count = 0;
+string shader::defaultIncludeGeral = "";
+string shader::defaultIncludeVS = "";
+string shader::defaultIncludeFS = "";
+
 /*
 const char defaultVS[] = 
 "#version 330 core\n"
@@ -221,7 +225,8 @@ shader::shader(const string& vs, const string& fs, const string& tc, const strin
 
 void shader::shader2(const char *fileName)
 {
-    // 1. retrieve the vertex/fragment source code from filePath
+	readIncludeFiles();
+	// 1. retrieve the vertex/fragment source code from filePath
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
     // ensure ifstream objects can throw exceptions:
@@ -258,8 +263,8 @@ void shader::shader2(const char *fileName)
         vShaderFile.close();
         fShaderFile.close();
         // convert stream into string
-        VSsrc = vShaderStream.str();
-        FSsrc = fShaderStream.str();			
+        VSsrc = defaultIncludeGeral + defaultIncludeVS + vShaderStream.str();
+        FSsrc = defaultIncludeGeral + defaultIncludeFS + fShaderStream.str();
     }
     catch (std::ifstream::failure e)
     {
@@ -295,6 +300,7 @@ void shader::shader2(const char *fileName)
 }
 
 uint shader::getExistentShaderFilenamesFromSingleName(const string& fileName) {
+	readIncludeFiles();
 	string fname = fileName;
 	uint size;
 	size = (uint)fname.length();
@@ -348,6 +354,61 @@ uint shader::getExistentShaderFilenamesFromSingleName(const string& fileName) {
 	return cnt;
 }
 
+uint shader::readIncludeFiles() {
+	if (defaultIncludeFS.length() < 2) {
+		std::string fi = searchShaderFileName("defaultInclude.glsl.fs");
+		if (fi.length() > 2) {
+			std::ifstream ShaderFile;
+			ShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+			try {
+				ShaderFile.open(fi);
+				std::stringstream ShaderStream;
+				ShaderStream << ShaderFile.rdbuf();
+				ShaderFile.close();
+				defaultIncludeFS = ShaderStream.str();
+			}
+			catch (std::ifstream::failure e) {
+				std::cout << "ERROR::SHADER::FILE_NOT_READ:" << fi << std::endl;
+			}
+		}
+	}
+	if (defaultIncludeVS.length() < 2) {
+		std::string fi = searchShaderFileName("defaultInclude.glsl.vs");
+		if (fi.length() > 2) {
+			std::ifstream ShaderFile;
+			ShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+			try {
+				ShaderFile.open(fi);
+				std::stringstream ShaderStream;
+				ShaderStream << ShaderFile.rdbuf();
+				ShaderFile.close();
+				defaultIncludeVS = ShaderStream.str();
+			}
+			catch (std::ifstream::failure e) {
+				std::cout << "ERROR::SHADER::FILE_NOT_READ:" << fi << std::endl;
+			}
+		}
+	}
+	if (defaultIncludeGeral.length() < 2) {
+		std::string fi = searchShaderFileName("defaultInclude.glsl");
+		if (fi.length() > 2) {
+			std::ifstream ShaderFile;
+			ShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+			try {
+				ShaderFile.open(fi);
+				std::stringstream ShaderStream;
+				ShaderStream << ShaderFile.rdbuf();
+				ShaderFile.close();
+				defaultIncludeGeral = ShaderStream.str();
+			}
+			catch (std::ifstream::failure e) {
+				std::cout << "ERROR::SHADER::FILE_NOT_READ:" << fi << std::endl;
+			}
+		}
+	}
+	return 0;
+}
+
 uint shader::readSrcFromFilenames(){
     //std::ifstream ShaderFile;
     //ShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
@@ -364,6 +425,8 @@ uint shader::readSrcFromFilenames(){
     //    std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ:" << fname << std::endl;
     //}
 	uint cnt=0;
+	readIncludeFiles();
+
 	if(VS.size()>3){
 		std::ifstream ShaderFile;
 		ShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
@@ -373,7 +436,7 @@ uint shader::readSrcFromFilenames(){
 			std::stringstream ShaderStream;
 			ShaderStream << ShaderFile.rdbuf();
 			ShaderFile.close();
-			VSsrc = ShaderStream.str();
+			VSsrc = defaultIncludeGeral + defaultIncludeVS + ShaderStream.str();
 			cnt++;
 		}
 		catch (std::ifstream::failure e)
@@ -390,7 +453,7 @@ uint shader::readSrcFromFilenames(){
 			std::stringstream ShaderStream;
 			ShaderStream << ShaderFile.rdbuf();
 			ShaderFile.close();
-			TCsrc = ShaderStream.str();
+			TCsrc = defaultIncludeGeral + ShaderStream.str();
 			cnt++;
 		}
 		catch (std::ifstream::failure e)
@@ -407,7 +470,7 @@ uint shader::readSrcFromFilenames(){
 			std::stringstream ShaderStream;
 			ShaderStream << ShaderFile.rdbuf();
 			ShaderFile.close();
-			TEsrc = ShaderStream.str();
+			TEsrc = defaultIncludeGeral + ShaderStream.str();
 			cnt++;
 		}
 		catch (std::ifstream::failure e)
@@ -424,7 +487,7 @@ uint shader::readSrcFromFilenames(){
 			std::stringstream ShaderStream;
 			ShaderStream << ShaderFile.rdbuf();
 			ShaderFile.close();
-			GSsrc = ShaderStream.str();
+			GSsrc = defaultIncludeGeral + ShaderStream.str();
 			cnt++;
 		}
 		catch (std::ifstream::failure e)
@@ -441,7 +504,7 @@ uint shader::readSrcFromFilenames(){
 			std::stringstream ShaderStream;
 			ShaderStream << ShaderFile.rdbuf();
 			ShaderFile.close();
-			FSsrc = ShaderStream.str();
+			FSsrc = defaultIncludeGeral + defaultIncludeFS + ShaderStream.str();
 			cnt++;
 		}
 		catch (std::ifstream::failure e)
@@ -469,7 +532,7 @@ uint shader::readSrcFromFilenames(){
 	return cnt;
 }
 
-string shader::searchShaderFileName(string& filename) {
+string shader::searchShaderFileName(const string& filename) {
 	FILE* f = 0;
 	string fname = "";
 		for (uint dir = 0; dir < dirs.size(); dir++) {
@@ -510,7 +573,8 @@ int shader::compile(){
 }
 
 int shader::setSource(string &src, ShaderType type){
-	switch(type){
+	readIncludeFiles();
+	switch (type) {
 	case ShaderType::SHADER_FRAGMENT:
 			FSsrc = src;
 			return 1;
@@ -536,6 +600,7 @@ int shader::setSource(string &src, ShaderType type){
 }
 
 int shader::setSource(const char *src, ShaderType type){
+	readIncludeFiles();
 	switch(type){
 		case ShaderType::SHADER_FRAGMENT:
 			FSsrc = src;
@@ -724,7 +789,9 @@ uint shader::checkCompileErrors(GLuint shader, string type)
 			infoLog[size] = 0;
 			glGetShaderInfoLog(shader, size - 1, NULL, infoLog);
 			std::cout << " -- -----\nERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog <<
-				"\n -- --------------------------------------------------- -- " << std::endl;
+				"\n -- --------------------------------------------------- -- " << 
+			 FSsrc << std::endl <<
+			"   shader: " << shadersName << ", " << name << "\n\n"<< std::endl;
 			delete[] infoLog;
 			return success;
 		}
@@ -739,8 +806,8 @@ uint shader::checkCompileErrors(GLuint shader, string type)
 			infoLog = new GLchar[size + 1];
 			infoLog[size] = 0;
 			glGetProgramInfoLog(shader, size - 1, NULL, infoLog);
-			std::cout << " -- ------\nERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog <<
-				"\n -- --------------------------------------------------- -- " << std::endl;
+			std::cout << " -- ------\nERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog <<"   shader: " << shadersName << ", " << name <<
+				"\n -- --------------------------------------------------- -- \n" <<  std::endl;
 			delete[] infoLog;
 			return success;
 		}
@@ -792,6 +859,40 @@ void shader::setUniform(const string &uname, const mat3 &val) const
 void shader::setUniform(const string &uname, const mat4 &val) const
 {
     glUniformMatrix4fv(glGetUniformLocation(program, uname.c_str()), 1, GL_FALSE, &val[0][0]);
+}
+
+void shader::setUniform(const char* uname, const bool& val) const {
+	glUniform1i(glGetUniformLocation(program, uname), (int)val);
+}
+void shader::setUniform(const char* uname, const int& val) const {
+	glUniform1i(glGetUniformLocation(program, uname), val);
+}
+void shader::setUniform(const char* uname, const uint& val) const {
+	glUniform1ui(glGetUniformLocation(program, uname), val);
+}
+void shader::setUniform(const char* uname, const float& val) const {
+	glUniform1f(glGetUniformLocation(program, uname), val);
+}
+void shader::setUniform(const char* uname, const double& val) const {
+	glUniform1d(glGetUniformLocation(program, uname), val);
+}
+void shader::setUniform(const char* uname, const vec2& val) const {
+	glUniform2fv(glGetUniformLocation(program, uname), 1, &val.x);
+}
+void shader::setUniform(const char* uname, const vec3& val) const {
+	glUniform3fv(glGetUniformLocation(program, uname), 1, &val.x);
+}
+void shader::setUniform(const char* uname, const vec4& val) const {
+	glUniform4fv(glGetUniformLocation(program, uname), 1, &val.x);
+}
+void shader::setUniform(const char* uname, const mat2& val) const {
+	glUniformMatrix2fv(glGetUniformLocation(program, uname), 1, GL_FALSE, &val[0][0]);
+}
+void shader::setUniform(const char* uname, const mat3& val) const {
+	glUniformMatrix3fv(glGetUniformLocation(program, uname), 1, GL_FALSE, &val[0][0]);
+}
+void shader::setUniform(const char* uname, const mat4& val) const {
+	glUniformMatrix4fv(glGetUniformLocation(program, uname), 1, GL_FALSE, &val[0][0]);
 }
 
 

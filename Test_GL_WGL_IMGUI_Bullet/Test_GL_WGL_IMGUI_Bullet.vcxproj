@@ -309,11 +309,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="aplication.cpp" />
     <ClCompile Include="bone.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cTimer1 - Copia.cpp" />
     <ClCompile Include="cTimer.cpp" />
     <ClCompile Include="frameBuffer.cpp" />
     <ClCompile Include="GL_GET_FUNCTONS.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="ligith.cpp" />
     <ClCompile Include="malha.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -343,9 +351,10 @@
     <ClCompile Include="Word.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aplication.h" />
     <ClInclude Include="bone.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="cTimer - Copia.h" />
+    <ClInclude Include="cTimer1 - Copia.h" />
     <ClInclude Include="cTimer.h" />
     <ClInclude Include="Examples_HowToDo.h" />
     <ClInclude Include="frameBuffer.h" />
@@ -355,6 +364,11 @@
     <ClInclude Include="GL_GL_Funcdef_Proc.h" />
     <ClInclude Include="GL_WGL_All_Proc.h" />
     <ClInclude Include="GL_WGL_Funcdef_Proc.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_glfw.h" />
+    <ClInclude Include="imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui_internal.h" />
     <ClInclude Include="khrplatform.h" />
     <ClInclude Include="ligith.h" />
     <ClInclude Include="malha.h" />

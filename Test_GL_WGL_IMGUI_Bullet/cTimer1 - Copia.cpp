@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Utils.h"
-#include "cTimer.h"
+#include "cTimer1 - Copia.h"
 #pragma once
-cTimer::cTimer() :
+cTimer1::cTimer1() :
 	fr(0),
 	c1(0),
 	c2(0)
@@ -13,58 +13,58 @@ cTimer::cTimer() :
 	c2 = c1;
 }
 
-cTimer::~cTimer() {};
+cTimer1::~cTimer1() {};
 
-void cTimer::reset() {
+void cTimer1::reset() {
 	QueryPerformanceFrequency((LARGE_INTEGER*)&fr);
 	QueryPerformanceCounter((LARGE_INTEGER*)&c1);
 	c2 = c1;
 
 }
 
-LONGLONG cTimer :: get() {
+LONGLONG cTimer1 :: get() {
 	set();
 	return c2 - c1;
 }
 
-float cTimer :: getns() {
+float cTimer1 :: getns() {
 	set();
 	return (c2 - c1) * (1000000.0f / fr);
 }
 
-float cTimer :: getms() {
+float cTimer1 :: getms() {
 	set();
 	return (c2 - c1) * (1000000.0f / fr) / 1000.0f;
 }
 
-float cTimer :: gets() {
+float cTimer1 :: gets() {
 	set();
 	return (c2 - c1) * (1000000.0f / fr) / 1000000.0f;
 }
 
-double cTimer :: getdns() {
+double cTimer1 :: getdns() {
 	return double((c2 - c1) * (1000000.0 / fr));
 }
 
-double cTimer :: getdms() {
+double cTimer1 :: getdms() {
 	return double((c2 - c1) * (1000000.0 / fr) / 1000.0);
 }
 
-double cTimer:: getds() {
+double cTimer1:: getds() {
 	return double((c2 - c1) * (1000000.0 / fr) / 1000000.0);
 }
 
-void cTimer :: set() {
+void cTimer1 :: set() {
 	QueryPerformanceFrequency((LARGE_INTEGER*)&fr);
 	QueryPerformanceCounter((LARGE_INTEGER*)&c2);
 
 }
 
-float cTimer :: getFPS() {
+float cTimer1 :: getFPS() {
 	return 1.0f / (getns() / 1000000.0f);
 }
 
-float cTimer :: FPS() {
+float cTimer1 :: FPS() {
 	set();
 	return 1.0f / (getns() / 1000000.0f);
 }
