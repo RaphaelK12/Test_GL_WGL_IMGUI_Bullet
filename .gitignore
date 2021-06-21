@@ -28,6 +28,8 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
+# [Oo]utput/
+[Tt]emp/
 [Oo]bj/
 [Oo]ut/
 [Ll]og/
@@ -79,7 +81,9 @@ StyleCopReport.xml
 *.iobj
 *.pch
 *.pdb
+*.idb
 *.ipdb
+*.ilk
 *.pgc
 *.pgd
 *.rsp
@@ -91,12 +95,17 @@ StyleCopReport.xml
 *.tmp_proj
 *_wpftmp.csproj
 *.log
+*.tlog
 *.vspscc
 *.vssscc
 .builds
 *.pidb
 *.svclog
+*.bsc
 *.scc
+*.exp
+*.lastcodeanalysissucceeded
+*.recipe
 
 # Chutzpah Test files
 _Chutzpah*
@@ -361,3 +370,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+*.tlog
+*.bsc
+*.exp
+*.idb
+
+
+
+
+
+

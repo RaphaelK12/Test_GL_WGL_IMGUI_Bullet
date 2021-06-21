@@ -2,8 +2,8 @@
 WGL_VERSION_1_0
 	0000000000000000 : DescribePixelFormat
 	0000000000000000 : GetEnhMetaFilePixelFormat
-	00007FFE3CAFC3B0 : wglDescribeLayerPlane
-	00007FFE3CAFC5A0 : wglGetLayerPaletteEntries
+	00007FFE3A53C3B0 : wglDescribeLayerPlane
+	00007FFE3A53C5A0 : wglGetLayerPaletteEntries
 
 WGL_ARB_buffer_region
 	00000000614DD240 : wglCreateBufferRegionARB
