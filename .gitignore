@@ -380,3 +380,7 @@ FodyWeavers.xsd
 
 
 
+/Output/Win32_Debug
+/Output/Win32_Debug_DLL
+/Output/x64_Debug
+/Output/x64_Debug_DLL
