@@ -1,4 +1,4 @@
-#version 400 
+#version 430 
 // Input Built-in Variables
 // in vec4 gl_FragCoord;
 // in bool gl_FrontFacing;
@@ -106,7 +106,7 @@ float h1(float a) {
 }
 
 
-vec3 CubicLagrange(vec3 A, vec3 B, vec3 C, vec3 D, float t) {
+vec4 CubicLagrange(vec4 A, vec4 B, vec4 C, vec4 D, float t) {
 	return
 		A *
 		(
@@ -134,13 +134,13 @@ vec3 CubicLagrange(vec3 A, vec3 B, vec3 C, vec3 D, float t) {
 			);
 }
 
-vec3 CubicHermite(vec3 A, vec3 B, vec3 C, vec3 D, float t) {
+vec4 CubicHermite(vec4 A, vec4 B, vec4 C, vec4 D, float t) {
 	float t2 = t * t;
 	float t3 = t * t * t;
-	vec3 a = -A / 2.0 + (3.0 * B) / 2.0 - (3.0 * C) / 2.0 + D / 2.0;
-	vec3 b = A - (5.0 * B) / 2.0 + 2.0 * C - D / 2.0;
-	vec3 c = -A / 2.0 + C / 2.0;
-	vec3 d = B;
+	vec4 a = -A / 2.0 + (3.0 * B) / 2.0 - (3.0 * C) / 2.0 + D / 2.0;
+	vec4 b = A - (5.0 * B) / 2.0 + 2.0 * C - D / 2.0;
+	vec4 c = -A / 2.0 + C / 2.0;
+	vec4 d = B;
 
 	return a * t3 + b * t2 + c * t + d;
 }

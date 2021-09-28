@@ -29,35 +29,35 @@
 	"textures":			[
 		{
 			"name" : "CobbleStonesDiff.jpg",
-			"filter_mag": 		9729,
-			"filter_min": 		9987,
-			"wrap_s": 			10497,
-			"wrap_t": 			10497,
-			"wrap_r": 			10497
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
 		},
 		{
 			"name" : "CobbleStonesDis.jpg",
-			"filter_mag": 		9729,
-			"filter_min": 		9987,
-			"wrap_s": 			10497,
-			"wrap_t": 			10497,
-			"wrap_r": 			10497
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
 		},
 		{
 			"name" : "CobbleStonesNor.png",
-			"filter_mag": 		9729,
-			"filter_min": 		9987,
-			"wrap_s": 			10497,
-			"wrap_t": 			10497,
-			"wrap_r": 			10497
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
 		},
 		{
 			"name" : "S_SphereMap.png",
-			"filter_mag": 		9729,
-			"filter_min": 		9987,
-			"wrap_s": 			10497,
-			"wrap_t": 			10497,
-			"wrap_r": 			33071
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
 		}
 	]  
 }

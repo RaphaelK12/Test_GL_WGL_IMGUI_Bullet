@@ -1,4 +1,14 @@
 #pragma once
+
+enum textureFilter {
+	Nearest = 0,
+	Linear,
+	Smoothstep,
+	Cubic,
+	Bicubic 
+};
+
+
 class TextureData :public ReferenceCounter{
 public:
 	TextureData(void);
@@ -30,6 +40,8 @@ public:
 	string searchTextureFileName(string& filename);
 	TextureData* getTexture(string& name);
 	TextureData* loadTexture(string& name);
+	uint setMagFilter(uint filter);
+	uint setMinFilter(uint filter);
 
 	string mFileName;
 	string mName;

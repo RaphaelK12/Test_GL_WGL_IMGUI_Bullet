@@ -21,19 +21,43 @@
 	"sadowsColor": 		[0.0  , 0.0  , 0.0, 1.0],
 	"specular": 		[1.0  , 1.0  , 1.0, 1.0],
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
-	"shinines": 		[256.0, 256.0, 1.0, 1.0],
-	"name": 			"lineVertexColor",
-	"fileName": 		"lineVertexColor.mat",
-	"shaderName": 		"lineVertexColor",
-	"shaderList": 		["lineVertexColor.vs", "lineVertexColor.fs"],
-	"textures": 		[
+	"shinines": 		[16.0, 16.0, 16.0, 1.0],
+	"name": 			"DiffSpecNormalDisp2",
+	"fileName": 		"DiffSpecNormalDisp2.mat",
+	"shaderName": 		"DiffSpecNormalDisp2",
+	"shaderList": 		["DiffSpecNormalDisp2.vs", "DiffSpecNormalDisp2.fs"],
+	"textures":			[
 		{
-			"name" : "none",
+			"name" : "bricksDiffuse.png",
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
+		},
+		{
+			"name" : "bricksDepth.jpg",
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
+		},
+		{
+			"name" : "bricksNormal.png",
+			"filter_mag": 		1,
+			"filter_min": 		6,
+			"wrap_s": 			0,
+			"wrap_t": 			0,
+			"wrap_r": 			0
+		},
+		{
+			"name" : "S_SphereMap.png",
 			"filter_mag": 		1,
 			"filter_min": 		6,
 			"wrap_s": 			0,
 			"wrap_t": 			0,
 			"wrap_r": 			0
 		}
-	]
+	]  
 }

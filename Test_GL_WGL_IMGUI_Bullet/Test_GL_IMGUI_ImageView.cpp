@@ -58,23 +58,301 @@ void HelpMarker(const char* desc) {
 }
 
 namespace ui {
+	void comboBox(const char* name, int& index, const char* itens[], int size) {
+		index = clamp(index, 0, size);
+		if (ImGui::BeginCombo(name, itens[index])) {
+			for (int n = 0; n < size; n++) {
+				const bool is_selected = (index == n);
+				if (ImGui::Selectable(itens[n], is_selected))
+					index = n;
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+	}
+
 	void draw(const char* label, mat4& m) {
 		if (ImGui::TreeNode(label)) {
 			//ImGui::Text("Matrix %s", label);
-			ImGui::SliderFloat4("V[0][X]", (float*)&m[0], -F_PI, F_PI); // Edit 4 floats representing a color
-			ImGui::SliderFloat4("V[1][X]", (float*)&m[1], -F_PI, F_PI); // Edit 4 floats representing a color
-			ImGui::SliderFloat4("V[2][X]", (float*)&m[2], -F_PI, F_PI); // Edit 4 floats representing a color
-			ImGui::SliderFloat4("V[3][X]", (float*)&m[3], -F_PI, F_PI); // Edit 4 floats representing a color
+			ImGui::DragFloat4("V[0][X]", (float*)&m[0], 0.001f, -F_PI, F_PI); // Edit 4 floats representing a color
+			ImGui::DragFloat4("V[1][X]", (float*)&m[1], 0.001f, -F_PI, F_PI); // Edit 4 floats representing a color
+			ImGui::DragFloat4("V[2][X]", (float*)&m[2], 0.001f, -F_PI, F_PI); // Edit 4 floats representing a color
+			ImGui::DragFloat4("V[3][X]", (float*)&m[3], 0.001f, -F_PI, F_PI); // Edit 4 floats representing a color
 			ImGui::TreePop();
 		}
 	}
 
-	void show(MaterialData* mat) {
-		if (ImGui::TreeNode("Material")) {
-			ImGui::Checkbox("castShadows", (bool*)&mat->castShadows);
-			ImGui::Checkbox("receiveShadows", (bool*)&mat->receiveShadows);
-			ImGui::Checkbox("renderable", (bool*)&mat->renderable);
-			ImGui::Checkbox("transparent", (bool*)&mat->transparent);
+	void show(matrix_block* m) {
+		if (ImGui::TreeNode("matrix_block")) {
+			draw("Matrix M", m->M);
+			draw("Matrix V", m->V);
+			draw("Matrix P", m->P);
+			draw("Matrix MV", m->MV);
+			draw("Matrix MVP", m->MVP);
+			ImGui::TreePop();
+		}
+	}
+
+	void show(TextureData* m, uint id) {
+		static float nextWidth = -80;
+
+		static int textureType = 0;
+		static int filter = 0;
+		static int magFilter = 0;
+		static int minFilter = 0;
+		static int textureWrapS = 0;
+		static int textureWrapT = 0;
+		static int textureWrapR = 0;
+
+		{
+			enum textureTypeEnum {
+				ETexture,
+				ECubeMap,
+				ESphericalMap,
+				ECilindricalMap
+			};
+			enum textureFilterEnum {
+				Nearest,
+				Linear,
+				ESmoothstep,
+				ECubic,
+				EBicubic
+			};
+			enum textureWrapModesEnum {
+				EREPEAT,
+				EMIRRORED_REPEAT,
+				ECLAMP_TO_EDGE,
+				ECLAMP_TO_BORDER
+			};
+			enum textureFilterMinMagEnum {
+				ENEAREST,
+				ELINEAR,
+				ENEAREST_MIPMAP_NEAREST,
+				ELINEAR_MIPMAP_NEAREST,
+				ENEAREST_MIPMAP_LINEAR,
+				ELINEAR_MIPMAP_LINEAR
+			};
+		}
+
+
+
+		static const char* textureTypeItems[] = { "Texture", "Cube map", "Spherical map", "Cilindrical map" };
+		static const char* filterItems[] = { "Nearest", "Linear", "Smoothstep", "Cubic", "Bicubic" };
+		static const char* textureWrapModes[] = { "GL_REPEAT","GL_MIRRORED_REPEAT" ,"GL_MIRROR_CLAMP_TO_EDGE", "GL_CLAMP_TO_EDGE"  ,"GL_CLAMP_TO_BORDER"};
+		static const char* textureMagFilter[] = { "GL_NEAREST", "GL_LINEAR"};
+		static const char* textureMinFilter[] = { "GL_NEAREST", "GL_LINEAR", "GL_NEAREST_MIPMAP_NEAREST", 
+			"GL_LINEAR_MIPMAP_NEAREST", "GL_NEAREST_MIPMAP_LINEAR", "GL_LINEAR_MIPMAP_LINEAR" };
+
+		m->wrap_s = clamp(m->wrap_s, 0, IM_ARRAYSIZE(textureWrapModes)-1);
+		m->wrap_t = clamp(m->wrap_t, 0, IM_ARRAYSIZE(textureWrapModes)-1);
+		m->wrap_r = clamp(m->wrap_r, 0, IM_ARRAYSIZE(textureWrapModes)-1);
+
+		m->filter_min = clamp(m->filter_min, 0, IM_ARRAYSIZE(textureMinFilter)-1);
+		m->filter_mag = clamp(m->filter_mag, 0, IM_ARRAYSIZE(textureMagFilter)-1);
+
+		ImGui::Text("FileName: %s", m->mFileName.c_str());
+		ImGui::Text("Name: %s", m->mName.c_str());
+
+		ImGui::Text("globj: %i", m->globj);
+		//ImGui::Text("res %i %u", m->res.x, m->res.y );
+		//ImGui::Text("format %u", m->format);
+		//ImGui::Text("dataType %u", m->dataType);
+
+		ImGui::Text("filter_mag: %i", m->filter_mag);
+		ImGui::Text("filter_min: %i", m->filter_min);
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("filter_mag", m->filter_mag, textureMagFilter, IM_ARRAYSIZE(textureMagFilter));
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("filter_min", m->filter_min, textureMinFilter, IM_ARRAYSIZE(textureMinFilter));
+
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("wrap_s", m->wrap_s, textureWrapModes, IM_ARRAYSIZE(textureWrapModes));
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("wrap_t", m->wrap_t, textureWrapModes, IM_ARRAYSIZE(textureWrapModes));
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("wrap_r", m->wrap_r, textureWrapModes, IM_ARRAYSIZE(textureWrapModes));
+
+		ImGui::Text("wrap_s: %i", m->wrap_s);
+		ImGui::Text("wrap_t: %i", m->wrap_t);
+		ImGui::Text("wrap_r: %i", m->wrap_r);
+
+		//if (ImGui::BeginCombo("filter_mag", textureMagFilter[magFilter])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(textureMagFilter); n++) {
+		//		const bool is_selected = (magFilter == n);
+		//		if (ImGui::Selectable(textureMagFilter[n], is_selected))
+		//			magFilter = n;
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+
+		//if (ImGui::BeginCombo("filter_min", textureMinFilter[minFilter])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(textureMinFilter); n++) {
+		//		const bool is_selected = (minFilter == n);
+		//		if (ImGui::Selectable(textureMinFilter[n], is_selected))
+		//			minFilter = n;
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+		
+		//if (ImGui::BeginCombo("wrap_s", textureWrapModes[textureWrapS])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(textureWrapModes); n++) {
+		//		const bool is_selected = (textureWrapS == n);
+		//		if (ImGui::Selectable(textureWrapModes[n], is_selected))
+		//			textureWrapS = n;
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+		
+		//ImGui::SetNextItemWidth(nextWidth);
+		//if (ImGui::BeginCombo("wrap_t", textureWrapModes[textureWrapT])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(textureWrapModes); n++) {
+		//		const bool is_selected = (textureWrapT == n);
+		//		if (ImGui::Selectable(textureWrapModes[n], is_selected))
+		//			textureWrapT = n;
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+		
+		//ImGui::SetNextItemWidth(nextWidth);
+		//if (ImGui::BeginCombo("wrap_r", textureWrapModes[textureWrapR])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(textureWrapModes); n++) {
+		//		const bool is_selected = (textureWrapR == n);
+		//		if (ImGui::Selectable(textureWrapModes[n], is_selected))
+		//			textureWrapR = n;
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+
+		//switch (magFilter) {
+		//	case 0:
+		//		m->filter_mag = GL_NEAREST;
+		//		break;
+		//	case 1:
+		//		m->filter_mag = GL_LINEAR;
+		//		break;
+		//	default:
+		//		m->filter_mag = GL_NEAREST;
+		//		break;
+		//}
+		//switch (minFilter) {
+		//	case 0:
+		//		m->filter_min = GL_NEAREST;
+		//		break;
+		//	case 1:
+		//		m->filter_min = GL_LINEAR;
+		//		break;
+		//	case 2:
+		//		m->filter_min = GL_NEAREST_MIPMAP_NEAREST;
+		//		break;
+		//	case 3:
+		//		m->filter_min = GL_LINEAR_MIPMAP_NEAREST;
+		//		break;
+		//	case 4:
+		//		m->filter_min = GL_NEAREST_MIPMAP_LINEAR;
+		//		break;
+		//	case 5:
+		//		m->filter_min = GL_LINEAR_MIPMAP_LINEAR;
+		//		break;
+		//	default:
+		//		m->filter_min = GL_NEAREST;
+		//		break;
+		//}		
+
+		//if (ImGui::BeginCombo("Type", textureTypeItems[textureType])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(textureTypeItems); n++) {
+		//		const bool is_selected = (textureType == n);
+		//		if (ImGui::Selectable(textureTypeItems[n], is_selected))
+		//			textureType = n;
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+		
+		//if (ImGui::BeginCombo("Filter", filterItems[filter])) {
+		//	for (int n = 0; n < IM_ARRAYSIZE(filterItems); n++) {
+		//		const bool is_selected = (filter == n);
+		//		if (ImGui::Selectable(filterItems[n], is_selected))
+		//			filter = n;
+		//		// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+		//		if (is_selected)
+		//			ImGui::SetItemDefaultFocus();
+		//	}
+		//	ImGui::EndCombo();
+		//}
+
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("Type", textureType, textureTypeItems, IM_ARRAYSIZE(textureTypeItems));
+		HelpMarker("Texture type Test");
+
+		ImGui::SetNextItemWidth(nextWidth);
+		ui::comboBox("Filter", filter, filterItems, IM_ARRAYSIZE(filterItems));
+		HelpMarker("Texture filter Test");
+
+	}
+
+	void show(Texture* m, uint id) {
+		char c[150] = "Texture";
+		sprintf(c, "%s#%i", m->mName.c_str(), id);
+		if (m) {
+			if (ImGui::TreeNode(c)) {
+				//ImGui::Text("Name %s", mat->mName.c_str());
+				ImGui::Text("FileName: %s", m->mFileName.c_str());
+				ui::show(m->mData, 0);
+				ImGui::TreePop();
+			}
+		}
+	}
+
+	void show(MaterialData* m, uint id) {
+		char c[150] = "Material";
+		sprintf(c, "%s#%i", m->mName.c_str(), id);
+		if (ImGui::TreeNode(c)) {
+			ImGui::Text("Name: %s", m->mName.c_str());
+			ImGui::Text("FileName: %s", m->mFileName.c_str());
+
+			if (ImGui::TreeNode("Shader subroutines")) {
+				auto& subs = m->mShader->uniformSubroutines;
+				auto& indexes = m->mShader->subroutinesIndexes;
+				for (int i = 0; i < subs.size(); ++i) {
+					ImGui::SetNextItemWidth(-100);
+					if (ImGui::BeginCombo(subs[i].name.c_str(), subs[i].subroutines[subs[i].active].name.c_str())) {
+						for (int j = 0; j < subs[i].subroutines.size(); ++j) {
+							const bool is_selected = (subs[i].active == j);
+							if (ImGui::Selectable(subs[i].subroutines[j].name.c_str(), is_selected)) {
+								subs[i].active = j;
+								indexes[i] = subs[i].subroutines[subs[i].active].index;
+							}
+							if (is_selected)
+								ImGui::SetItemDefaultFocus();
+						}
+						ImGui::EndCombo();
+					}
+				}
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Textures")) {
+				for (int i = 0; i < m->mTextures.size(); i++) {
+					ui::show(m->mTextures[i], i);
+				}
+				ImGui::TreePop();
+			}
+			ImGui::Checkbox("castShadows", (bool*)&m->castShadows);
+			ImGui::Checkbox("receiveShadows", (bool*)&m->receiveShadows);
+			ImGui::Checkbox("renderable", (bool*)&m->renderable);
+			ImGui::Checkbox("transparent", (bool*)&m->transparent);
 
 			uint alphaBlendMode;
 			//GL_ZERO							
@@ -95,185 +373,176 @@ namespace ui {
 			//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			//or
 			//glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+
 			uint colorBlendMode;
 			uint cullFace;
 			uint dephtTest;
-			uint dephtWrite;
-			uint shadingModel;
+			uint faceHorientation;
 
-			ImGui::DragScalar("lineWidth", ImGuiDataType_U32, &mat->lineWidth, 0.2, NULL, 0, "%u");
-			ImGui::DragScalar("polygonOffset", ImGuiDataType_U32, &mat->polygonOffset, 0.2, NULL, 0, "%u");
+			ImGui::Checkbox("dephtWrite", (bool*)&m->dephtWrite);
 
-			ImGui::ColorEdit4("mColor1", (float*)&mat->mColor1); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mColor2", (float*)&mat->mColor2); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mColor3", (float*)&mat->mColor3); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mDifuse", (float*)&mat->mDifuse); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mAmbient", (float*)&mat->mAmbient); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mEmission", (float*)&mat->mEmission); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mTranslucenci", (float*)&mat->mTranslucenci); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mSadowsColor", (float*)&mat->mSadowsColor); // Edit 4 floats representing a color
+			ImGui::DragScalar("lineWidth", ImGuiDataType_U32, &m->lineWidth, 0.2f, NULL, 0, "%u");
+			ImGui::DragFloat2("polygonOffset", (float*)&m->polygonOffset, 0.001f, -1, 1.f, "%.4f", ImGuiSliderFlags_Logarithmic);
 
-			ImGui::ColorEdit4("mSpecular", (float*)&mat->mSpecular); // Edit 4 floats representing a color
-			ImGui::ColorEdit4("mReflex", (float*)&mat->mReflex); // Edit 4 floats representing a color
-			ImGui::SliderFloat4("mShinines", (float*)&mat->mShinines, 0, 1000, "%.3f", ImGuiSliderFlags_Logarithmic); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mColor1", (float*)&m->mColor1); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mColor2", (float*)&m->mColor2); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mColor3", (float*)&m->mColor3); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mDifuse", (float*)&m->mDifuse); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mAmbient", (float*)&m->mAmbient); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mEmission", (float*)&m->mEmission); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mTranslucenci", (float*)&m->mTranslucenci); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mSadowsColor", (float*)&m->mSadowsColor); // Edit 4 floats representing a color
 
-			std::string mName;
-			std::string mFileName;
-			std::string mShaderName;
-			std::vector<std::string> mShaderNames;
-			std::vector<Texture*> mTextures;	// textures objects
-			shader* mShader;
-			ImGui::TreePop();
-		}
+			ImGui::ColorEdit4("mSpecular", (float*)&m->mSpecular); // Edit 4 floats representing a color
+			ImGui::ColorEdit4("mReflex", (float*)&m->mReflex); // Edit 4 floats representing a color
+			ImGui::DragFloat4("mShinines", (float*)&m->mShinines, 1.f, 0, 1000, "%.3f", ImGuiSliderFlags_Logarithmic); // Edit 4 floats representing a color
 
-	}
-
-	void show(camera* m) {
-		if (ImGui::TreeNode("Camera")) {
-			if (ImGui::TreeNode("Camera Properties")) {
-				ImGui::SliderFloat("nearClip", (float*)&m->nearClip, -1, 10);
-				ImGui::SliderFloat("farClip", (float*)&m->farClip, 1, 1000);
-				ImGui::SliderFloat("left", (float*)&m->left, -10, 10);
-				ImGui::SliderFloat("right", (float*)&m->right, -10, 10);
-				ImGui::SliderFloat("botton", (float*)&m->botton, -10, 10);
-				ImGui::SliderFloat("top", (float*)&m->top, -10, 10);
-				ImGui::SliderFloat("fov", (float*)&m->fov, 0, 3);
-				ImGui::SliderFloat("aspect", (float*)&m->aspect, -10, 10);
-				ImGui::SliderFloat3("dir", (float*)&m->dir, -10, 10);
-				ImGui::SliderFloat3("up", (float*)&m->up, -10, 10);
-
-				ImGui::SliderFloat4("grot", (float*)&m->grot, -F_PI, F_PI);
-				ImGui::SliderFloat3("gsize", (float*)&m->gsize, -10, 10);
-				ImGui::SliderFloat3("gpos", (float*)&m->gpos, -10, 10);
-				ImGui::TreePop();
+			ImGui::Text("ShaderName: %s", m->mShaderName.c_str());
+			for (int i = 0; i < m->mShaderNames.size(); i++) {
+				ImGui::Text("ShaderNames: %s", m->mShaderNames[i].c_str());
+				//std::vector<std::string> mShaderNames;
 			}
-			if (ImGui::TreeNode("Camera Matrix")) {
-				draw("Matrix V", m->matrix.V);
-				//ImGui::Text("Matrix V");
-				//ImGui::SliderFloat4("V[0][X]", (float*)&m->matrix.V[0], -F_PI, F_PI); // Edit 4 floats representing a color
-				//ImGui::SliderFloat4("V[1][X]", (float*)&m->matrix.V[1], -F_PI, F_PI); // Edit 4 floats representing a color
-				//ImGui::SliderFloat4("V[2][X]", (float*)&m->matrix.V[2], -F_PI, F_PI); // Edit 4 floats representing a color
-				//ImGui::SliderFloat4("V[3][X]", (float*)&m->matrix.V[3], -F_PI, F_PI); // Edit 4 floats representing a color
 
-				draw("Matrix P", m->matrix.P);
-				//ImGui::Text("Matrix P");
-				//ImGui::SliderFloat4("P[0][X]", (float*)&m->matrix.P[0], -F_PI, F_PI); // Edit 4 floats representing a color
-				//ImGui::SliderFloat4("P[1][X]", (float*)&m->matrix.P[1], -F_PI, F_PI); // Edit 4 floats representing a color
-				//ImGui::SliderFloat4("P[2][X]", (float*)&m->matrix.P[2], -F_PI, F_PI); // Edit 4 floats representing a color
-				//ImGui::SliderFloat4("P[3][X]", (float*)&m->matrix.P[3], -F_PI, F_PI); // Edit 4 floats representing a color
-				ImGui::TreePop();
-			}
+			//std::vector<Texture*> mTextures;	// textures objects
+			//shader* mShader;
 			ImGui::TreePop();
 		}
-
 	}
 
-	void show(matrix_block* m) {
-		if (ImGui::TreeNode("matrix_block")) {
-			draw("Matrix M", m->M);
-			draw("Matrix V", m->V);
-			draw("Matrix P", m->P);
-			draw("Matrix MV", m->MV);
-			draw("Matrix MVP", m->MVP);
-			ImGui::TreePop();
-		}
-
-	}
-
-	void show(malha* m) {
-
-		ui::show(m->mMaterial->mData);
-
-		ImGui::Text("Name: %s", m->name.c_str());
-		ImGui::Text("renderMode: %i", m->renderMode);
-		ImGui::Text("g_count: %i", m->g_count);
-		ImGui::Text("count: %i", m->count);
-		ImGui::Text("mIndex: %i", m->mIndex);
-
-		//std::string fileName;
-
-		ImGui::Text("nIndex: %i", m->nIndex);
-		ImGui::Text("nVertex: %i", m->nVertex);
-		ImGui::Text("VBO: %i", m->VBO);
-		ImGui::Text("EBO: %i", m->EBO);
-		ImGui::Text("VAO: %i", m->VAO);
-
-		GLuint pBuffers[10] = { 0,0,0,0,0,0,0,0,0,0 }; // buffers used for vertex, normal, uv, color and others (tangent, bitangent, ...)
-
-		std::vector<usvec3> pIndex;
-		std::vector<usvec2> pIndex2;
-		std::vector<vertex> pVertex; // standard vertex, more commom use
-		// standard atributes separated
-		std::vector<vec3> pPosition;
-		std::vector<vec3> pNormal;
-		std::vector<vec3> pTangent;
-		std::vector<vec3> pBiTangent;
-		std::vector<vec2> pUv;
-		std::vector<vec4> pColor;
-		// optional
-		std::vector<vec2> pUv1;
-		std::vector<vec2> pUv2;
-		std::vector<vec4> pColor1;
-		std::vector<vec4> pColor2;
-
-	}
-
-	void show(objetob* obj) {
+	void show(objetob* m) {
 		if (ImGui::TreeNode("ObjetoB")) {
-			ui::show(&obj->matrix);
+			ui::show(&m->matrix);
 			if (ImGui::TreeNode("Bounding Box")) {
 				static char cha[] = "bb 0";
 				for (int i = 0; i < 8; i++) {
 					cha[3] = '0' + i;
-					ImGui::SliderFloat3(cha, (float*)&obj->bb[i], 0, 100, "%.4f");
+					ImGui::DragFloat3(cha, (float*)&m->bb[i], 0.01f, -100, 100, "%.4f");
 				}
 				ImGui::TreePop();
 			}
 
-			ImGui::Text("name: %s", obj->name.c_str());
-			ImGui::Text("type: %i", &obj->type);
-			ImGui::Text("g_count: %i", &obj->g_count);
-			ImGui::Text("count: %i", &obj->count);
-			ImGui::Text("mIndex: %i", &obj->mIndex);
-			ImGui::Text("mIndex: %i", &obj->mIndex);
+			ImGui::Text("name: %s", m->name.c_str());
+			ImGui::Text("type: %i", &m->type);
+			ImGui::Text("g_count: %i", &m->g_count);
+			ImGui::Text("count: %i", &m->count);
+			ImGui::Text("mIndex: %i", &m->mIndex);
+			ImGui::Text("mIndex: %i", &m->mIndex);
 
-			ImGui::SliderFloat4("lrot", (float*)&obj->lrot, -F_PI, F_PI, "%.4f");
-			ImGui::SliderFloat3("lsize", (float*)&obj->lsize, 0, 100, "%.4f");
-			ImGui::SliderFloat3("lpos", (float*)&obj->lpos, -100, 100, "%.4f");
+			ImGui::DragFloat4("lrot", (float*)&m->lrot, 0.01f, -F_PI, F_PI, "%.4f");
+			ImGui::DragFloat3("lsize", (float*)&m->lsize, 0.01f, 0, 100, "%.4f");
+			ImGui::DragFloat3("lpos", (float*)&m->lpos, 0.01f, -100, 100, "%.4f");
 
-			ImGui::SliderFloat4("grot", (float*)&obj->grot, -F_PI, F_PI, "%.4f");
-			ImGui::SliderFloat3("gsize", (float*)&obj->gsize, 0, 100, "%.4f");
-			ImGui::SliderFloat3("gpos", (float*)&obj->gpos, -100, 100, "%.4f");
+			ImGui::DragFloat4("grot", (float*)&m->grot, 0.01f, -F_PI, F_PI, "%.4f");
+			ImGui::DragFloat3("gsize", (float*)&m->gsize, 0.01f, 0, 100, "%.4f");
+			ImGui::DragFloat3("gpos", (float*)&m->gpos, 0.01f, -100, 100, "%.4f");
 
-			ImGui::SliderFloat("raius", &obj->raius, 0, 100, "%.4f");
+			ImGui::DragFloat("raius", &m->raius, 0.01f, 0, 100, "%.4f");
 
 			ImGui::TreePop();
 		}
 	}
 
-	void show(objeto* obj) {
-		if (ImGui::CollapsingHeader("Objeto")) {
+	void show(camera* m, uint id) {
+		char c[150] = "Camera";
+		sprintf(c, "Main Camera#%i", id);
+
+		if (ImGui::TreeNode(c)) {
+			if (ImGui::TreeNode("Camera Properties")) {
+				ImGui::DragFloat("nearClip", (float*)&m->nearClip, 0.1f, -1, 10, "%.4f", ImGuiSliderFlags_Logarithmic);
+				ImGui::DragFloat("farClip", (float*)&m->farClip, 100.f, 0, 100000, "%.4f", ImGuiSliderFlags_Logarithmic);
+				ImGui::DragFloat("left", (float*)&m->left, 0.01f, -10, 10);
+				ImGui::DragFloat("right", (float*)&m->right, 0.01f, -10, 10);
+				ImGui::DragFloat("botton", (float*)&m->botton, 0.01f, -10, 10);
+				ImGui::DragFloat("top", (float*)&m->top, 0.01f, -10, 10);
+				ImGui::DragFloat("fov", (float*)&m->fov, 0.01f, 0, 3);
+				ImGui::DragFloat("aspect", (float*)&m->aspect, 0.01f, -10, 10);
+				ImGui::DragFloat3("dir", (float*)&m->dir, 0.01f, -10, 10);
+				ImGui::DragFloat3("up", (float*)&m->up, 0.01f, -10, 10);
+				ImGui::DragFloat4("grot", (float*)&m->grot, 0.001f, -F_PI, F_PI);
+				ImGui::DragFloat3("gsize", (float*)&m->gsize, 0.001f, -10, 10);
+				ImGui::DragFloat3("gpos", (float*)&m->gpos, 0.001f, -10, 10);
+				ImGui::TreePop();
+			}
+			//show(m);
+			if (ImGui::TreeNode("Camera Matrix")) {
+				draw("Matrix V", m->matrix.V);
+				draw("Matrix P", m->matrix.P);
+				ImGui::TreePop();
+			}
+			ImGui::TreePop();
+		}
+	}
+
+	void show(malha* m, uint id) {
+		if (!m)
+			return;
+		char cha[150] = "Malha";
+		sprintf(cha, "Malha: %s#%i", m->name.c_str(), id);
+		if (ImGui::TreeNode(cha)) {
+			ui::show(m->mMaterial->mData, 0);
+
+			ImGui::Text("Name: %s", m->name.c_str());
+			ImGui::Text("renderMode: %i", m->renderMode);
+			ImGui::Text("g_count: %i", m->g_count);
+			ImGui::Text("count: %i", m->count);
+			ImGui::Text("mIndex: %i", m->mIndex);
+
+			//std::string fileName;
+
+			ImGui::Text("nIndex: %i", m->nIndex);
+			ImGui::Text("nVertex: %i", m->nVertex);
+			ImGui::Text("VBO: %i", m->VBO);
+			ImGui::Text("EBO: %i", m->EBO);
+			ImGui::Text("VAO: %i", m->VAO);
+
+			{
+				GLuint pBuffers[10] = { 0,0,0,0,0,0,0,0,0,0 }; // buffers used for vertex, normal, uv, color and others (tangent, bitangent, ...)
+
+				std::vector<usvec3> pIndex;
+				std::vector<usvec2> pIndex2;
+				std::vector<vertex> pVertex; // standard vertex, more commom use
+				// standard atributes separated
+				std::vector<vec3> pPosition;
+				std::vector<vec3> pNormal;
+				std::vector<vec3> pTangent;
+				std::vector<vec3> pBiTangent;
+				std::vector<vec2> pUv;
+				std::vector<vec4> pColor;
+				// optional
+				std::vector<vec2> pUv1;
+				std::vector<vec2> pUv2;
+				std::vector<vec4> pColor1;
+				std::vector<vec4> pColor2;
+			}
+
+			ImGui::TreePop();
+		}
+	}
+
+	void show(objeto* m, uint id) {
+		static char c[150] = "Objeto";
+		sprintf(c, "Objeto : %s#%i", m->name.c_str(), id);
+		if (ImGui::TreeNode(c)) {
 			if (ImGui::TreeNode("Malhas")) {
-				for (int i = 0; i < obj->malhas.size(); i++) {
-					static char cha[12] = "Malha 0";
-					if (obj->malhas[i]) {
-						sprintf(cha, "Malha %s %i", obj->malhas[i]->name.c_str(), i);
-						if (ImGui::TreeNode(cha)) {
-							ui::show(obj->malhas[i]);
-							ImGui::TreePop();
-						}
+				for (int i = 0; i < m->malhas.size(); i++) {
+					static char cha[150] = "Malha";
+					if (m->malhas[i]) {
+						ui::show(m->malhas[i], i);
 					}
 				}
 				ImGui::TreePop();
 			}
-			if (obj->child.size())
-				if (ImGui::TreeNode("Child")) {
-					for (int i = 0; i < obj->child.size(); i++) {
-						ui::show(obj->child[i]);
+			if (m->child.size()) {
+				if (ImGui::TreeNode("Childs")) {
+					for (uint i = 0; i < m->child.size(); i++) {
+						if (m->child[i])
+							ui::show(m->child[i], i);
 					}
 					ImGui::TreePop();
 				}
-			show((objetob*)obj);
+			}
+			ui::show((objetob*)m);
+			ImGui::TreePop();
 		}
 	}
 
@@ -298,10 +567,9 @@ namespace ui {
 			sprintf(fpsCounterOverlay, "Min: %.3fms    Avg %.3fms    Max: %.3fms", minimum, average, maximum);
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::SetNextItemWidth(-21);
-			ImGui::PlotLines("FPS", fpsValues, IM_ARRAYSIZE(fpsValues), fpsValues_offset + 1, fpsCounterOverlay, minimum, maximum, ImVec2(0, 80.0f));
+			ImGui::PlotLines("MS", fpsValues, IM_ARRAYSIZE(fpsValues), fpsValues_offset + 1, fpsCounterOverlay, 0, maximum, ImVec2(0, 180.0f));
 		}
 		ImGui::SliderInt("Vsync", vsync, 0, 5); HelpMarker("0 = Vsync disabled\n1 = vesync same monitor hate\n2 = half monitor hate");
-
 	}
 
 	static void ShowExampleMenuFile() {
@@ -402,7 +670,6 @@ namespace ui {
 			ImGui::EndMainMenuBar();
 		}
 	}
-
 }
 
 // * main program function
@@ -462,6 +729,13 @@ int main(int argc, char* argv[]) {
 	static float f = 0.0f;
 	static int counter = 0;
 	// Main loop
+	int maxSub, maxSubU, activeS, countActiveSU;
+	char name[256]; int len, numCompS;
+
+	glGetIntegerv(GL_MAX_SUBROUTINES, &maxSub);
+	glGetIntegerv(GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS, &maxSubU);
+	printf("Max Subroutines: %d  Max Subroutine Uniforms: %d\n", maxSub, maxSubU);
+
 	while (!glfwWindowShouldClose(ctx.window)) {
 		t.setFrameEnd();
 		ms = t.getFrameMS();
@@ -478,88 +752,122 @@ int main(int argc, char* argv[]) {
 		glfwSwapInterval(vsync);
 		glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
 
 		glfwPollEvents();
 		t.setTimer("glfwPollEvents");
 		ImGuiIO& io = ImGui::GetIO();
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-		t.setTimer("ImGui::NewFrame");
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
-		
-		ui::ShowExampleAppMainMenuBar();
-
-		ImGui::Begin("Perf");                          // Create a window called "Hello, world!" and append into it.
-		ui::showProfiler(fps, ms, &vsync);
-		ImGui::End();
-
-		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+		// ui
 		{
-			static float nextWidth = -80;
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-			//ImGui::Checkbox("Another Window", &show_another_window);
-			//if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-			//	counter++;
-			//ImGui::SameLine();
-			//ImGui::Text("counter = %d", counter);
-			ImGui::SetNextItemWidth(nextWidth);
-			ImGui::ColorEdit4("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+			t.setTimer("ImGui::NewFrame");
+			if (show_demo_window)
+				ImGui::ShowDemoWindow(&show_demo_window);
 
-			ImGui::SetNextItemWidth(nextWidth);
-			ImGui::SliderFloat("Float", &testFloat, 0, 2); HelpMarker("Test float");
-			ImGui::SetNextItemWidth(nextWidth);
-			ImGui::SliderFloat2("Vec2", &testVec2.x, 0, 2); HelpMarker("Test vec2");
-			ImGui::SetNextItemWidth(nextWidth);
-			ImGui::SliderFloat3("vec3", &testVec3.x, 0, 2); HelpMarker("Test vec3");
-			ImGui::SetNextItemWidth(nextWidth);
-			ImGui::SliderFloat4("vec4", &testVec4.x, 0, 2); HelpMarker("Test vec4");
-			ImGui::SetNextItemWidth(nextWidth);
-			ImGui::ColorEdit4("Color 1", (float*)&testVec4); // Edit 4 floats representing a color
+			ui::ShowExampleAppMainMenuBar();
 
-			ImGui::SetNextItemWidth(nextWidth);
-			if (ImGui::BeginCombo("Type", textureTypeItems[textureType])) {
-				for (int n = 0; n < IM_ARRAYSIZE(textureTypeItems); n++) {
-					const bool is_selected = (textureType == n);
-					if (ImGui::Selectable(textureTypeItems[n], is_selected))
-						textureType = n;
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
-			}
-			HelpMarker("Texture type Test");
-
-			ImGui::SetNextItemWidth(nextWidth);
-			if (ImGui::BeginCombo("Filter", filterItems[filter])) {
-				for (int n = 0; n < IM_ARRAYSIZE(filterItems); n++) {
-					const bool is_selected = (filter == n);
-					if (ImGui::Selectable(filterItems[n], is_selected))
-						filter = n;
-					// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
-			}
-			HelpMarker("Texture filter Test");
-
+			ImGui::Begin("Perf");
+			ui::showProfiler(fps, ms, &vsync);
 			ImGui::End();
-		}
-		ImGui::Begin("Materials");                          // Create a window called "Hello, world!" and append into it.
-		ui::show(plane);
-		ui::show(activecamera);
-		ui::show(plane->malhas[0]->mMaterial->mData);
-		ImGui::End();
-		if (show_another_window) {
-			ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-			ImGui::Text("Hello from another window!");
-			if (ImGui::Button("Close Me"))
-				show_another_window = false;
-			ImGui::End();
-		}
 
+			if (0) {
+				ImGui::Begin("Hello, world!");
+				{
+					static float nextWidth = -80;
+					//ImGui::Checkbox("Another Window", &show_another_window);
+					//if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+					//	counter++;
+					//ImGui::SameLine();
+					//ImGui::Text("counter = %d", counter);
+					ImGui::SetNextItemWidth(nextWidth);
+					ImGui::ColorEdit4("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+					ImGui::SetNextItemWidth(nextWidth);
+					ImGui::SliderFloat("Float", &testFloat, 0, 2); HelpMarker("Test float");
+					ImGui::SetNextItemWidth(nextWidth);
+					ImGui::SliderFloat2("Vec2", &testVec2.x, 0, 2); HelpMarker("Test vec2");
+					ImGui::SetNextItemWidth(nextWidth);
+					ImGui::SliderFloat3("vec3", &testVec3.x, 0, 2); HelpMarker("Test vec3");
+					ImGui::SetNextItemWidth(nextWidth);
+					ImGui::SliderFloat4("vec4", &testVec4.x, 0, 2); HelpMarker("Test vec4");
+					ImGui::SetNextItemWidth(nextWidth);
+					ImGui::ColorEdit4("Color 1", (float*)&testVec4); // Edit 4 floats representing a color
+
+					ImGui::SetNextItemWidth(nextWidth);
+					if (ImGui::BeginCombo("Type", textureTypeItems[textureType])) {
+						for (int n = 0; n < IM_ARRAYSIZE(textureTypeItems); n++) {
+							const bool is_selected = (textureType == n);
+							if (ImGui::Selectable(textureTypeItems[n], is_selected))
+								textureType = n;
+							if (is_selected)
+								ImGui::SetItemDefaultFocus();
+						}
+						ImGui::EndCombo();
+					}
+					HelpMarker("Texture type Test");
+
+					ImGui::SetNextItemWidth(nextWidth);
+					if (ImGui::BeginCombo("Filter", filterItems[filter])) {
+						for (int n = 0; n < IM_ARRAYSIZE(filterItems); n++) {
+							const bool is_selected = (filter == n);
+							if (ImGui::Selectable(filterItems[n], is_selected))
+								filter = n;
+							// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+							if (is_selected)
+								ImGui::SetItemDefaultFocus();
+						}
+						ImGui::EndCombo();
+					}
+					HelpMarker("Texture filter Test");
+
+					ImGui::End();
+				}
+			}
+			ImGui::Begin("Properties");	{
+				ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+				if (ImGui::CollapsingHeader("Objetos")) {
+					ui::show(plane, 0);
+				}
+				if (ImGui::CollapsingHeader("Materiais")) {
+					std::map<std::string, MaterialData*>::const_iterator it;
+					uint i = 0;
+					for (it = g_material_list.begin(); it != g_material_list.end(); it++) {
+						if (it->second) {
+							ui::show(it->second, i);
+							i++;
+						}
+					}
+				}
+				if (ImGui::CollapsingHeader("Camera")) {
+					ui::show(activecamera, 0);
+				}
+				if (ImGui::CollapsingHeader("Texturas")) {
+					std::map<std::string, TextureData*>::const_iterator it;
+					uint i = 0;
+					for (it = g_texture_list.begin(); it != g_texture_list.end(); it++) {
+						static char c[150];
+						if (it->second) {
+							sprintf(c, "%s#%i", it->second->mName.c_str(), i);
+							i++;
+							if (ImGui::TreeNode(c)) {
+								ui::show(it->second, 0);
+								ImGui::TreePop();
+							}
+						}
+					}
+				}
+				ImGui::End();
+			}
+			if (show_another_window) {
+				ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+				ImGui::Text("Hello from another window!");
+				if (ImGui::Button("Close Me"))
+					show_another_window = false;
+				ImGui::End();
+			}
+		}
 		if (!io.WantCaptureKeyboard)
 			processKeyPress(ctx.window);
 		mainLoop();
@@ -622,14 +930,14 @@ void setCallbackFunctions() {
 }
 
 void init() {
-	plane = new objeto(0, objType::objQuad, vec3(0, 0, 0), vec3(0, 0, M_PI_2), vec3(1), uivec3(50, 50, 10), "SphericalCubeMap");
+	plane = new objeto(0, objType::objEsfera, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(50, 50, 10), "DiffSpecNormalDisp2");
 	plane->atach();
 	glDisable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
 	glClearColor(0.2f, 0.2f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void reshape(GLFWwindow* window, int x, int y) {
@@ -665,8 +973,8 @@ void onMouseMove(GLFWwindow* window, double x, double y) {
 	float mx = float(x) - lastPosX;
 	float my = float(y) - lastPosY;
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-		activecamera->gpos.z += (my) * 0.016f * (pow(activecamera->fov / F_PI, 2.f) + 0.0001f);
-		activecamera->gpos.y -= (mx) * 0.016f * (pow(activecamera->fov / F_PI, 2.f) + 0.0001f);
+		activecamera->grot.y -= (my) * 0.016f * (pow(activecamera->fov / F_PI, 2.f) + 0.0001f);
+		activecamera->grot.x += (mx) * 0.016f * (pow(activecamera->fov / F_PI, 2.f) + 0.0001f);
 	}
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS) {
 		activecamera->fov -= (mx) * 0.002f + (my) * 0.002f;
@@ -739,19 +1047,19 @@ void processKeyPress(GLFWwindow* window) {
 		activecamera->fov += 0.01f;
 	}
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		activecamera->gpos.z -= 0.01f;
+		activecamera->grot.y -= 0.05f;
 		//activecamera->rotate(vec3(0,0.05f,0));
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		activecamera->gpos.z += 0.01f;
+		activecamera->grot.y += 0.05f;
 		//activecamera->rotate(vec3(0, -0.05f, 0));
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		activecamera->gpos.y += 0.01f;
+		activecamera->grot.x += 0.05f;
 		//activecamera->rotate(vec3(0, 0, 0.05f));
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		activecamera->gpos.y -= 0.01f;
+		activecamera->grot.x -= 0.05f;
 		//activecamera->rotate(vec3(0, 0, -0.05f));
 	}
 	activecamera->calcMatrix();
@@ -761,7 +1069,6 @@ void processKeyPress(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
 	}
-#if 0
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		if (keyShift)
 			activecamera->moveF(16 * 4);
@@ -793,8 +1100,7 @@ void processKeyPress(GLFWwindow* window) {
 			activecamera->moveR(16 / 4);
 		else
 			activecamera->moveR(16);
-	}
-#endif
+}
 }
 
 void key(GLFWwindow* window, int k, int s, int action, int mods) {

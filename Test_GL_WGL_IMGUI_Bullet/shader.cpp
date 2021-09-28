@@ -52,6 +52,7 @@ static const vector<string> dirs = {
   "../../shader/",
   "../../shaders/",
 };
+
 static const vector<string> exts = {
 	"",
 	".vs",
@@ -62,8 +63,7 @@ static const vector<string> exts = {
 	".cs"
 };
 
-shader::~shader(void)
-{
+shader::~shader(void){
 	deleteShaders();
 	if(program)
 		glDeleteProgram(program);
@@ -82,6 +82,9 @@ shader::~shader(void)
 	if (g_shader_list.size() >= mIndex)
 		g_shader_list[mIndex] = 0;
 	g_count--;
+	//for (int i = 0; i < uniformSubroutines.size(); ++i) {
+	//	delete uniformSubroutines[i];
+	//}
 }
 
 shader::shader(void):
@@ -547,28 +550,27 @@ string shader::searchShaderFileName(const string& filename) {
 }
 
 // activate the shader
-int shader::compile(){
-	if((VSsrc.size()>3 && FSsrc.size()>3) /*|| CSsrc.size()>3*/){
+int shader::compile() {
+	if ((VSsrc.size() > 3 && FSsrc.size() > 3) /*|| CSsrc.size()>3*/) {
 		shadersObjLoaded = generateShadersAndProgram(1);
-		return programUsable;
-	}
-	else
-	{
-		if((VS.size()>3 && FS.size()>3) /*|| CS.size()>3*/){
-			if((shadersSourceLoaded = readSrcFromFilenames())>1)
+		//return programUsable;
+	} else {
+		if ((VS.size() > 3 && FS.size() > 3) /*|| CS.size()>3*/) {
+			if ((shadersSourceLoaded = readSrcFromFilenames()) > 1)
 				shadersObjLoaded = generateShadersAndProgram(1);
-				return programUsable;
-		}
-		else
-		{
-			if(shadersName.size()>3){
-				if((shadersFilesExistent = getExistentShaderFilenamesFromSingleName(shadersName))>1)
-					if((shadersSourceLoaded = readSrcFromFilenames())>1)
+			//return programUsable;
+		} else {
+			if (shadersName.size() > 3) {
+				if ((shadersFilesExistent = getExistentShaderFilenamesFromSingleName(shadersName)) > 1)
+					if ((shadersSourceLoaded = readSrcFromFilenames()) > 1)
 						shadersObjLoaded = generateShadersAndProgram(1);
-						return programUsable;
+				//return programUsable;
 			}
 		}
 	}
+
+	createSubroutinesList();
+
 	return programUsable;
 }
 
@@ -714,6 +716,8 @@ uint shader::generateShadersAndProgram( int deleteShaderObjs){
 	//}
 	glLinkProgram(program);
     programUsable = checkCompileErrors(program, "PROGRAM");
+	if (programUsable)
+		createSubroutinesList();
     // delete the shaders as they're linked into our program now and no longer necessery
 
 	if(deleteShaderObjs && programUsable)
@@ -724,10 +728,27 @@ uint shader::generateShadersAndProgram( int deleteShaderObjs){
 uint shader::use() const
 { 
 	if(program && programUsable){
-		glUseProgram(program); 
+		glUseProgram(program);
+		activeSubroutines();
 		return 1;
 	}
  	return 0;
+}
+
+void shader::activeSubroutines() const {
+	//static GLuint indexes[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	//for (int i = 0; i < uniformSubroutines.size(); ++i) {
+	//	indexes[i] = uniformSubroutines[i].subroutines[subroutinesIndexes[i].active].index;
+	//	//glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &uniformSubroutines[i].subroutines[uniformSubroutines[i].active].index);
+	//	//GLuint idx = glGetSubroutineIndex(program, GL_FRAGMENT_SHADER, uniformSubroutines[i].subroutines[uniformSubroutines[i].active].name.c_str());
+	//	//glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &idx);
+	//	//for (int j = 0; j < uniformSubroutines[i].subroutines.size(); ++j) {
+	//	//}
+	//}
+	//glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, uniformSubroutines.size(), indexes);
+	if(subroutinesIndexes.size()>0)
+	glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, uniformSubroutines.size(), &subroutinesIndexes[0]);
+	//delete[] indexes;
 }
 
 void shader::deleteShaders()
@@ -770,6 +791,80 @@ void shader::detach(void) {
 		g_shader_list[mIndex] = NULL;
 		delete this;
 	}
+}
+
+
+int shader::createSubroutinesList() {
+	char name[256];
+	int  countActiveSU;
+	int len, numCompS, numSubs = 0;
+	uint p = program;
+
+	// get number of uniform subroutines
+	glGetProgramStageiv(p, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORMS, &countActiveSU);
+	if (countActiveSU) {
+		uniformSubroutines.resize(countActiveSU);
+		subroutinesIndexes.resize(countActiveSU);
+	}
+	for (int i = 0; i < countActiveSU; ++i) {
+
+		// get uniform subroutine name
+		glGetActiveSubroutineUniformName(p, GL_FRAGMENT_SHADER, i, 256, &len, name);
+
+		// number of subroutines in this uniform
+		glGetActiveSubroutineUniformiv(p, GL_FRAGMENT_SHADER, i, GL_NUM_COMPATIBLE_SUBROUTINES, &numCompS);
+
+		int* s = new int[numCompS];	// alocate the number of subroutines on this uniform
+
+		uniformSubroutines[i].name = name;
+		subroutinesIndexes[i] = 0;
+
+		// get indexes of subroutines of this uniform subroutine
+		glGetActiveSubroutineUniformiv(p, GL_FRAGMENT_SHADER, i, GL_COMPATIBLE_SUBROUTINES, s);
+		if (numCompS)
+			uniformSubroutines[i].subroutines.resize(numCompS);
+		for (int j = 0; j < numCompS; ++j) {
+			// get subroutine name 
+			glGetActiveSubroutineName(p, GL_FRAGMENT_SHADER, s[j], 256, &len, name);
+
+			uniformSubroutines[i].subroutines[j].index = s[j];
+			uniformSubroutines[i].subroutines[j].name = name;
+			numSubs++;
+		}
+		delete[]s;
+	}
+
+	{
+		GLint count;
+
+		GLint size; // size of the variable
+		GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+		const GLsizei bufSize = 64; // maximum name length
+		GLchar names[bufSize]; // variable name in GLSL
+		GLsizei length; // name length
+
+		//Attributes
+		glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &count);
+		printf("\nActive Attributes: %d\n", count);
+
+		for (int i = 0; i < count; i++) {
+			glGetActiveAttrib(program, (GLuint)i, bufSize, &length, &size, &type, names);
+
+			printf("Attribute #%d Type: %u Name: %s\n", i, type, names);
+		}
+		printf("\n");
+		//Uniforms
+		glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &count);
+		printf("Active Uniforms: %d\n", count);
+
+		for (int i = 0; i < count; i++) {
+			glGetActiveUniform(program, (GLuint)i, bufSize, &length, &size, &type, names);
+
+			printf("Uniform #%d Type: %u Name: %s\n", i, type, names);
+		}
+	}
+	return numSubs;
 }
 
 

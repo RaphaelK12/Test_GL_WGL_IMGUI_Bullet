@@ -1,5 +1,8 @@
 
 
+
+
+
 // Output
 layout (location = 0) out vec4 color;
 
@@ -84,13 +87,31 @@ vec3 light_pos = vec3(5, 0, 0);
 
 // functions
 
+subroutine vec4 textureSampleMode(sampler2D tex, vec2 uv, vec2 dx, vec2 dy);
+  
+// a special uniform variable to control which option will be used
+layout (location = 0) subroutine uniform textureSampleMode textures;
+
+// subroutine vec4 colorRedGreenBlue ();
+// layout (location = 0) subroutine uniform colorRedGreenBlue PrimaryColor;
+// layout (index = 0) subroutine (colorRedGreenBlue ) vec4 ColorBlack(){	return vec4(0.0, 0.0, 0.0, 1.0);} 
+
+// location = 0
+// layout (index = 10) subroutine (textureSampleMode) vec4 ColorBlack(){	return vec4(0.0, 0.0, 0.0, 1.0);} 
+// layout (index = 11) subroutine (textureSampleMode) vec4 ColorWhite(){	return vec4(1.0, 1.0, 1.0, 1.0);} 
+// layout (index = 12) subroutine (textureSampleMode) vec4 ColorRed()	{	return vec4(1.0, 0.0, 0.0, 1.0);}  
+// layout (index = 13) subroutine (textureSampleMode) vec4 ColorGreen(){	return vec4(0.0, 1.0, 0.0, 1.0);}
+// layout (index = 14) subroutine (textureSampleMode) vec4 ColorBlue()	{	return vec4(0.0, 0.0, 1.0, 1.0);}
+	
+
+
 // sample
-vec4 sampleLevel0(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+layout (index = 0) subroutine (textureSampleMode) vec4 sampleLevel0(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	return textureGrad(tex, uv, dx, dy);
 }
 
 // smoothstep
-vec4 texcubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+layout (index = 1) subroutine (textureSampleMode) vec4 texcubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 textureResolution = vec2(textureSize(tex, 0));
 	uv = uv * textureResolution + 0.5;
 	vec2 iuv = floor(uv);
@@ -101,7 +122,7 @@ vec4 texcubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 }
 
 // 4 samples
-vec4 texture_bicubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+layout (index = 2) subroutine (textureSampleMode) vec4 texture_bicubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec4 texelSize = vec4(1 / vec2(textureSize(tex, 0)), vec2(textureSize(tex, 0)));
 	uv = uv * texelSize.zw + 0.5;
 	vec2 iuv = floor(uv);
@@ -126,7 +147,7 @@ vec4 texture_bicubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 }
 
 // 16 samples
-vec3 BicubicLagrangeTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+layout (index = 3) subroutine (textureSampleMode) vec4 BicubicLagrangeTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 c_textureSize = vec2(textureSize(tex, 0));
 
 	vec2 c_onePixel = vec2(1.0) / c_textureSize;
@@ -136,36 +157,36 @@ vec3 BicubicLagrangeTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 frac = fract(pixel);
 	pixel = floor(pixel) / c_textureSize - vec2(c_onePixel / 2.0);
 
-	vec3 C00 = textureGrad(tex, pixel + vec2(-c_onePixel.x, -c_onePixel.y), dx, dy).rgb;
-	vec3 C10 = textureGrad(tex, pixel + vec2(0.0, -c_onePixel.y), dx, dy).rgb;
-	vec3 C20 = textureGrad(tex, pixel + vec2(c_onePixel.x, -c_onePixel.y), dx, dy).rgb;
-	vec3 C30 = textureGrad(tex, pixel + vec2(c_twoPixels.x, -c_onePixel.y), dx, dy).rgb;
+	vec4 C00 = textureGrad(tex, pixel + vec2(-c_onePixel.x, -c_onePixel.y), dx, dy);
+	vec4 C10 = textureGrad(tex, pixel + vec2(0.0, -c_onePixel.y), dx, dy);
+	vec4 C20 = textureGrad(tex, pixel + vec2(c_onePixel.x, -c_onePixel.y), dx, dy);
+	vec4 C30 = textureGrad(tex, pixel + vec2(c_twoPixels.x, -c_onePixel.y), dx, dy);
 
-	vec3 C01 = textureGrad(tex, pixel + vec2(-c_onePixel.x, 0.0), dx, dy).rgb;
-	vec3 C11 = textureGrad(tex, pixel + vec2(0.0, 0.0), dx, dy).rgb;
-	vec3 C21 = textureGrad(tex, pixel + vec2(c_onePixel.x, 0.0), dx, dy).rgb;
-	vec3 C31 = textureGrad(tex, pixel + vec2(c_twoPixels.x, 0.0), dx, dy).rgb;
+	vec4 C01 = textureGrad(tex, pixel + vec2(-c_onePixel.x, 0.0), dx, dy);
+	vec4 C11 = textureGrad(tex, pixel + vec2(0.0, 0.0), dx, dy);
+	vec4 C21 = textureGrad(tex, pixel + vec2(c_onePixel.x, 0.0), dx, dy);
+	vec4 C31 = textureGrad(tex, pixel + vec2(c_twoPixels.x, 0.0), dx, dy);
 
-	vec3 C02 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_onePixel.y), dx, dy).rgb;
-	vec3 C12 = textureGrad(tex, pixel + vec2(0.0, c_onePixel.y), dx, dy).rgb;
-	vec3 C22 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_onePixel.y), dx, dy).rgb;
-	vec3 C32 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_onePixel.y), dx, dy).rgb;
+	vec4 C02 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_onePixel.y), dx, dy);
+	vec4 C12 = textureGrad(tex, pixel + vec2(0.0, c_onePixel.y), dx, dy);
+	vec4 C22 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_onePixel.y), dx, dy);
+	vec4 C32 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_onePixel.y), dx, dy);
 
-	vec3 C03 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_twoPixels.y), dx, dy).rgb;
-	vec3 C13 = textureGrad(tex, pixel + vec2(0.0, c_twoPixels.y), dx, dy).rgb;
-	vec3 C23 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_twoPixels.y), dx, dy).rgb;
-	vec3 C33 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_twoPixels.y), dx, dy).rgb;
+	vec4 C03 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_twoPixels.y), dx, dy);
+	vec4 C13 = textureGrad(tex, pixel + vec2(0.0, c_twoPixels.y), dx, dy);
+	vec4 C23 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_twoPixels.y), dx, dy);
+	vec4 C33 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_twoPixels.y), dx, dy);
 
-	vec3 CP0X = CubicLagrange(C00, C10, C20, C30, frac.x);
-	vec3 CP1X = CubicLagrange(C01, C11, C21, C31, frac.x);
-	vec3 CP2X = CubicLagrange(C02, C12, C22, C32, frac.x);
-	vec3 CP3X = CubicLagrange(C03, C13, C23, C33, frac.x);
+	vec4 CP0X = CubicLagrange(C00, C10, C20, C30, frac.x);
+	vec4 CP1X = CubicLagrange(C01, C11, C21, C31, frac.x);
+	vec4 CP2X = CubicLagrange(C02, C12, C22, C32, frac.x);
+	vec4 CP3X = CubicLagrange(C03, C13, C23, C33, frac.x);
 
 	return CubicLagrange(CP0X, CP1X, CP2X, CP3X, frac.y);
 }
 
 // 16 samples
-vec3 BicubicHermiteTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+layout (index = 4) subroutine (textureSampleMode) vec4 BicubicHermiteTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	const float c_x0 = -1.0;
 	const float c_x1 = 0.0;
 	const float c_x2 = 1.0;
@@ -181,30 +202,30 @@ vec3 BicubicHermiteTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 frac = fract(pixel);
 	pixel = floor(pixel) / c_textureSize - vec2(c_onePixel / 2.0);
 
-	vec3 C00 = textureGrad(tex, pixel + vec2(-c_onePixel.x, -c_onePixel.y), dx, dy).rgb;
-	vec3 C10 = textureGrad(tex, pixel + vec2(0.0, -c_onePixel.y), dx, dy).rgb;
-	vec3 C20 = textureGrad(tex, pixel + vec2(c_onePixel.x, -c_onePixel.y), dx, dy).rgb;
-	vec3 C30 = textureGrad(tex, pixel + vec2(c_twoPixels.x, -c_onePixel.y), dx, dy).rgb;
+	vec4 C00 = textureGrad(tex, pixel + vec2(-c_onePixel.x, -c_onePixel.y), dx, dy);
+	vec4 C10 = textureGrad(tex, pixel + vec2(0.0, -c_onePixel.y), dx, dy);
+	vec4 C20 = textureGrad(tex, pixel + vec2(c_onePixel.x, -c_onePixel.y), dx, dy);
+	vec4 C30 = textureGrad(tex, pixel + vec2(c_twoPixels.x, -c_onePixel.y), dx, dy);
 
-	vec3 C01 = textureGrad(tex, pixel + vec2(-c_onePixel.x, 0.0), dx, dy).rgb;
-	vec3 C11 = textureGrad(tex, pixel + vec2(0.0, 0.0), dx, dy).rgb;
-	vec3 C21 = textureGrad(tex, pixel + vec2(c_onePixel.x, 0.0), dx, dy).rgb;
-	vec3 C31 = textureGrad(tex, pixel + vec2(c_twoPixels.x, 0.0), dx, dy).rgb;
+	vec4 C01 = textureGrad(tex, pixel + vec2(-c_onePixel.x, 0.0), dx, dy);
+	vec4 C11 = textureGrad(tex, pixel + vec2(0.0, 0.0), dx, dy);
+	vec4 C21 = textureGrad(tex, pixel + vec2(c_onePixel.x, 0.0), dx, dy);
+	vec4 C31 = textureGrad(tex, pixel + vec2(c_twoPixels.x, 0.0), dx, dy);
 
-	vec3 C02 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_onePixel.y), dx, dy).rgb;
-	vec3 C12 = textureGrad(tex, pixel + vec2(0.0, c_onePixel.y), dx, dy).rgb;
-	vec3 C22 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_onePixel.y), dx, dy).rgb;
-	vec3 C32 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_onePixel.y), dx, dy).rgb;
+	vec4 C02 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_onePixel.y), dx, dy);
+	vec4 C12 = textureGrad(tex, pixel + vec2(0.0, c_onePixel.y), dx, dy);
+	vec4 C22 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_onePixel.y), dx, dy);
+	vec4 C32 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_onePixel.y), dx, dy);
 
-	vec3 C03 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_twoPixels.y), dx, dy).rgb;
-	vec3 C13 = textureGrad(tex, pixel + vec2(0.0, c_twoPixels.y), dx, dy).rgb;
-	vec3 C23 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_twoPixels.y), dx, dy).rgb;
-	vec3 C33 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_twoPixels.y), dx, dy).rgb;
+	vec4 C03 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_twoPixels.y), dx, dy);
+	vec4 C13 = textureGrad(tex, pixel + vec2(0.0, c_twoPixels.y), dx, dy);
+	vec4 C23 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_twoPixels.y), dx, dy);
+	vec4 C33 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_twoPixels.y), dx, dy);
 
-	vec3 CP0X = CubicHermite(C00, C10, C20, C30, frac.x);
-	vec3 CP1X = CubicHermite(C01, C11, C21, C31, frac.x);
-	vec3 CP2X = CubicHermite(C02, C12, C22, C32, frac.x);
-	vec3 CP3X = CubicHermite(C03, C13, C23, C33, frac.x);
+	vec4 CP0X = CubicHermite(C00, C10, C20, C30, frac.x);
+	vec4 CP1X = CubicHermite(C01, C11, C21, C31, frac.x);
+	vec4 CP2X = CubicHermite(C02, C12, C22, C32, frac.x);
+	vec4 CP3X = CubicHermite(C03, C13, C23, C33, frac.x);
 
 	return CubicHermite(CP0X, CP1X, CP2X, CP3X, frac.y);
 }
@@ -213,7 +234,7 @@ vec3 BicubicHermiteTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 // Samples a texture with Catmull-Rom filtering, using 9 texture fetches instead of 16.
 // See http://vec3.ca/bicubic-filtering-in-fewer-taps/ for more details
 // 9 samples
-vec4 SampleTextureCatmullRom(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+layout (index = 5) subroutine (textureSampleMode) vec4 SampleTextureCatmullRom(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 textureResolution = vec2(textureSize(tex, 0));
 
 	// We're going to sample a a 4x4 grid of texels surrounding the target UV coordinate. We'll do this by rounding
@@ -249,25 +270,27 @@ vec4 SampleTextureCatmullRom(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	texPos12 /= textureResolution;
 
 	vec4 result = vec4(0.0);
-	result += sampleLevel0(tex, vec2(texPos0.x, texPos0.y), dx, dy) * w0.x * w0.y;
-	result += sampleLevel0(tex, vec2(texPos12.x, texPos0.y), dx, dy) * w12.x * w0.y;
-	result += sampleLevel0(tex, vec2(texPos3.x, texPos0.y), dx, dy) * w3.x * w0.y;
+	result += textureGrad(tex, vec2(texPos0.x, texPos0.y), dx, dy) * w0.x * w0.y;
+	result += textureGrad(tex, vec2(texPos12.x, texPos0.y), dx, dy) * w12.x * w0.y;
+	result += textureGrad(tex, vec2(texPos3.x, texPos0.y), dx, dy) * w3.x * w0.y;
 
-	result += sampleLevel0(tex, vec2(texPos0.x, texPos12.y), dx, dy) * w0.x * w12.y;
-	result += sampleLevel0(tex, vec2(texPos12.x, texPos12.y), dx, dy) * w12.x * w12.y;
-	result += sampleLevel0(tex, vec2(texPos3.x, texPos12.y), dx, dy) * w3.x * w12.y;
+	result += textureGrad(tex, vec2(texPos0.x, texPos12.y), dx, dy) * w0.x * w12.y;
+	result += textureGrad(tex, vec2(texPos12.x, texPos12.y), dx, dy) * w12.x * w12.y;
+	result += textureGrad(tex, vec2(texPos3.x, texPos12.y), dx, dy) * w3.x * w12.y;
 
-	result += sampleLevel0(tex, vec2(texPos0.x, texPos3.y), dx, dy) * w0.x * w3.y;
-	result += sampleLevel0(tex, vec2(texPos12.x, texPos3.y), dx, dy) * w12.x * w3.y;
-	result += sampleLevel0(tex, vec2(texPos3.x, texPos3.y), dx, dy) * w3.x * w3.y;
+	result += textureGrad(tex, vec2(texPos0.x, texPos3.y), dx, dy) * w0.x * w3.y;
+	result += textureGrad(tex, vec2(texPos12.x, texPos3.y), dx, dy) * w12.x * w3.y;
+	result += textureGrad(tex, vec2(texPos3.x, texPos3.y), dx, dy) * w3.x * w3.y;
 
 	return result;
 }
 
+
+
 vec3 getNormalFromMap(vec3 n, vec3 tangent, sampler2D tex, vec2 coord, vec3 WorldPos, vec2 dx, vec2 dy) {
 	// texcubic textureGrad BicubicLagrangeTextureSample BicubicHermiteTextureSample
 	// texture_bicubic SampleTextureCatmullRom
-	vec3 tangentNormal = unpackNormal(texture_bicubic(tex, coord, dx, dy).xyz, 0.55);
+	vec3 tangentNormal = unpackNormal(textures(tex, coord, dx, dy).xyz, 0.55);
 	vec3 N = normalize(n);
 	vec3 T = normalize(tangent);
 	vec3 B = -normalize(cross(N, T));
@@ -406,6 +429,7 @@ float relief(vec2 initialPos, vec2 offsetDir, sampler2D stepmap) {
 	}
 	return best_depth;
 }
+
 
 shading lambertian(in vec3 n, in vec3 v, in light l, in vec2 uv, vec2 dx, vec2 dy) {
 	shading s;

@@ -1,4 +1,8 @@
 
+
+
+
+
 out VS_OUT{
 	vec4 position;
 	vec4 position_M;

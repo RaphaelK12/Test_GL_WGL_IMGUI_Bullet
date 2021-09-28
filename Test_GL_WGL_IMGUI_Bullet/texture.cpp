@@ -99,22 +99,38 @@ Texture::~Texture(void) {
 	mFileName.clear();
 }
 
+#define sizeOfArray(arr) (sizeof(arr)/sizeof(arr[0]))
+
 void Texture::setTextureVariables() {
+	static const int textureWrapModesValues[] = { GL_REPEAT,GL_MIRRORED_REPEAT, GL_MIRROR_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE  ,GL_CLAMP_TO_BORDER };
+	static const int textureMinFilterValues[] = { GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST,
+		GL_LINEAR_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR };
+	static const int textureMagFilterValues[] = { GL_NEAREST, GL_LINEAR };
+
 	if (!mData)
 		return;
-	if (mData->wrap_s		)	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     mData->wrap_s		);	else glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	if (mData->wrap_t		)	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     mData->wrap_t		);	else glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	if (mData->wrap_r		)	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R,	  mData->wrap_r		);	else glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
-	if (mData->filter_min	)	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, mData->filter_min	);	else glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	if (mData->filter_mag	)	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mData->filter_mag	);	else glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	mData->wrap_s = clamp(mData->wrap_s, 0, sizeOfArray(textureWrapModesValues) - 1);
+	mData->wrap_t = clamp(mData->wrap_t, 0, sizeOfArray(textureWrapModesValues) - 1);
+	mData->wrap_r = clamp(mData->wrap_r, 0, sizeOfArray(textureWrapModesValues) - 1);
+
+	mData->filter_min = clamp(mData->filter_min, 0, sizeOfArray(textureMinFilterValues) - 1);
+	mData->filter_mag = clamp(mData->filter_mag, 0, sizeOfArray(textureMagFilterValues) - 1);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     textureWrapModesValues[mData->wrap_s]		);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     textureWrapModesValues[mData->wrap_t]		);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R,	  textureWrapModesValues[mData->wrap_r]		);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureMinFilterValues[mData->filter_min]	);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureMinFilterValues[mData->filter_mag]	);
 }
 
 int Texture::bind() {
-	if(mData)
-	if (mData->globj) {
-		glBindTexture(GL_TEXTURE_2D, mData->globj);
-		return mData->globj;
-	}
+	if (mData)
+		if (mData->globj) {
+			glBindTexture(GL_TEXTURE_2D, mData->globj);
+			setTextureVariables();
+			return mData->globj;
+		}
 	return 0;
 }
 
@@ -236,7 +252,6 @@ TextureData* Texture::loadTexture(string& name) {
 	delete im;
 	return m;
 }
-
 
 void to_json(json& j, const TextureData& p) {
 	j = json{

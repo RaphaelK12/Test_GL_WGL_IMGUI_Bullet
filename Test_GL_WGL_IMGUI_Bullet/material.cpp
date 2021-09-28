@@ -264,6 +264,7 @@ int Material::active(matrix_block* m) {
 	mData->mShader->use();
 	setShaderVariables();
 	setMatrix(m);
+	//mData->mShader->activeSubroutines();
 	return 1;
 }
 

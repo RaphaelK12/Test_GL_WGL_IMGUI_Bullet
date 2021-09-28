@@ -135,6 +135,20 @@ inline float clamp(float v, float a, float b) {
 		return v;
 	return b;
 }
+inline int clamp(int v, int a, int b) {
+	if (v < a)
+		return a;
+	if (v < b)
+		return v;
+	return b;
+}
+inline uint clamp(uint v, uint a, uint b) {
+	if (v < a)
+		return a;
+	if (v < b)
+		return v;
+	return b;
+}
 inline float saturate(float v) {
 	if (v <= 0.f)
 		return 0.f;

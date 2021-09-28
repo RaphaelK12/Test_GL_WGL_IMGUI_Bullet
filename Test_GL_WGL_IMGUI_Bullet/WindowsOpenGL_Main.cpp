@@ -273,13 +273,13 @@ void init() {
 	fbo = new frameBuffer(1, uivec2(100, 60) * 10);
 	vec3 pos(0, 4, 0);
 	for (int i = 1; i < objType::objGrid; i++) {
-		word.addObj(objType(i), rotateZDeg(pos, 45.f * (i - 1.f)), vec3(0, 0, 0), vec3(1), uivec3(40, 20, 10), "DiffSpecNormalDisp");
+		word.addObj(objType(i), rotateZDeg(pos, 45.f * (i - 1.f)), vec3(0, 0, 0), vec3(1), uivec3(40, 20, 10), "DiffSpecNormalDisp2");
 	}
 
-	word.addObj(objType::objQuad, vec3(0, 0, -1.1), vec3(0), vec3(40), uivec3(60, 60, 10), "DiffSpecNormalDisp");
+	word.addObj(objType::objQuad, vec3(0, 0, -1.1), vec3(0), vec3(40), uivec3(60, 60, 10), "DiffSpecNormalDisp2");
 	word.addObj(objType::objSkyBox, vec3(0, 0, 0), vec3(0, 0, 0), vec3(4), uivec3(10, 10, 10), "SphericalCubeMap");
 	word.addObj(objType::objAxis, vec3(1, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(10, 10, 10), "lineVertexColor");
-	word.addObj(objType::objCapsule, vec3(7, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(100, 100, 10), "DiffSpecNormalDisp");
+	word.addObj(objType::objCapsule, vec3(7, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(100, 100, 10), "DiffSpecNormalDisp2");
 	word.addObj(objType::objGrid, vec3(0, 0, 0), vec3(0, 0, 0), vec3(2), uivec3(10, 10, 10), "lineVertexColor");
 	word.addObj(objType::objAxis, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(10, 10, 10), "lineVertexColor");
 	//skyBox = new objeto(0, objType::objSkyBox, vec3(0, 0, 0), vec3(0, 0, 0), vec3(4), uivec3(10, 10, 10), "SphericalCubeMap.mat");

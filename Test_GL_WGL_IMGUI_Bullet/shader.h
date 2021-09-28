@@ -3,6 +3,10 @@
 //#include "GLFunctions.h"
 using std::string;
 
+//#define or ||
+//#define not !
+//#define and &&
+
 extern const char defaultVS[];
 
 extern const char defaultFS[];
@@ -46,9 +50,52 @@ enum class ShaderType {
 };
 
 
+struct subroutine {
+	uint index;
+	string name;
+
+	inline subroutine() : index(0) {};
+	inline ~subroutine() {};
+	inline subroutine& operator=(const subroutine& v) {
+		index = v.index;
+		name = v.name;
+		return *this;
+	}
+};
+
+struct subroutineUniform {
+	GLuint active;
+	string name;
+	vector<subroutine> subroutines;
+
+	inline subroutineUniform() 
+		:active(0)
+	{};
+
+	inline subroutineUniform(const subroutineUniform& v) :
+		name(v.name)
+		,active(v.active) 
+	{
+		for (int i = 0; i < v.subroutines.size(); ++i) {
+			subroutines.push_back(v.subroutines[i]);
+		}
+	};
+
+	inline ~subroutineUniform() {};
+
+	inline subroutineUniform& operator=(const subroutineUniform& v) {
+		name = v.name;
+		active = v.active;
+		for (int i = 0; i < v.subroutines.size(); ++i) {
+			subroutines.push_back(v.subroutines[i]);
+		}
+		return *this;
+	}
+};
+
+
 class shader
 {
-
 public:
 	static string defaultIncludeGeral;
 	static string defaultIncludeVS;
@@ -87,6 +134,8 @@ public:
 	string  FSsrc;		// gl fragment shader source
 	//string  CSsrc;		// gl compute shader source
 
+	vector<subroutineUniform> uniformSubroutines;
+	vector<uint> subroutinesIndexes;
     // constructor generates the shader on the fly
 	~shader(void);
 
@@ -134,7 +183,12 @@ public:
 
     uint use() const;
 
+	void activeSubroutines() const;
+
 	void deleteShaders();
+
+	int createSubroutinesList();
+
 
     // utility uniform functions
     void setUniform(const string &uname, const bool &val) const;
