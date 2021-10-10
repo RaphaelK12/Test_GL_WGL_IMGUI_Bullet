@@ -25,7 +25,11 @@
 	"name": 			"default",
 	"fileName": 		"default.json",
 	"shaderName": 		"default",
-	"shaderList": 		["default.vs", "default.fs"],
+	"shaderList":
+		{
+			"vs" : "default.vs",
+			"fs" : "default.fs"
+		},
 	"textures":			[
 		{
 			"name" : "default",

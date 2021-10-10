@@ -23,9 +23,13 @@
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
 	"shinines": 		[256.0, 256.0, 1.0, 1.0],
 	"name": 			"lineVertexColor",
-	"fileName": 		"lineVertexColor.mat",
+	"fileName": 		"lineVertexColor.json",
 	"shaderName": 		"lineVertexColor",
-	"shaderList": 		["lineVertexColor.vs", "lineVertexColor.fs"],
+	"shaderList":
+		{
+			"vs" : "lineVertexColor.vs",
+			"fs" : "lineVertexColor.fs"
+		},
 	"textures": 		[
 		{
 			"name" : "none",

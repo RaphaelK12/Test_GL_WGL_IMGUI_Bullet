@@ -42,17 +42,54 @@ public:
 	shader* mShader;							// shader used by this material
 };
 
-class Material
-{
+struct uniformsBase {
+	string name;
+	inline uniformsBase() {};
+	inline uniformsBase(const string& n) :name(n) {};
+	virtual inline void setUniform(const shader* s) {};
+};
+
+template <class T>
+struct uniforms : public uniformsBase {
+	T value;
+	inline uniforms(const string& n, const T& v) : uniformsBase(n), value(v) {};
+	virtual inline void setUniform(const shader* s) {
+		s->setUniform(name, value);
+	}
+};
+
+class Material{
 public:
+	static vec4 time, deltatime, sintime, costime;
+	static uint frame;
+
 	Material(void);
 	Material(string name);
 	~Material(void);
+
+	inline static void setTimes(vec4 t, vec4 dt, vec4 st, vec4 ct, uint fr) {
+		time = t;
+		deltatime = dt;
+		sintime = st;
+		costime = ct;
+		frame = fr;
+	}
+
+	vector<subroutineUniform> uniformSubroutines;
+	vector<uint> subroutinesIndexes;
+	vector<uniformsBase*> shaderUniforms;
+
+	int createShaderSubroutinesList();
+	int createShaderUniformsList();
+	void setShaderUniforms() const;
+	void setShaderSubroutines() const;
+
+
 	void setShaderVariables();
+
 	int active(matrix_block* m);
 	int reload();
 	void setMatrix(matrix_block* m);
-
 	MaterialData* getMaterial(string& name);
 	MaterialData* loadMaterial(string& name);
 	string searchMaterialFileName(string& filename) const;

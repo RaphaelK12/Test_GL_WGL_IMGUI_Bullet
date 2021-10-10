@@ -126,6 +126,9 @@
     <ClCompile Include="Word.cpp">
       <Filter>Arquivos de Origem\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="strng.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -253,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="old.h">
       <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="strng.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSLinclude.h">
+      <Filter>Arquivos de Cabeçalho\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

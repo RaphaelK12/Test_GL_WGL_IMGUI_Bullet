@@ -23,9 +23,13 @@
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
 	"shinines": 		[256.0, 256.0, 1.0, 1.0],
 	"name": 			"SphericalCubeMap",
-	"fileName": 		"SphericalCubeMap.mat",
+	"fileName": 		"SphericalCubeMap.json",
 	"shaderName": 		"SphericalCubeMap",
-	"shaderList": 		["SphericalCubeMap.vs", "SphericalCubeMap.fs"],
+	"shaderList":
+		{
+			"vs" : "SphericalCubeMap.vs",
+			"fs" : "SphericalCubeMap.fs"
+		},
 	"textures":			[
 		{
 			"name" : "C_sph2.jpg",

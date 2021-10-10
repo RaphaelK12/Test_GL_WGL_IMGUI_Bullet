@@ -36,7 +36,7 @@ void main(void) {
 //	texcubic
 //	SampleTextureCatmullRom
 
-					texture_bicubic(texture1, uv,dx/4,dy/4).rgb
+					textures(texture1, uv,dx/4,dy/4).rgb
 					),
 					mt.diffuse.a);
 	// }

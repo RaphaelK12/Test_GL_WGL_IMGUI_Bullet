@@ -1,27 +1,6 @@
 
 
 
-// the signature
-subroutine vec4 colorRedGreenBlue ();
-subroutine vec4 colorSecondary ();
- 
-// a special uniform variable to control which option will be used
-layout (location = 1) subroutine uniform colorRedGreenBlue PrimaryColor;
-layout (location = 2) subroutine uniform colorSecondary SecondaryColor;
-
-// location = 0
-layout (index = 6) subroutine (colorRedGreenBlue ) vec4 ColorBlack(){	return vec4(0.0, 0.0, 0.0, 1.0);} 
-layout (index = 7) subroutine (colorRedGreenBlue ) vec4 ColorWhite(){	return vec4(1.0, 1.0, 1.0, 1.0);} 
-layout (index = 8) subroutine (colorRedGreenBlue ) vec4 ColorRed()	{	return vec4(1.0, 0.0, 0.0, 1.0);}  
-layout (index = 9) subroutine (colorRedGreenBlue ) vec4 ColorGreen(){	return vec4(0.0, 1.0, 0.0, 1.0);}
-layout (index = 10) subroutine (colorRedGreenBlue ) vec4 ColorBlue()	{	return vec4(0.0, 0.0, 1.0, 1.0);}
-	
-// location = 1	
-layout (index = 11) subroutine (colorSecondary ) vec4 ColorBlak()	{	return vec4(0.0, 0.0, 0.0, 1.0);}
-layout (index = 12) subroutine (colorSecondary ) vec4 ColorGray()	{	return vec4(0.5, 0.5, 0.5, 1.0);}
-layout (index = 13) subroutine (colorSecondary ) vec4 ColorCyan()	{	return vec4(0.0, 1.0, 1.0, 1.0);}
-layout (index = 14) subroutine (colorSecondary ) vec4 ColorYellow()	{	return vec4(1.0, 1.0, 0.0, 1.0);}  
-layout (index = 15) subroutine (colorSecondary ) vec4 ColorMagenta()	{	return vec4(1.0, 0.0, 1.0, 1.0);}
 
 void main(void) {
 	vec2 dx = dFdx(fsin.uv1);
@@ -62,8 +41,8 @@ void main(void) {
 	
 	
 	vec3 r = reflect(-normalize(viewPos -fsin.position_M.xyz), normalize(fsin.normal) )*0.5+0.5;
-	vec4 cl = PrimaryColor ();
-	vec4 ck = SecondaryColor ();
+	// vec4 cl = PrimaryColor ();
+	// vec4 ck = SecondaryColor ();
 	// uv.y *= ref.z;
 	// if (gl_FrontFacing) {
 		color = 
@@ -97,6 +76,7 @@ void main(void) {
 
 
 }
+
 
 
 

@@ -1,6 +1,6 @@
 
 
-vec3 light_pos = vec3(0, 0, 2);
+
 
 void main(void){
 	// Calculate normal in view-space

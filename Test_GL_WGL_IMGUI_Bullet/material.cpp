@@ -7,6 +7,12 @@
 
 std::map<string, MaterialData*> g_material_list; // filename, material
 
+vec4 Material::time = vec4(0);
+vec4 Material::deltatime = vec4(0);
+vec4 Material::sintime = vec4(0);
+vec4 Material::costime = vec4(0);
+uint Material::frame = 0;
+
 MaterialData::MaterialData() :
 	castShadows(1),
 	receiveShadows(1),
@@ -103,6 +109,8 @@ Material::Material(string mname) : mData(0), mName(mname), mFileName(" ") {
 	}
 	mFileName = searchMaterialFileName(mname);
 	mData = loadMaterial(mFileName);
+	createShaderSubroutinesList();
+	createShaderUniformsList();
 }
 
 Material::~Material(void)
@@ -126,6 +134,8 @@ int Material::reload() {
 			from_json(j, *mData);
 			//*mData = j;
 			f.close();
+			createShaderSubroutinesList();
+			createShaderUniformsList();
 			return 1;
 		}
 		else {
@@ -242,6 +252,12 @@ void Material::setShaderVariables() {
 	mData->mShader->setUniform("mt.reflex", mData->mReflex);
 	mData->mShader->setUniform("mt.shinines", mData->mShinines);
 
+	mData->mShader->setUniform("time", time);
+	mData->mShader->setUniform("frame", frame);
+	mData->mShader->setUniform("sintime", sintime);
+	mData->mShader->setUniform("costime", costime);
+
+
 	for (int i = 0; uint(i) < mData->mTextures.size(); i++) {
 		char txt[] = "texture1";
 		glActiveTexture(GL_TEXTURE0+i); // activate the texture unit first before binding texture
@@ -262,9 +278,12 @@ int Material::active(matrix_block* m) {
 		mData->mShader->atach();
 	}
 	mData->mShader->use();
+#if(!USE_SHADER_LIST)
+	setShaderUniforms();
+	setShaderSubroutines();
+#endif
 	setShaderVariables();
 	setMatrix(m);
-	//mData->mShader->activeSubroutines();
 	return 1;
 }
 
@@ -295,9 +314,9 @@ string Material::searchMaterialFileName(string & filename) const {
 	static const vector<string> exts = {
 		"",
 		".json",
+		".material",
 		".mat",
 		".mtl",
-		".material",
 	};
 	FILE* f = 0;
 	string fname = "";
@@ -316,7 +335,7 @@ string Material::searchMaterialFileName(string & filename) const {
 
 MaterialData* Material::getMaterial(string& name) {
 	MaterialData* m =0;
-	std::map<std::string, MaterialData*>::const_iterator it = g_material_list.find(name);
+	auto it = g_material_list.find(name);
 	if (it != g_material_list.end()) {
 		m = it->second;
 	}
@@ -328,6 +347,8 @@ MaterialData* Material::loadMaterial(string& name) {
 	m = getMaterial(name);
 	if (m) {
 		m->AddReference();
+		createShaderSubroutinesList();
+		createShaderUniformsList();
 		return m;
 	}
 	m = new MaterialData;
@@ -341,6 +362,8 @@ MaterialData* Material::loadMaterial(string& name) {
 			//*m = j;
 		}
 	}
+	createShaderSubroutinesList();
+	createShaderUniformsList();
 	return m;
 }
 
@@ -371,17 +394,32 @@ void from_json(const json& j, MaterialData& v) {
 	if(j.find("name"		 	) != j.end())	{j.at("name")				   .get_to(v.mName				);																																									}
 	if(j.find("fileName"	 	) != j.end())	{j.at("fileName")			   .get_to(v.mFileName			);																																									}
 	if(j.find("shaderName"	 	) != j.end())	{j.at("shaderName")			   .get_to(v.mShaderName		);																																									}
+	
 	if (v.mShader) {
-		delete v.mShader;;
+		delete v.mShader;
+		v.mShader = 0;
 	}
-	v.mShader = new shader(v.mShaderName);
-	if(j.find("shaderList")!= j.end())
-	for (unsigned int i = 0; i < j["shaderList"].size(); i++) {
-		v.mShaderNames.push_back(j["shaderList"][i]);
+	string vs, fs, tc, te, gs, cs;
+	int cnt = 0;
+	if (j.find("shaderList") != j.end()) {
+		if (j["shaderList"].find("vs") != j["shaderList"].end())	{	j["shaderList"].at("vs").get_to(vs);	cnt++;	}
+		if (j["shaderList"].find("fs") != j["shaderList"].end())	{	j["shaderList"].at("fs").get_to(fs);	cnt++;	}
+		if (j["shaderList"].find("tc") != j["shaderList"].end())	{	j["shaderList"].at("tc").get_to(tc);	cnt++;	}
+		if (j["shaderList"].find("te") != j["shaderList"].end())	{	j["shaderList"].at("te").get_to(te);	cnt++;	}
+		if (j["shaderList"].find("gs") != j["shaderList"].end())	{	j["shaderList"].at("gs").get_to(gs);	cnt++;	}
+		if (j["shaderList"].find("cs") != j["shaderList"].end())	{	j["shaderList"].at("cs").get_to(cs);	cnt++;	}
 	}
+	if (cnt) {
+		v.mShader = new shader(vs, fs, tc, te, gs, cs);
+		v.mShader->name = v.mShaderName;
+		//v.mShader->readSrcFromFilenames();
+		//v.mShader->generateShadersAndProgram();
+	}
+	else
+		v.mShader = new shader(v.mShaderName);
 	for (unsigned int i = 0; i < v.mTextures.size(); i++) {
 		delete v.mTextures[i];
-		v.mTextures[i]=0;
+		v.mTextures[i] = 0;
 	}
 	v.mTextures.clear();
 	v.mTextures.resize(0);
@@ -389,8 +427,6 @@ void from_json(const json& j, MaterialData& v) {
 	for (unsigned int i = 0; i < j["textures"].size(); i++) {
 		v.mTextures.push_back(new Texture( j["textures"][i]));
 	}
-	//for(uint i = 0; i<)
-	//printf("%s", "");
 }
 
 void to_json(json& j, const MaterialData& p) {
@@ -429,4 +465,152 @@ void to_json(json& j, const MaterialData& p) {
 		j["textures"][i] = *p.mTextures[i]->mData;
 	}
 }
+
+int Material::createShaderSubroutinesList() {
+#if(USE_SHADER_LIST)
+	return 0;
+#endif
+	if (!mData || !mData->mShader || !mData->mShader->program)
+		return 0;
+	char name[256];
+	int  countActiveSU;
+	int len, numCompS, numSubs = 0;
+	uint p = mData->mShader->program;
+	// get number of uniform subroutines
+	glGetProgramStageiv(p, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORMS, &countActiveSU);
+	if (countActiveSU) {
+		uniformSubroutines.resize(countActiveSU);
+		subroutinesIndexes.resize(countActiveSU);
+	}
+	for (int i = 0; i < countActiveSU; ++i) {
+		// get uniform subroutine name
+		glGetActiveSubroutineUniformName(p, GL_FRAGMENT_SHADER, i, 256, &len, name);
+		// number of subroutines in this uniform
+		glGetActiveSubroutineUniformiv(p, GL_FRAGMENT_SHADER, i, GL_NUM_COMPATIBLE_SUBROUTINES, &numCompS);
+		int* s = new int[numCompS];	// alocate the number of subroutines on this uniform
+		uniformSubroutines[i].name = name;
+		subroutinesIndexes[i] = 0;
+		// get indexes of subroutines of this uniform subroutine
+		glGetActiveSubroutineUniformiv(p, GL_FRAGMENT_SHADER, i, GL_COMPATIBLE_SUBROUTINES, s);
+		if (numCompS)
+			uniformSubroutines[i].subroutines.resize(numCompS);
+		for (int j = 0; j < numCompS; ++j) {
+			// get subroutine name 
+			glGetActiveSubroutineName(p, GL_FRAGMENT_SHADER, s[j], 256, &len, name);
+			uniformSubroutines[i].subroutines[j].index = s[j];
+			uniformSubroutines[i].subroutines[j].name = name;
+			numSubs++;
+		}
+		delete[]s;
+	}
+	return numSubs;
+}
+int Material::createShaderUniformsList() {
+#if(USE_SHADER_LIST)
+	return 0;
+#endif
+	if (!mData || !mData->mShader || !mData->mShader->program)
+		return 0;
+	char name[256];
+	uint p = mData->mShader->program;
+	
+	GLint count;
+	GLint size; // size of the variable
+	GLenum type; // type of the variable (float, vec3 or mat4, etc)
+	const GLsizei bufSize = 256; // maximum name length
+	GLsizei len; // name length
+	// get number of uniforms
+	glGetProgramiv(p, GL_ACTIVE_UNIFORMS, &count);
+	printf("Active Uniforms: %d\n", count);
+	float	 float1;
+	float2	 float2;
+	float3	 float3;
+	float4	 float4;
+	int		 int1;
+	int2	 int2;
+	int3	 int3;
+	int4	 int4;
+	uint	 uint1;
+	uint2	 uint2;
+	uint3	 uint3;
+	uint4	 uint4;
+	for (int i = 0; i < shaderUniforms.size(); i++) {
+		delete shaderUniforms[i];
+		shaderUniforms[i] = 0;
+	}
+	shaderUniforms.clear();
+	for (int i = 0; i < count; i++) {
+		glGetActiveUniform(p, (GLuint)i, bufSize, &len, &size, &type, name);
+		switch (type) {
+			case GL_FLOAT:				glGetUniformfv (p, glGetUniformLocation(p, name), &float1);			shaderUniforms.push_back(new uniforms<float>(	name, float1));		break;
+			case GL_FLOAT_VEC2:			glGetUniformfv (p, glGetUniformLocation(p, name), &float2.x);		shaderUniforms.push_back(new uniforms<vec2>(	name, float2));		break;
+			case GL_FLOAT_VEC3:			glGetUniformfv (p, glGetUniformLocation(p, name), &float3.x);		shaderUniforms.push_back(new uniforms<vec3>(	name, float3));		break;
+			case GL_FLOAT_VEC4:			glGetUniformfv (p, glGetUniformLocation(p, name), &float4.x);		shaderUniforms.push_back(new uniforms<vec4>(	name, float4));		break;
+			case GL_INT:				glGetUniformiv (p, glGetUniformLocation(p, name), &int1);			shaderUniforms.push_back(new uniforms<int>(		name, int1));		break;
+			case GL_INT_VEC2:			glGetUniformiv (p, glGetUniformLocation(p, name), &int2.x);			shaderUniforms.push_back(new uniforms<ivec2>(	name, int2));		break;
+			case GL_INT_VEC3:			glGetUniformiv (p, glGetUniformLocation(p, name), &int3.x);			shaderUniforms.push_back(new uniforms<ivec3>(	name, int3));		break;
+			case GL_INT_VEC4:			glGetUniformiv (p, glGetUniformLocation(p, name), &int4.x);			shaderUniforms.push_back(new uniforms<ivec4>(	name, int4));		break;
+			case GL_UNSIGNED_INT:		glGetUniformuiv(p, glGetUniformLocation(p, name), &uint1);			shaderUniforms.push_back(new uniforms<uint>(	name, uint1));		break;
+			case GL_UNSIGNED_INT_VEC2:	glGetUniformuiv(p, glGetUniformLocation(p, name), &uint2.x);		shaderUniforms.push_back(new uniforms<uivec2>(	name, uint2));		break;
+			case GL_UNSIGNED_INT_VEC3:	glGetUniformuiv(p, glGetUniformLocation(p, name), &uint3.x);		shaderUniforms.push_back(new uniforms<uivec3>(	name, uint3));		break;
+			case GL_UNSIGNED_INT_VEC4:	glGetUniformuiv(p, glGetUniformLocation(p, name), &uint4.x);		shaderUniforms.push_back(new uniforms<uivec4>(	name, uint4));		break;
+			default:
+				//printf("Uniform #%d, Type: %u, Name: %s\n", i, type, name);
+				break;
+		}
+		switch (type) {
+			case GL_BOOL:				printf("Uniform #%d, Type: GL_BOOL "  				", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_BOOL_VEC2:			printf("Uniform #%d, Type: GL_BOOL_VEC2 " 			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_BOOL_VEC3:			printf("Uniform #%d, Type: GL_BOOL_VEC3 " 			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_BOOL_VEC4:			printf("Uniform #%d, Type: GL_BOOL_VEC4 " 			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_INT:				printf("Uniform #%d, Type: INT "  					", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_INT_VEC2:			printf("Uniform #%d, Type: INT_VEC2 " 				", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_INT_VEC3:			printf("Uniform #%d, Type: INT_VEC3 " 				", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_INT_VEC4:			printf("Uniform #%d, Type: INT_VEC4 " 				", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_UNSIGNED_INT:		printf("Uniform #%d, Type: UNSIGNED_INT " 			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_UNSIGNED_INT_VEC2:	printf("Uniform #%d, Type: UNSIGNED_INT_VEC2 "		", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_UNSIGNED_INT_VEC3:	printf("Uniform #%d, Type: UNSIGNED_INT_VEC3 "		", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_UNSIGNED_INT_VEC4:	printf("Uniform #%d, Type: UNSIGNED_INT_VEC4 "		", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT:				printf("Uniform #%d, Type: FLOAT "					", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT_VEC2:			printf("Uniform #%d, Type: FLOAT_VEC2 "   			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT_VEC3:			printf("Uniform #%d, Type: FLOAT_VEC3 "   			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT_VEC4:			printf("Uniform #%d, Type: FLOAT_VEC4 "   			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT_MAT2:			printf("Uniform #%d, Type: GL_FLOAT_MAT2 "			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT_MAT3:			printf("Uniform #%d, Type: GL_FLOAT_MAT3 "			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_FLOAT_MAT4:			printf("Uniform #%d, Type: GL_FLOAT_MAT4 "			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_SAMPLER_1D:			printf("Uniform #%d, Type: GL_SAMPLER_1D "			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_SAMPLER_2D:			printf("Uniform #%d, Type: GL_SAMPLER_2D "			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_SAMPLER_3D:			printf("Uniform #%d, Type: GL_SAMPLER_3D "			", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_SAMPLER_CUBE:		printf("Uniform #%d, Type: GL_SAMPLER_CUBE "  		", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_SAMPLER_1D_SHADOW:	printf("Uniform #%d, Type: GL_SAMPLER_1D_SHADOW " 	", 0x%x Name: %s\n", i, type, name);         break;
+			case GL_SAMPLER_2D_SHADOW:	printf("Uniform #%d, Type: GL_SAMPLER_2D_SHADOW " 	", 0x%x Name: %s\n", i, type, name);         break;
+			default:
+				printf("Uniform #%d, Type: 0x%u, Name: %s\n", i, type, name); break;
+		}
+	}	
+	return count;
+}
+void Material::setShaderSubroutines() const {
+#if(USE_SHADER_LIST)
+	return ;
+#endif
+	if (subroutinesIndexes.size() > 0)
+		glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, (GLsizei)subroutinesIndexes.size(), &subroutinesIndexes[0]);
+}
+void Material::setShaderUniforms() const {
+#if(USE_SHADER_LIST)
+	return ;
+#endif
+	if (!mData || !mData->mShader || !mData->mShader->program)
+		return;
+	for (int i = 0; i < shaderUniforms.size(); i++) {
+		shaderUniforms[i]->setUniform(mData->mShader);
+	};
+}
+
+
+
+
+
+
 

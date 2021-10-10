@@ -491,6 +491,8 @@ void mainLoop() {
 }
 
 void onRenderScene() {
+	Material::setTimes(word.time, word.deltatime, word.sintime, word.costime, word.frame);
+
 	fbo->bind(t);
 	glEnable(GL_DEPTH_TEST);
 
@@ -524,10 +526,10 @@ void onRenderScene() {
 	//}
 	plane->draw();
 	t.setTimer("plane->draw");
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("time", word.time);
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("frame", word.frame);
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("sintime", word.sintime);
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("costime", word.costime);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("time", word.time);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("frame", word.frame);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("sintime", word.sintime);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("costime", word.costime);
 }
 
 void onRenderScene2() {

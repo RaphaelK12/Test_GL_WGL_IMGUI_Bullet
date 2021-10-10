@@ -341,6 +341,7 @@
     <ClCompile Include="projetor.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="skeleton.cpp" />
+    <ClCompile Include="strng.cpp" />
     <ClCompile Include="Test_GL_IMGUI_ImageView.cpp" />
     <ClCompile Include="texto.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -358,6 +359,7 @@
     <ClInclude Include="Examples_HowToDo.h" />
     <ClInclude Include="frameBuffer.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GLSLinclude.h" />
     <ClInclude Include="GL_GET_FUNCTIONS.h" />
     <ClInclude Include="GL_GL_All_Proc.h" />
     <ClInclude Include="GL_GL_Funcdef_Proc.h" />
@@ -385,6 +387,7 @@
     <ClInclude Include="ReferenceConunter.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="skeleton.h" />
+    <ClInclude Include="strng.h" />
     <ClInclude Include="texto.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Utils.h" />

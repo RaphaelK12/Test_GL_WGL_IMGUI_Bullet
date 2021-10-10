@@ -23,9 +23,13 @@
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
 	"shinines": 		[16.0, 16.0, 16.0, 1.0],
 	"name": 			"DiffSpecNormalDisp2",
-	"fileName": 		"DiffSpecNormalDisp2.mat",
+	"fileName": 		"DiffSpecNormalDisp2.json",
 	"shaderName": 		"DiffSpecNormalDisp2",
-	"shaderList": 		["DiffSpecNormalDisp2.vs", "DiffSpecNormalDisp2.fs"],
+	"shaderList":
+		{
+			"vs" : "DiffSpecNormalDisp2.vs",
+			"fs" : "DiffSpecNormalDisp2.fs"
+		},
 	"textures":			[
 		{
 			"name" : "bricksDiffuse.png",

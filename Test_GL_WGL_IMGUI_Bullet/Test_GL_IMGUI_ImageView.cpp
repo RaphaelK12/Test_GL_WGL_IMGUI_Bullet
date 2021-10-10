@@ -15,6 +15,23 @@ objeto* plane;
 cTimer t;
 Word word;
 
+
+template <typename T>
+static T _bezier_interp(float t, T start, T control_1, T control_2, T end) {
+	/* Formula from Wikipedia article on Bezier curves. */
+	float omt = (1.0f - t);
+	float omt2 = omt * omt;
+	float omt3 = omt2 * omt;
+	float t2 = t * t;
+	float t3 = t2 * t;
+
+	return start * omt3 + control_1 * omt2 * t * 3.0f + control_2 * omt * t2 * 3.0f + end * t3;
+}
+
+
+
+
+
 // program procedure
 
 void initializeMainWindow();
@@ -316,12 +333,14 @@ namespace ui {
 	}
 
 	void show(MaterialData* m, uint id) {
+		if (!m)
+			return;
 		char c[150] = "Material";
-		sprintf(c, "%s#%i", m->mName.c_str(), id);
+		sprintf(c, "Data: %s#%i", m->mName.c_str(), id);
 		if (ImGui::TreeNode(c)) {
 			ImGui::Text("Name: %s", m->mName.c_str());
 			ImGui::Text("FileName: %s", m->mFileName.c_str());
-
+#if(USE_SHADER_LIST)
 			if (ImGui::TreeNode("Shader subroutines")) {
 				auto& subs = m->mShader->uniformSubroutines;
 				auto& indexes = m->mShader->subroutinesIndexes;
@@ -343,6 +362,37 @@ namespace ui {
 				ImGui::TreePop();
 			}
 
+			if (ImGui::TreeNode("Uniforms")) {
+				auto& v = m->mShader->shaderUniforms;
+				for (int i = 0; i < v.size(); i++) {
+					if(typeid(*v[i]) == typeid(values<float >))ImGui::DragFloat  (v[i]->name.c_str(),			(float*) &((values<float >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(values<vec2  >))ImGui::DragFloat2 (v[i]->name.c_str(),			(float*) &((values<vec2  >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(values<vec3  >))ImGui::DragFloat3 (v[i]->name.c_str(),			(float*) &((values<vec3  >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(values<vec4  >))ImGui::DragFloat4 (v[i]->name.c_str(),			(float*) &((values<vec4  >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(values<int   >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((values<int   >*)(v[i]))->value, 1, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(values<ivec2 >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((values<ivec2 >*)(v[i]))->value, 2, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(values<ivec3 >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((values<ivec3 >*)(v[i]))->value, 3, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(values<ivec4 >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((values<ivec4 >*)(v[i]))->value, 4, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(values<uint  >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((values<uint  >*)(v[i]))->value, 1, 0.2f, NULL, 0, "%u");
+					if(typeid(*v[i]) == typeid(values<uivec2>))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((values<uivec2>*)(v[i]))->value, 2, 0.2f, NULL, 0, "%u");
+					if(typeid(*v[i]) == typeid(values<uivec3>))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((values<uivec3>*)(v[i]))->value, 3, 0.2f, NULL, 0, "%u");
+					if(typeid(*v[i]) == typeid(values<uivec4>))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((values<uivec4>*)(v[i]))->value, 4, 0.2f, NULL, 0, "%u");
+				};
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat  (v[i]->name.c_str(),			(float*)&v.float1[i].value, 0.001f, -10, 10.f, "%.4f");	}
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat2 (v[i]->name.c_str(),			(float*)&v.float2[i].value, 0.001f, -10, 10.f, "%.4f");	}
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat3 (v[i]->name.c_str(),			(float*)&v.float3[i].value, 0.001f, -10, 10.f, "%.4f");	}
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat4 (v[i]->name.c_str(),			(float*)&v.float4[i].value, 0.001f, -10, 10.f, "%.4f");	}															      
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int1[i].value, 1, 0.2f, NULL, 0, "%d");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int2[i].value, 2, 0.2f, NULL, 0, "%d");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int3[i].value, 3, 0.2f, NULL, 0, "%d");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int4[i].value, 4, 0.2f, NULL, 0, "%d");   }															      
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint1[i].value, 1, 0.2f, NULL, 0, "%u");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint2[i].value, 2, 0.2f, NULL, 0, "%u");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint3[i].value, 3, 0.2f, NULL, 0, "%u");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint4[i].value, 4, 0.2f, NULL, 0, "%u");   }
+				ImGui::TreePop();
+			}
+#endif
 			if (ImGui::TreeNode("Textures")) {
 				for (int i = 0; i < m->mTextures.size(); i++) {
 					ui::show(m->mTextures[i], i);
@@ -400,13 +450,84 @@ namespace ui {
 			ImGui::Text("ShaderName: %s", m->mShaderName.c_str());
 			for (int i = 0; i < m->mShaderNames.size(); i++) {
 				ImGui::Text("ShaderNames: %s", m->mShaderNames[i].c_str());
-				//std::vector<std::string> mShaderNames;
 			}
 
-			//std::vector<Texture*> mTextures;	// textures objects
-			//shader* mShader;
+			ImGui::Text(     "Time: %.4fm %.3fs %.2f %.1fms", Material::time.x,      Material::time.y,      Material::time.z,      Material::time.w     );
+			ImGui::Text("DeltaTime: %.4fm %.3fs %.2f %.1fms", Material::deltatime.x, Material::deltatime.y, Material::deltatime.z, Material::deltatime.w);
+			ImGui::Text( "Sin Time: %.4f %.3f %.2f %.1f",     Material::sintime.x,	 Material::sintime.y,   Material::sintime.z,   Material::sintime.w  );
+			ImGui::Text( "Cos Time: %.4f %.3f %.2f %.1f",     Material::costime.x,	 Material::costime.y,   Material::costime.z,   Material::costime.w  );
+			ImGui::Text( "Frame: %i", Material::frame);
+
 			ImGui::TreePop();
 		}
+	}
+
+	void show(Material* m, uint id) {
+		if (!m)
+			return;
+		char c[150] = "Material";
+		sprintf(c, "Material %s#%i", m->mName.c_str(), id);
+#if(!USE_SHADER_LIST)
+		if (ImGui::TreeNode(c)) {
+			ImGui::Text("Name: %s", m->mName.c_str());
+			ImGui::Text("FileName: %s", m->mFileName.c_str());
+			if (ImGui::TreeNode("Shader subroutines")) {
+				auto& subs = m->uniformSubroutines;
+				auto& indexes = m->subroutinesIndexes;
+				for (int i = 0; i < subs.size(); ++i) {
+					ImGui::SetNextItemWidth(-100);
+					if (ImGui::BeginCombo(subs[i].name.c_str(), subs[i].subroutines[subs[i].active].name.c_str())) {
+						for (int j = 0; j < subs[i].subroutines.size(); ++j) {
+							const bool is_selected = (subs[i].active == j);
+							if (ImGui::Selectable(subs[i].subroutines[j].name.c_str(), is_selected)) {
+								subs[i].active = j;
+								indexes[i] = subs[i].subroutines[subs[i].active].index;
+							}
+							if (is_selected)
+								ImGui::SetItemDefaultFocus();
+						}
+						ImGui::EndCombo();
+					}
+				}
+				ImGui::TreePop();
+			}
+			if (ImGui::TreeNode("Uniforms")) {
+				auto& v = m->shaderUniforms;
+				for (int i = 0; i < v.size(); i++) {
+					if(typeid(*v[i]) == typeid(uniforms<float >))ImGui::DragFloat  (v[i]->name.c_str(),			  (float*) &((uniforms<float >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(uniforms<vec2  >))ImGui::DragFloat2 (v[i]->name.c_str(),			  (float*) &((uniforms<vec2  >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(uniforms<vec3  >))ImGui::DragFloat3 (v[i]->name.c_str(),			  (float*) &((uniforms<vec3  >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(uniforms<vec4  >))ImGui::DragFloat4 (v[i]->name.c_str(),			  (float*) &((uniforms<vec4  >*)(v[i]))->value, 0.001f, -10, 10.f, "%.4f");
+					if(typeid(*v[i]) == typeid(uniforms<int   >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((uniforms<int   >*)(v[i]))->value, 1, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(uniforms<ivec2 >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((uniforms<ivec2 >*)(v[i]))->value, 2, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(uniforms<ivec3 >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((uniforms<ivec3 >*)(v[i]))->value, 3, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(uniforms<ivec4 >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &((uniforms<ivec4 >*)(v[i]))->value, 4, 0.2f, NULL, 0, "%d");
+					if(typeid(*v[i]) == typeid(uniforms<uint  >))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((uniforms<uint  >*)(v[i]))->value, 1, 0.2f, NULL, 0, "%u");
+					if(typeid(*v[i]) == typeid(uniforms<uivec2>))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((uniforms<uivec2>*)(v[i]))->value, 2, 0.2f, NULL, 0, "%u");
+					if(typeid(*v[i]) == typeid(uniforms<uivec3>))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((uniforms<uivec3>*)(v[i]))->value, 3, 0.2f, NULL, 0, "%u");
+					if(typeid(*v[i]) == typeid(uniforms<uivec4>))ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &((uniforms<uivec4>*)(v[i]))->value, 4, 0.2f, NULL, 0, "%u");
+				};
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat  (v[i]->name.c_str(),			(float*)&v.float1[i].value, 0.001f, -10, 10.f, "%.4f");	}
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat2 (v[i]->name.c_str(),			(float*)&v.float2[i].value, 0.001f, -10, 10.f, "%.4f");	}
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat3 (v[i]->name.c_str(),			(float*)&v.float3[i].value, 0.001f, -10, 10.f, "%.4f");	}
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragFloat4 (v[i]->name.c_str(),			(float*)&v.float4[i].value, 0.001f, -10, 10.f, "%.4f");	}															      
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int1[i].value, 1, 0.2f, NULL, 0, "%d");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int2[i].value, 2, 0.2f, NULL, 0, "%d");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int3[i].value, 3, 0.2f, NULL, 0, "%d");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_S32, &v. int4[i].value, 4, 0.2f, NULL, 0, "%d");   }															      
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint1[i].value, 1, 0.2f, NULL, 0, "%u");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint2[i].value, 2, 0.2f, NULL, 0, "%u");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint3[i].value, 3, 0.2f, NULL, 0, "%u");   }
+				//for (int i = 0; i < v.size(); i++)	{  ImGui::DragScalarN(v[i]->name.c_str(), ImGuiDataType_U32, &v.uint4[i].value, 4, 0.2f, NULL, 0, "%u");   }
+				ImGui::TreePop();
+			}
+#endif
+			if (m->mData)
+				ui::show(m->mData, 0);
+#if(!USE_SHADER_LIST)
+			ImGui::TreePop();
+		}
+#endif
 	}
 
 	void show(objetob* m) {
@@ -479,7 +600,7 @@ namespace ui {
 		char cha[150] = "Malha";
 		sprintf(cha, "Malha: %s#%i", m->name.c_str(), id);
 		if (ImGui::TreeNode(cha)) {
-			ui::show(m->mMaterial->mData, 0);
+			ui::show(m->mMaterial, 0);
 
 			ImGui::Text("Name: %s", m->name.c_str());
 			ImGui::Text("renderMode: %i", m->renderMode);
@@ -728,23 +849,26 @@ int main(int argc, char* argv[]) {
 	const char* filterItems[] = { "Nearest", "Linear", "Smoothstep", "Cubic", "Bicubic" };
 	static float f = 0.0f;
 	static int counter = 0;
+
+	//int maxSub, maxSubU, activeS, countActiveSU;
+	//char name[256]; int len, numCompS;
+	//glGetIntegerv(GL_MAX_SUBROUTINES, &maxSub);
+	//glGetIntegerv(GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS, &maxSubU);
+	//printf("Max Subroutines: %d  Max Subroutine Uniforms: %d\n", maxSub, maxSubU);
+
 	// Main loop
-	int maxSub, maxSubU, activeS, countActiveSU;
-	char name[256]; int len, numCompS;
-
-	glGetIntegerv(GL_MAX_SUBROUTINES, &maxSub);
-	glGetIntegerv(GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS, &maxSubU);
-	printf("Max Subroutines: %d  Max Subroutine Uniforms: %d\n", maxSub, maxSubU);
-
 	while (!glfwWindowShouldClose(ctx.window)) {
 		t.setFrameEnd();
 		ms = t.getFrameMS();
 		t.setFrameStart();
 		fps = 1000 / ms;// t.getMedianFPS(60);
 		word.frame++;
-		word.time += vec4(ms, ms / 10.f, ms / 100.f, ms / 1000.f);
+		word.deltatime = vec4((ms / 1000.f) / 60, ms / 1000.f, ms / 100.f, ms);
+		word.time += word.deltatime;
 		word.sintime = vec4(sin(word.time.x), sin(word.time.y), sin(word.time.z), sin(word.time.w));
 		word.costime = vec4(cos(word.time.x), cos(word.time.y), cos(word.time.z), cos(word.time.w));
+		Material::setTimes(word.time, word.deltatime, word.sintime, word.costime, word.frame);
+
 		sprintf(szTitle, "FPS: %2.2f - Test OpenGL 01", fps);
 		glfwSetWindowTitle(ctx.window, szTitle);
 		t.setTimer("getMedianFPS and print");
@@ -930,7 +1054,7 @@ void setCallbackFunctions() {
 }
 
 void init() {
-	plane = new objeto(0, objType::objEsfera, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(50, 50, 10), "DiffSpecNormalDisp2");
+	plane = new objeto(0, objType::objCapsule, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1), uivec3(50, 50, 10), "DiffSpecNormalDisp2");
 	plane->atach();
 	glDisable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
@@ -1134,14 +1258,16 @@ void onDropFiles(GLFWwindow* window, int numFiles, const char* files[]) {
 void mainLoop() {}
 
 void onRenderScene() {
+
+
 	//activecamera->aspect = max(float(ctx.size.x), 1.0f) / max(float(ctx.size.y), 1.0f);
 	activecamera->calcMatrix();
 	plane->draw();
 	t.setTimer("plane->draw");
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("time", word.time);
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("frame", word.frame);
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("sintime", word.sintime);
-	plane->malhas[0]->mMaterial->mData->mShader->setUniform("costime", word.costime);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("time", word.time);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("frame", word.frame);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("sintime", word.sintime);
+	//plane->malhas[0]->mMaterial->mData->mShader->setUniform("costime", word.costime);
 }
 
 void cls() {

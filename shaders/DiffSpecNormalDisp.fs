@@ -57,13 +57,13 @@ void main(void) {
 					// +
 					s.specular * mt.specular.rgb
 					*
-					texture_bicubic(texture2, texCoords,dx,dy).rrr
+					textures(texture2, texCoords,dx,dy).rrr
 					+
 					s.diffuse * mt.diffuse.rgb
 					*
 // texcubic textureGrad BicubicLagrangeTextureSample BicubicHermiteTextureSample 
 // texture_bicubic SampleTextureCatmullRom
-					texture_bicubic(texture1, texCoords,dx,dy).rgb
+					textures(texture1, texCoords,dx,dy).rgb
 					),
 					mt.diffuse.a);
 	// }	else {		color = vec4(1, 0, 1, 1);	}

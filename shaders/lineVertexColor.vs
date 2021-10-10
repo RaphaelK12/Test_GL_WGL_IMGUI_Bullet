@@ -1,7 +1,6 @@
 
 
 
-vec3 light_pos = vec3(5, 0, 0);
 
 void main(void){
 	// Calculate view-space coordinate

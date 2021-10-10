@@ -22,22 +22,12 @@
 	"specular": 		[1.0  , 1.0  , 1.0, 1.0],
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
 	"shinines": 		[256.0, 256.0, 1.0, 1.0],
-	"name": 			"sky",
-	"fileName": 		"sky.json",
-	"shaderName": 		"sky",
+	"name": 			"screen2",
+	"fileName": 		"screen2.mat",
+	"shaderName": 		"screen2",
 	"shaderList":
 		{
-			"vs" : "sky.vs",
-			"fs" : "sky.fs"
+			"vs" : "screen2.vs",
+			"fs" : "screen2.fs"
 		},
-	"textures":			[
-		{
-			"name" : "C_sph.png",
-			"filter_mag": 		1,
-			"filter_min": 		6,
-			"wrap_s": 			0,
-			"wrap_t": 			0,
-			"wrap_r": 			0
-		}
-	]
 }

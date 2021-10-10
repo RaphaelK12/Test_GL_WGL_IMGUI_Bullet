@@ -1,8 +1,41 @@
 #version 430 
+// defaultInclude.glsl
+
 // Input Built-in Variables
 // in vec4 gl_FragCoord;
 // in bool gl_FrontFacing;
 // in vec2 gl_PointCoord;
+
+
+struct light {
+	vec3 direction;
+	vec3 color;
+	float power;
+	vec3 specPower;
+};
+
+struct shading {
+	vec3 diffuse;
+	vec3 specular;
+	float rim;
+	float distance;
+};
+
+struct material {
+	vec4 diffuse;
+	vec4 color1;
+	vec4 color2;
+	vec4 color3;
+
+	vec4 ambient;
+	vec4 emission;
+	vec4 translucenci;
+	vec4 sadowsColor;
+
+	vec4 specular;
+	vec4 reflex;
+	vec4 shinines;
+};
 
 
 // constants
@@ -37,7 +70,17 @@ uniform vec4 costime;
 uniform vec2 screenSize;
 
 uniform vec3 viewPos;
+uniform vec3 lightColor = vec3(1.0, 1.0, 1.0);
+uniform float lightPower = 18.0; // 40
+uniform vec3 light_pos = vec3(1, 0, 0);
+// uniform vec3 light_pos = vec3(0, 0, 2);
 
+// Material properties
+uniform material mt;
+
+uniform vec4 diffuse_albedo = vec4(0.5, 0.2, 0.7, 1);
+uniform vec3 specular_albedo = vec3(0.7);
+uniform float specular_power = 128.0; // 200
 
 
 
@@ -145,10 +188,116 @@ vec4 CubicHermite(vec4 A, vec4 B, vec4 C, vec4 D, float t) {
 	return a * t3 + b * t2 + c * t + d;
 }
 
+// https://newbedev.com/efficient-bicubic-filtering-code-in-glsl
+// I decided to take a minute to dig my old Perforce activities and found the missing cubic() function; enjoy! :)
+vec4 cubic1(float v){
+    vec4 n = vec4(1.0, 2.0, 3.0, 4.0) - v;
+    vec4 s = n * n * n;
+    float x = s.x;
+    float y = s.y - 4.0 * s.x;
+    float z = s.z - 4.0 * s.y + 6.0 * s.x;
+    float w = 6.0 - x - y - z;
+    return vec4(x, y, z, w);
+}
 
-vec3 unpackNormal(vec3 n, float scale){
+// The missing function cubic() in JAre's answer could look like this:
+vec4 cubic2(float v){
+    float x2 = v * v;
+    float x3 = x2 * v;
+    vec4 w;
+    w.x =   -x3 + 3*x2 - 3*v + 1;
+    w.y =  3*x3 - 6*x2       + 4;
+    w.z = -3*x3 + 3*x2 + 3*v + 1;
+    w.w =  x3;
+    return w / 6.0;
+}
+
+// bernstein polynomial form, usefull to cubic bezier
+vec4 cubic3(float t){
+    float t2 = t * t;
+    float t3 = t2 * t;
+    vec4 w;
+    w.x =   -t3 + 3*t2 - 3*t + 1;
+    w.y =  3*t3 - 6*t2 + 3*t     ;
+    w.z = -3*t3 + 3*t2 ;
+    w.w =  t3;
+    return w ;
+	// return p0*w.x + p1*w.y + p2*w.z + p3*w.w 
+}
+
+// derivative velocity P'
+vec4 cubic_d_v(float t){
+    float t2 = t  * t;
+    float t3 = t2 * t;
+    vec4 w;
+    w.x = -3 * t2 + 6  * t - 3		;
+    w.y =  9 * t2 - 12 * t + 3		;
+    w.z = -9 * t2 + 6  * t 			;
+    w.w =  3 * t2;
+    return w ;
+	// return p0*w.x + p1*w.y + p2*w.z + p3*w.w 
+}
+// derivative aceleration P''
+vec4 cubic_d_a(float t){
+    float t2 = t  * t;
+    float t3 = t2 * t;
+    vec4 w;
+    w.x = -6  * t  + 6 		;
+    w.y =  18 * t  - 12   	;
+    w.z = -18 * t  + 6 	 	;
+    w.w =  6  * t2			;
+    return w ;
+	// return p0*w.x + p1*w.y + p2*w.z + p3*w.w 
+}
+// derivative jerk P'''
+vec4 cubic_d_j(vec4 p0, vec4 p1, vec4 p2, vec4 p3){	
+	return	(p0 * -6  )+
+			(p1 *  18 )+
+			(p2 * -18 )+
+			(p3 *  6  );
+}
+
+// -b+-Vb2-4ac/2a
+
+vec2 bascara( float a, float b, float c){
+	float p0, p1, p2, p3;
+	a = -3 * p0 +9  * p1 -9 * p2 + 3 * p3;
+	b =  6 * p0 -12 * p1 +6 * p2;
+	c = -3 * p0 +3  * p1;
+	
+	return vec2(
+	(-b+sqrt(b*b-4*a*c))/2*a,
+	(-b-sqrt(b*b-4*a*c))/2*a);
+}
+
+vec4 cubic_d_d(float t){
+	vec4 p0, p1, p2, p3;
+    float t2 = t * t;
+    return t2*(-3 * p0 +9   * p1 -9 * p2 + 3 * p3)+
+		   t *( 6 * p0 -12  * p1 +6 * p2) +
+			   -3 * p0 +3   * p1;
+}
+
+
+
+
+
+
+// For t between 0 and 1 you get an interpolation between 0 and 1
+// smoothstep implementation
+float cubicSpline (float t) {
+    // original function: 3t² - 2t³
+    return (t * t) * (3.0 - 2.0*t);
+}
+
+// Interpolating arbitrary values: (t between 0 and 1, again)
+float cubicSpline (float begin, float end, float t) {
+    return begin + (cubicSpline(t) * (end-begin));
+}
+
+vec3 unpackNormal(vec3 n, vec3 scale){
 	vec3 r=n*2-1;
-	return normalize(r*vec3(scale,scale,1));
+	return normalize(mix(vec3(0,0,1.0),r,scale));
 }
 
 
@@ -207,6 +356,407 @@ vec3 gold_noise2(vec2 xy, vec3 seed) {
 }
 
 
+vec2 random2( vec2 p ) {
+    return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);
+}
+
+float  rn(float xx){         
+    float x0=floor(xx);
+    float x1=x0+1;
+    float v0 = fract(sin (x0*.014686)*31718.927+x0);
+    float v1 = fract(sin (x1*.014686)*31718.927+x1);          
+
+    return (v0*(1-fract(xx))+v1*(fract(xx)))*2-1*sin(xx);
+}
+
+
+
+
+//to 1d functions
+
+//get a scalar random value from a 3d value
+float rand3dTo1d(vec3 value, vec3 dotDir){
+	const vec3 dotDir2 = vec3(12.9898, 78.233, 37.719);
+	//make value smaller to avoid artefacts
+	vec3 smallValue = sin(value);
+	//get scalar value from 3d vector
+	float random = dot(smallValue, dotDir);
+	//make value more random by making it bigger and then taking the factional part
+	random = fract(sin(random) * 143758.5453);
+	return random;
+}
+
+float rand2dTo1d(vec2 value, vec2 dotDir){
+	const vec2 dotDir2 = vec2(12.9898, 78.233);
+	vec2 smallValue = sin(value);
+	float random = dot(smallValue, dotDir);
+	random = fract(sin(random) * 143758.5453);
+	return random;
+}
+
+float rand1dTo1d(float value, float mutator){
+	const float mutator2 = 0.546;
+	float random = fract(sin(value + mutator) * 143758.5453);
+	return random;
+}
+
+//to 2d functions
+vec2 rand3dTo2d(vec3 value){
+	return vec2(
+		rand3dTo1d(value, vec3(12.989, 78.233, 37.719)),
+		rand3dTo1d(value, vec3(39.346, 11.135, 83.155))
+	);
+}
+
+vec2 rand2dTo2d(vec2 value){
+	return vec2(
+		rand2dTo1d(value, vec2(12.989, 78.233)),
+		rand2dTo1d(value, vec2(39.346, 11.135))
+	);
+}
+
+vec2 rand1dTo2d(float value){
+	return vec2(
+		rand1dTo1d(value, 3.9812),
+		rand1dTo1d(value, 7.1536)
+	);
+}
+
+//to 3d functions
+vec3 rand3dTo3d(vec3 value){
+	return vec3(
+		rand3dTo1d(value, vec3(12.989, 78.233, 37.719)),
+		rand3dTo1d(value, vec3(39.346, 11.135, 83.155)),
+		rand3dTo1d(value, vec3(73.156, 52.235, 09.151))
+	);
+}
+
+vec3 rand2dTo3d(vec2 value){
+	return vec3(
+		rand2dTo1d(value, vec2(12.989, 78.233)),
+		rand2dTo1d(value, vec2(39.346, 11.135)),
+		rand2dTo1d(value, vec2(73.156, 52.235))
+	);
+}
+
+vec3 rand1dTo3d(float value){
+	return vec3(
+		rand1dTo1d(value, 3.9812),
+		rand1dTo1d(value, 7.1536),
+		rand1dTo1d(value, 5.7241)
+	);
+}
+
+
+
+// #define TRANSFORM_TEX(tex,name) (tex.xy * name##_ST.xy + name##_ST.zw)
+vec4 triplanarMap(sampler2D _MainTex,vec3 normal, vec3 worldPos, vec3 scale, float sharpnes){
+	//calculate UV coordinates for three projections
+	worldPos *= scale;
+	vec2 uv_front = (worldPos.xy);
+	vec2 uv_side = 	(worldPos.zy);
+	vec2 uv_top = 	(worldPos.xz);
+
+	//read texture at uv position of the three projections
+	vec4 col_front = 	texture(_MainTex, uv_front);
+	vec4 col_side = 	texture(_MainTex, uv_side);
+	vec4 col_top = 		texture(_MainTex, uv_top);
+
+	//generate weights from world normals
+	vec3 weights = normal;
+	//show texture on both sides of the object (positive and negative)
+	weights = abs(weights);
+	//make the transition sharper
+	weights = pow(weights, sharpnes);
+	//make it so the sum of all components is 1, normalize
+	weights = weights / (weights.x + weights.y + weights.z);
+
+	//combine weights with projected colors
+	col_front *= weights.z;
+	col_side *= weights.x;
+	col_top *= weights.y;
+
+	//combine the projected colors
+	vec4 col = col_front + col_side + col_top;
+
+	return col;
+}
+
+
+
+
+
+vec3 hashRandom( uvec3 x ){
+	const uint k = 1103515245;  // GLIB C
+	//const uint k = 134775813U;   // Delphi and Turbo Pascal
+	//const uint k = 20170906U;    // Today's date (use three days ago's dateif you want a prime)
+	//const uint k = 1664525U;     // Numerical Recipes
+    x = ((x>>8U)^x.yzx)*k;
+    x = ((x>>8U)^x.yzx)*k;
+    x = ((x>>8U)^x.yzx)*k;
+
+    return vec3(x)*(1.0/float(0xffffffff));
+}
+
+uint hashInt1D( uint x ){
+	x += x >> 11;
+	x ^= x << 7;
+	x += x >> 15;
+	x ^= x << 5;
+	x += x >> 12;
+	x ^= x << 9;
+	return x;
+}
+
+uint hashInt2D( uint x, uint y ){
+	x += x >> 11;
+	x ^= x << 7;
+	x += y;
+	x ^= x << 6;
+	x += x >> 15;
+	x ^= x << 5;
+	x += x >> 12;
+	x ^= x << 9;
+	return x;
+}
+
+uint hashInt3D( uint x, uint y, uint z ){
+	x += x >> 11;
+	x ^= x << 7;
+	x += y;
+	x ^= x << 3;
+	x += z ^ ( x >> 14 );
+	x ^= x << 6;
+	x += x >> 15;
+	x ^= x << 5;
+	x += x >> 12;
+	x ^= x << 9;
+	return x;
+}
+
+uint hash( uint x ) {
+    x += ( x << 10 );
+    x ^= ( x >>  6 );
+    x += ( x <<  3 );
+    x ^= ( x >> 11 );
+    x += ( x << 15 );
+    return x;
+}
+
+// Now for the bit-twiddling random() function.  Let's keep it simple and stick with one input for now:
+float random( float f ) {
+    const uint mantissaMask = 0x007FFFFFu;
+    const uint one          = 0x3F800000u;
+   
+    uint h = hash( floatBitsToUint( f ) );
+    h &= mantissaMask;
+    h |= one;
+    
+    float  r2 = uintBitsToFloat( h );
+    return r2 - 1.0;
+}
+
+
+/*
+
+// Thomas Wang's hash
+uint HashThomasWang(uint key){
+	key += ~(key << 15);
+	key ^= (key >> 10);
+	key += (key << 3);
+	key ^= (key >> 6);
+	key += ~(key << 11);
+	key ^= (key >> 16);
+	return key;
+}
+
+uint btHashString(uint v){
+	uint InitialFNV = 2166136261;
+	uint FNVMultiple = 16777619;	
+	uint hash = InitialFNV; // Fowler / Noll / Vo (FNV) Hash 
+	hash = hash ^ v; // xor  the low 8 bits 
+	hash = hash * FNVMultiple; // multiply by the magic number 
+	m_hash = hash;
+}
+
+struct Plane{
+	vec3 normal;
+	float dist;  // distance below origin - the D from plane equasion Ax+By+Cz+D=0
+};
+
+
+vec3 PlaneLineIntersection( Plane plane,  vec3 p0,  vec3 p1){
+	// returns the point where the line p0-p1 intersects the plane n&d
+	vec3 dif;
+	dif = p1 - p0;
+	float dn = dot(plane.normal, dif);
+	float t = -(plane.dist + dot(plane.normal, p0)) / dn;
+	return p0 + (dif * t);
+}
+
+float DistanceBetweenLines( vec3 ustart,  vec3 udir,  vec3 vstart,  vec3 vdir, out vec3 upoint, out vec3 vpoint){
+	vec3 cp;
+	cp = normalize(cross(udir, vdir));
+
+	float distu = -dot(cp, ustart);
+	float distv = -dot(cp, vstart);
+	float dist = (float)abs(distu - distv);
+	if (upoint)
+	{
+		Plane plane;
+		plane.normal = normalize(cross(vdir, cp));
+		plane.dist = -dot(plane.normal, vstart);
+		upoint = PlaneLineIntersection(plane, ustart, ustart + udir);
+	}
+	if (vpoint)
+	{
+		Plane plane;
+		plane.normal = normalize(cross(udir, cp));
+		plane.dist = -dot(plane.normal, ustart);
+		vpoint = PlaneLineIntersection(plane, vstart, vstart + vdir);
+	}
+	return dist;
+}
+
+int NextPow2(int v){
+	int n = 1;
+	while (n < v)
+		n *= 2;
+	return n;
+}
+int PrevPow2(int v){
+	int n = 1;
+	while (n < v)
+		n *= 2;
+	return n / 2;
+}
+int closestPow2(int n){
+	int n = 1;
+	while (n < v)
+		n *= 2;
+	int p = n / 2;
+	return (v - p) < (n - v)? p : n;
+}
+
+*/
+
+vec3 voronoi( in vec2 x, in float u_time) {
+    vec2 n = floor(x);
+    vec2 f = fract(x);
+
+    // first pass: regular voronoi
+    vec2 mg, mr;
+    float md = 8.0;
+    for (int j= -1; j <= 1; j++) {
+        for (int i= -1; i <= 1; i++) {
+            vec2 g = vec2(float(i),float(j));
+            vec2 o = random2( n + g );
+            o = 0.5 + 0.5*sin( u_time + 6.2831*o );
+            vec2 r = g + o - f;
+            float d = dot(r,r);
+
+            if( d<md ) {
+                md = d;
+                mr = r;
+                mg = g;
+            }
+        }
+    }
+
+    // second pass: distance to borders
+    md = 8.0;
+    for (int j= -2; j <= 2; j++) {
+        for (int i= -2; i <= 2; i++) {
+            vec2 g = mg + vec2(float(i),float(j));
+            vec2 o = random2( n + g );
+            o = 0.5 + 0.5*sin( u_time + 6.2831*o );
+
+            vec2 r = g + o - f;
+
+            if ( dot(mr-r,mr-r)>0.00001 ) {
+                md = min(md, dot( 0.5*(mr+r), normalize(r-mr) ));
+            }
+        }
+    }
+    return vec3(md, mr);
+}
+
+vec3 voronoi2( in vec2 x, in float u_time, in float rnd ) {
+    vec2 n = floor(x);
+    vec2 f = fract(x);
+
+    // first pass: regular voronoi
+    vec2 mg, mr;
+    float md = 8.0;
+    for (int j=-1; j<=1; j++ ) {
+        for (int i=-1; i<=1; i++ ) {
+            vec2 g = vec2(float(i),float(j));
+            vec2 o = random2( n + g )*rnd;
+            o = 0.5 + 0.5*sin( u_time + 6.2831*o );
+            vec2 r = g + o - f;
+            float d = dot(r,r);
+
+            if( d<md ) {
+                md = d;
+                mr = r;
+                mg = g;
+            }
+        }
+    }
+
+    // second pass: distance to borders
+    md = 8.0;
+    for (int j=-2; j<=2; j++ ) {
+        for (int i=-2; i<=2; i++ ) {
+            vec2 g = mg + vec2(float(i),float(j));
+            vec2 o = random2(n + g)*rnd;
+            o = 0.5 + 0.5*sin( u_time + 6.2831*o );
+
+            vec2 r = g + o - f;
+
+            if( dot(mr-r,mr-r)>0.00001 ){
+            	md = min( md, dot( 0.5*(mr+r), normalize(r-mr) ) );
+			}
+        }
+    }
+    return vec3( md, mr );
+}
+
+vec4 permute4(vec4 x) {
+  return mod((34.0 * x + 1.0) * x, 289.0);
+}
+
+vec2 cellular_2x2(vec2 P) {
+	const float K = 0.142857142857; // 1/7
+	const float K2 = 0.0714285714285; // K/2
+	const float jitter = 0.8; // jitter 1.0 makes F1 wrong more often
+	vec2 Pi = mod(floor(P), 289.0);
+ 	vec2 Pf = fract(P);
+	vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
+	vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
+	vec4 p = permute4(Pi.x + vec4(0.0, 1.0, 0.0, 1.0));
+	p = permute4(p + Pi.y + vec4(0.0, 0.0, 1.0, 1.0));
+	vec4 ox = mod(p, 7.0)*K+K2;
+	vec4 oy = mod(floor(p*K),7.0)*K+K2;
+	vec4 dx = Pfx + jitter*ox;
+	vec4 dy = Pfy + jitter*oy;
+	vec4 d = dx * dx + dy * dy; // d11, d12, d21 and d22, squared
+	// Sort out the two smallest distances
+#if 0
+	// Cheat and pick only F1
+	d.xy = min(d.xy, d.zw);
+	d.x = min(d.x, d.y);
+	return d.xx; // F1 duplicated, F2 not computed
+#else
+	// Do it right and find both F1 and F2
+	d.xy = (d.x < d.y) ? d.xy : d.yx; // Swap if smaller
+	d.xz = (d.x < d.z) ? d.xz : d.zx;
+	d.xw = (d.x < d.w) ? d.xw : d.wx;
+	d.y = min(d.y, d.z);
+	d.y = min(d.y, d.w);
+	return sqrt(d.xy);
+#endif
+}
 
 vec3 mod7(vec3 x) {
 	return x - floor(x * (1.0 / 7.0)) * 7.0;
@@ -394,12 +944,16 @@ vec2 cellular2x2(vec2 P) {
 	vec4 dy = Pfy + jitter * oy;
 	vec4 d = dx * dx + dy * dy; // d11, d12, d21 and d22, squared
 	// Sort out the two smallest distances
+	
 #if 0
+
 	// Cheat and pick only F1
 	d.xy = min(d.xy, d.zw);
 	d.x = min(d.x, d.y);
 	return vec2(sqrt(d.x)); // F1 duplicated, F2 not computed
+	
 #else
+
 	// Do it right and find both F1 and F2
 	d.xy = (d.x < d.y) ? d.xy : d.yx; // Swap if smaller
 	d.xz = (d.x < d.z) ? d.xz : d.zx;
@@ -517,7 +1071,11 @@ float lineDistance(vec2 a, vec2 b, vec2 p) {
 
 
 
-
+vec2 esteiraWrap(vec2 pos, float radius, vec2 size){
+	
+	
+	return pos;
+}
 
 
 

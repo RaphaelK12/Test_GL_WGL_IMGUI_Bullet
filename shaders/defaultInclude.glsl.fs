@@ -1,6 +1,6 @@
 
 
-
+// defaultInclude.fs
 
 
 // Output
@@ -36,39 +36,9 @@ in VS_OUT{
 	vec4 color2;	// vertex color
 } fsin;
 
-struct light {
-	vec3 direction;
-	vec3 color;
-	float power;
-	vec3 specPower;
-};
-
-struct shading {
-	vec3 diffuse;
-	vec3 specular;
-	float rim;
-	float distance;
-};
-
-struct material {
-	vec4 diffuse;
-	vec4 color1;
-	vec4 color2;
-	vec4 color3;
-
-	vec4 ambient;
-	vec4 emission;
-	vec4 translucenci;
-	vec4 sadowsColor;
-
-	vec4 specular;
-	vec4 reflex;
-	vec4 shinines;
-};
 
 
 // uniforms
-uniform material mt;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2;
@@ -76,14 +46,9 @@ uniform sampler2D texture3;
 uniform sampler2D texture4;
 
 
-// Material properties
-uniform vec4 diffuse_albedo = vec4(0.5, 0.2, 0.7, 1);
-uniform vec3 specular_albedo = vec3(0.7);
-uniform float specular_power = 128.0; // 200
 
-vec3 lightColor = vec3(1.0, 1.0, 1.0);
-float lightPower = 18.0; // 40
-vec3 light_pos = vec3(5, 0, 0);
+uniform uint boxesCount = 2;
+uniform vec3 normalMapScale = vec3(0.5);
 
 // functions
 
@@ -104,14 +69,29 @@ layout (location = 0) subroutine uniform textureSampleMode textures;
 // layout (index = 14) subroutine (textureSampleMode) vec4 ColorBlue()	{	return vec4(0.0, 0.0, 1.0, 1.0);}
 	
 
-
 // sample
-layout (index = 0) subroutine (textureSampleMode) vec4 sampleLevel0(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+subroutine (textureSampleMode) vec4 sampleLevel0(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	return textureGrad(tex, uv, dx, dy);
 }
 
 // smoothstep
-layout (index = 1) subroutine (textureSampleMode) vec4 texcubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+subroutine (textureSampleMode) vec4 boxes(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	vec2 textureResolution = vec2(textureSize(tex, 0));
+	uv = uv * textureResolution + 0.5;
+	vec2 iuv = floor(uv);
+	vec2 fuv = fract(uv);
+	uint count = clamp(boxesCount, 0, 10);
+	vec2 fuv2 = fuv;
+	for(uint i = 0; i<count; i++){
+		fuv2 = smoothstep(0.0, 1.0, fuv2);
+	}
+	uv = iuv + fuv2; // fuv*fuv*fuv*(fuv*(fuv*6.0-15.0)+10.0);;
+	uv = (uv - 0.5) / textureResolution;
+	return textureGrad(tex, uv, dx, dy);
+}
+
+// smoothstep
+subroutine (textureSampleMode) vec4 smoothsteps(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 textureResolution = vec2(textureSize(tex, 0));
 	uv = uv * textureResolution + 0.5;
 	vec2 iuv = floor(uv);
@@ -121,33 +101,8 @@ layout (index = 1) subroutine (textureSampleMode) vec4 texcubic(sampler2D tex, v
 	return textureGrad(tex, uv, dx, dy);
 }
 
-// 4 samples
-layout (index = 2) subroutine (textureSampleMode) vec4 texture_bicubic(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
-	vec4 texelSize = vec4(1 / vec2(textureSize(tex, 0)), vec2(textureSize(tex, 0)));
-	uv = uv * texelSize.zw + 0.5;
-	vec2 iuv = floor(uv);
-	vec2 fuv = fract(uv);
-
-	float g0x = g0(fuv.x);
-	float g1x = g1(fuv.x);
-	float h0x = h0(fuv.x);
-	float h1x = h1(fuv.x);
-	float h0y = h0(fuv.y);
-	float h1y = h1(fuv.y);
-
-	vec2 p0 = (vec2(iuv.x + h0x, iuv.y + h0y) - 0.5) * texelSize.xy;
-	vec2 p1 = (vec2(iuv.x + h1x, iuv.y + h0y) - 0.5) * texelSize.xy;
-	vec2 p2 = (vec2(iuv.x + h0x, iuv.y + h1y) - 0.5) * texelSize.xy;
-	vec2 p3 = (vec2(iuv.x + h1x, iuv.y + h1y) - 0.5) * texelSize.xy;
-
-	return g0(fuv.y) * (g0x * textureGrad(tex, p0, dx, dy) +
-						g1x * textureGrad(tex, p1, dx, dy)) +
-		g1(fuv.y) * (g0x * textureGrad(tex, p2, dx, dy) +
-					 g1x * textureGrad(tex, p3, dx, dy));
-}
-
 // 16 samples
-layout (index = 3) subroutine (textureSampleMode) vec4 BicubicLagrangeTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+subroutine (textureSampleMode) vec4 BicubicLagrange(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 c_textureSize = vec2(textureSize(tex, 0));
 
 	vec2 c_onePixel = vec2(1.0) / c_textureSize;
@@ -185,56 +140,11 @@ layout (index = 3) subroutine (textureSampleMode) vec4 BicubicLagrangeTextureSam
 	return CubicLagrange(CP0X, CP1X, CP2X, CP3X, frac.y);
 }
 
-// 16 samples
-layout (index = 4) subroutine (textureSampleMode) vec4 BicubicHermiteTextureSample(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
-	const float c_x0 = -1.0;
-	const float c_x1 = 0.0;
-	const float c_x2 = 1.0;
-	const float c_x3 = 2.0;
-
-	vec2 c_textureSize = vec2(textureSize(tex, 0));
-
-	vec2 c_onePixel = vec2(1.0) / c_textureSize;
-	vec2 c_twoPixels = vec2(2.0) / c_textureSize;
-
-	vec2 pixel = uv * c_textureSize + 0.5;
-
-	vec2 frac = fract(pixel);
-	pixel = floor(pixel) / c_textureSize - vec2(c_onePixel / 2.0);
-
-	vec4 C00 = textureGrad(tex, pixel + vec2(-c_onePixel.x, -c_onePixel.y), dx, dy);
-	vec4 C10 = textureGrad(tex, pixel + vec2(0.0, -c_onePixel.y), dx, dy);
-	vec4 C20 = textureGrad(tex, pixel + vec2(c_onePixel.x, -c_onePixel.y), dx, dy);
-	vec4 C30 = textureGrad(tex, pixel + vec2(c_twoPixels.x, -c_onePixel.y), dx, dy);
-
-	vec4 C01 = textureGrad(tex, pixel + vec2(-c_onePixel.x, 0.0), dx, dy);
-	vec4 C11 = textureGrad(tex, pixel + vec2(0.0, 0.0), dx, dy);
-	vec4 C21 = textureGrad(tex, pixel + vec2(c_onePixel.x, 0.0), dx, dy);
-	vec4 C31 = textureGrad(tex, pixel + vec2(c_twoPixels.x, 0.0), dx, dy);
-
-	vec4 C02 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_onePixel.y), dx, dy);
-	vec4 C12 = textureGrad(tex, pixel + vec2(0.0, c_onePixel.y), dx, dy);
-	vec4 C22 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_onePixel.y), dx, dy);
-	vec4 C32 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_onePixel.y), dx, dy);
-
-	vec4 C03 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_twoPixels.y), dx, dy);
-	vec4 C13 = textureGrad(tex, pixel + vec2(0.0, c_twoPixels.y), dx, dy);
-	vec4 C23 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_twoPixels.y), dx, dy);
-	vec4 C33 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_twoPixels.y), dx, dy);
-
-	vec4 CP0X = CubicHermite(C00, C10, C20, C30, frac.x);
-	vec4 CP1X = CubicHermite(C01, C11, C21, C31, frac.x);
-	vec4 CP2X = CubicHermite(C02, C12, C22, C32, frac.x);
-	vec4 CP3X = CubicHermite(C03, C13, C23, C33, frac.x);
-
-	return CubicHermite(CP0X, CP1X, CP2X, CP3X, frac.y);
-}
-
 // note: entirely stolen from https://gist.github.com/TheRealMJP/c83b8c0f46b63f3a88a5986f4fa982b1
 // Samples a texture with Catmull-Rom filtering, using 9 texture fetches instead of 16.
 // See http://vec3.ca/bicubic-filtering-in-fewer-taps/ for more details
 // 9 samples
-layout (index = 5) subroutine (textureSampleMode) vec4 SampleTextureCatmullRom(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+subroutine (textureSampleMode) vec4 CatmullRom(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
 	vec2 textureResolution = vec2(textureSize(tex, 0));
 
 	// We're going to sample a a 4x4 grid of texels surrounding the target UV coordinate. We'll do this by rounding
@@ -285,18 +195,252 @@ layout (index = 5) subroutine (textureSampleMode) vec4 SampleTextureCatmullRom(s
 	return result;
 }
 
+subroutine (textureSampleMode) vec4 Bicubic1(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	vec2 texSize = textureSize(tex, 0);
+	vec2 invTexSize = 1.0 / texSize;	
+	uv = uv * texSize - 0.5;	
+	vec2 fxy = fract(uv);
+	uv -= fxy;	
+	vec4 xcubic = cubic2(fxy.x);
+	vec4 ycubic = cubic2(fxy.y);	
+	vec4 c = uv.xxyy + vec2 (-0.5, +1.5).xyxy;	
+	vec4 s = vec4(xcubic.xz + xcubic.yw, ycubic.xz + ycubic.yw);
+	vec4 offset = c + vec4 (xcubic.yw, ycubic.yw) / s;	
+	offset *= invTexSize.xxyy;	
+	vec4 sample0 = textureGrad(tex, offset.xz, dx, dy);
+	vec4 sample1 = textureGrad(tex, offset.yz, dx, dy);
+	vec4 sample2 = textureGrad(tex, offset.xw, dx, dy);
+	vec4 sample3 = textureGrad(tex, offset.yw, dx, dy);	
+	float sx = s.x / (s.x + s.y);
+	float sy = s.z / (s.z + s.w);	
+	return	mix(
+				mix(sample3, sample2, sx), 
+				mix(sample1, sample0, sx),
+			sy);
+}
+
+// 4 samples
+subroutine (textureSampleMode) vec4 Bicubic2(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	vec4 texelSize = vec4(1 / vec2(textureSize(tex, 0)), vec2(textureSize(tex, 0)));
+	uv = uv * texelSize.zw + 0.5;
+	vec2 iuv = floor(uv);
+	vec2 fuv = fract(uv);
+
+	float g0x = g0(fuv.x);
+	float g1x = g1(fuv.x);
+	float h0x = h0(fuv.x);
+	float h1x = h1(fuv.x);
+	float h0y = h0(fuv.y);
+	float h1y = h1(fuv.y);
+
+	vec2 p0 = (vec2(iuv.x + h0x, iuv.y + h0y) - 0.5) * texelSize.xy;
+	vec2 p1 = (vec2(iuv.x + h1x, iuv.y + h0y) - 0.5) * texelSize.xy;
+	vec2 p2 = (vec2(iuv.x + h0x, iuv.y + h1y) - 0.5) * texelSize.xy;
+	vec2 p3 = (vec2(iuv.x + h1x, iuv.y + h1y) - 0.5) * texelSize.xy;
+
+	return g0(fuv.y) *  (g0x * textureGrad(tex, p0, dx, dy)  +
+						 g1x * textureGrad(tex, p1, dx, dy)) +
+			g1(fuv.y) * (g0x * textureGrad(tex, p2, dx, dy)  +
+						 g1x * textureGrad(tex, p3, dx, dy))  ;
+}
+
+/*
+// from https://newbedev.com/efficient-bicubic-filtering-code-in-glsl from http://www.java-gaming.org/index.php?topic=35123.0
+subroutine (textureSampleMode) vec4 Bicubic3(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	vec2 texSize = textureSize(tex, 0);
+	vec2 invTexSize = 1.0 / texSize;
+	
+	uv = uv * texSize - 0.5;
+	
+	vec2 fxy = fract(uv);
+	uv -= fxy;
+	
+	vec4 xcubic = cubic1(fxy.x);
+	vec4 ycubic = cubic1(fxy.y);
+	
+	vec4 c = uv.xxyy + vec2 (-0.5, +1.5).xyxy;
+	
+	vec4 s = vec4(xcubic.xz + xcubic.yw, ycubic.xz + ycubic.yw);
+	vec4 offset = c + vec4 (xcubic.yw, ycubic.yw) / s;
+	
+	offset *= invTexSize.xxyy;
+	
+	vec4 sample0 = textureGrad(tex, offset.xz, dx, dy);
+	vec4 sample1 = textureGrad(tex, offset.yz, dx, dy);
+	vec4 sample2 = textureGrad(tex, offset.xw, dx, dy);
+	vec4 sample3 = textureGrad(tex, offset.yw, dx, dy);
+	
+	float sx = s.x / (s.x + s.y);
+	float sy = s.z / (s.z + s.w);
+	
+	return	mix(
+			mix(sample3, sample2, sx), 
+			mix(sample1, sample0, sx),
+			sy);
+}
+
+
+
+subroutine (textureSampleMode) vec4 Bicubic4(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	vec2 texSize = textureSize(tex, 0);
+	vec2 invTexSize = 1.0 / texSize;
+	
+	uv = uv * texSize - 0.5;
+	
+	vec2 fxy = fract(uv);
+	uv -= fxy;
+	
+	vec4 xcubic = cubic3(fxy.x);
+	vec4 ycubic = cubic3(fxy.y);
+	
+	vec4 c = uv.xxyy + vec2 (-0.5, +1.5).xyxy;
+	
+	vec4 s = vec4(xcubic.xz + xcubic.yw, ycubic.xz + ycubic.yw);
+	vec4 offset = c + vec4 (xcubic.yw, ycubic.yw) / s;
+	
+	offset *= invTexSize.xxyy;
+	
+	vec4 sample0 = textureGrad(tex, offset.xz, dx, dy);
+	vec4 sample1 = textureGrad(tex, offset.yz, dx, dy);
+	vec4 sample2 = textureGrad(tex, offset.xw, dx, dy);
+	vec4 sample3 = textureGrad(tex, offset.yw, dx, dy);
+	
+	float sx = s.x / (s.x + s.y);
+	float sy = s.z / (s.z + s.w);
+	
+	return	mix(
+			mix(sample3, sample2, sx), 
+			mix(sample1, sample0, sx),
+			sy);
+}
+
+subroutine (textureSampleMode) vec4 Bicubic5(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	vec2 texSize = textureSize(tex, 0);
+	vec2 invTexSize = 1.0 / texSize;
+	
+	uv = uv * texSize - 0.5;
+	
+	vec2 fxy = fract(uv);
+	uv -= fxy;
+	
+	vec4 xcubic = cubic_d_v(fxy.x);
+	vec4 ycubic = cubic_d_v(fxy.y);
+	
+	vec4 c = uv.xxyy + vec2 (-0.5, +1.5).xyxy;
+	
+	vec4 s = vec4(xcubic.xz + xcubic.yw, ycubic.xz + ycubic.yw);
+	vec4 offset = c + vec4 (xcubic.yw, ycubic.yw) / s;
+	
+	offset *= invTexSize.xxyy;
+	
+	vec4 sample0 = textureGrad(tex, offset.xz, dx, dy);
+	vec4 sample1 = textureGrad(tex, offset.yz, dx, dy);
+	vec4 sample2 = textureGrad(tex, offset.xw, dx, dy);
+	vec4 sample3 = textureGrad(tex, offset.yw, dx, dy);
+	
+	float sx = s.x / (s.x + s.y);
+	float sy = s.z / (s.z + s.w);
+	
+	return	mix(
+			mix(sample3, sample2, sx), 
+			mix(sample1, sample0, sx),
+			sy);
+}
+
+
+// 16 samples
+subroutine (textureSampleMode) vec4 BicubicHermite(sampler2D tex, vec2 uv, vec2 dx, vec2 dy) {
+	const float c_x0 = -1.0;
+	const float c_x1 = 0.0;
+	const float c_x2 = 1.0;
+	const float c_x3 = 2.0;
+
+	vec2 c_textureSize = vec2(textureSize(tex, 0));
+
+	vec2 c_onePixel = vec2(1.0) / c_textureSize;
+	vec2 c_twoPixels = vec2(2.0) / c_textureSize;
+
+	vec2 pixel = uv * c_textureSize + 0.5;
+
+	vec2 frac = fract(pixel);
+	pixel = floor(pixel) / c_textureSize - vec2(c_onePixel / 2.0);
+
+	vec4 C00 = textureGrad(tex, pixel + vec2(-c_onePixel.x, -c_onePixel.y), dx, dy);
+	vec4 C10 = textureGrad(tex, pixel + vec2(0.0, -c_onePixel.y), dx, dy);
+	vec4 C20 = textureGrad(tex, pixel + vec2(c_onePixel.x, -c_onePixel.y), dx, dy);
+	vec4 C30 = textureGrad(tex, pixel + vec2(c_twoPixels.x, -c_onePixel.y), dx, dy);
+
+	vec4 C01 = textureGrad(tex, pixel + vec2(-c_onePixel.x, 0.0), dx, dy);
+	vec4 C11 = textureGrad(tex, pixel + vec2(0.0, 0.0), dx, dy);
+	vec4 C21 = textureGrad(tex, pixel + vec2(c_onePixel.x, 0.0), dx, dy);
+	vec4 C31 = textureGrad(tex, pixel + vec2(c_twoPixels.x, 0.0), dx, dy);
+
+	vec4 C02 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_onePixel.y), dx, dy);
+	vec4 C12 = textureGrad(tex, pixel + vec2(0.0, c_onePixel.y), dx, dy);
+	vec4 C22 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_onePixel.y), dx, dy);
+	vec4 C32 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_onePixel.y), dx, dy);
+
+	vec4 C03 = textureGrad(tex, pixel + vec2(-c_onePixel.x, c_twoPixels.y), dx, dy);
+	vec4 C13 = textureGrad(tex, pixel + vec2(0.0, c_twoPixels.y), dx, dy);
+	vec4 C23 = textureGrad(tex, pixel + vec2(c_onePixel.x, c_twoPixels.y), dx, dy);
+	vec4 C33 = textureGrad(tex, pixel + vec2(c_twoPixels.x, c_twoPixels.y), dx, dy);
+
+	vec4 CP0X = CubicHermite(C00, C10, C20, C30, frac.x);
+	vec4 CP1X = CubicHermite(C01, C11, C21, C31, frac.x);
+	vec4 CP2X = CubicHermite(C02, C12, C22, C32, frac.x);
+	vec4 CP3X = CubicHermite(C03, C13, C23, C33, frac.x);
+
+	return CubicHermite(CP0X, CP1X, CP2X, CP3X, frac.y);
+}
+*/
+
+
+vec4 blur9(sampler2D image, vec2 uv, vec2 resolution, vec2 direction) {
+  vec4 color = vec4(0.0);
+  vec2 off1 = vec2(1.3846153846) * direction;
+  vec2 off2 = vec2(3.2307692308) * direction;
+  color += texture2D(image, uv) * 0.2270270270;
+  color += texture2D(image, uv + (off1 / resolution)) * 0.3162162162;
+  color += texture2D(image, uv - (off1 / resolution)) * 0.3162162162;
+  color += texture2D(image, uv + (off2 / resolution)) * 0.0702702703;
+  color += texture2D(image, uv - (off2 / resolution)) * 0.0702702703;
+  return color;
+}
+
+vec4 blur5(sampler2D image, vec2 uv, vec2 resolution, vec2 direction) {
+  vec4 color = vec4(0.0);
+  vec2 off1 = vec2(1.3333333333333333) * direction;
+  color += texture2D(image, uv) * 0.29411764705882354;
+  color += texture2D(image, uv + (off1 / resolution)) * 0.35294117647058826;
+  color += texture2D(image, uv - (off1 / resolution)) * 0.35294117647058826;
+  return color; 
+}
+
+vec4 blur13(sampler2D image, vec2 uv, vec2 resolution, vec2 direction) {
+  vec4 color = vec4(0.0);
+  vec2 off1 = vec2(1.411764705882353) * direction;
+  vec2 off2 = vec2(3.2941176470588234) * direction;
+  vec2 off3 = vec2(5.176470588235294) * direction;
+  color += texture2D(image, uv) * 0.1964825501511404;
+  color += texture2D(image, uv + (off1 / resolution)) * 0.2969069646728344;
+  color += texture2D(image, uv - (off1 / resolution)) * 0.2969069646728344;
+  color += texture2D(image, uv + (off2 / resolution)) * 0.09447039785044732;
+  color += texture2D(image, uv - (off2 / resolution)) * 0.09447039785044732;
+  color += texture2D(image, uv + (off3 / resolution)) * 0.010381362401148057;
+  color += texture2D(image, uv - (off3 / resolution)) * 0.010381362401148057;
+  return color;
+}
 
 
 vec3 getNormalFromMap(vec3 n, vec3 tangent, sampler2D tex, vec2 coord, vec3 WorldPos, vec2 dx, vec2 dy) {
-	// texcubic textureGrad BicubicLagrangeTextureSample BicubicHermiteTextureSample
-	// texture_bicubic SampleTextureCatmullRom
-	vec3 tangentNormal = unpackNormal(textures(tex, coord, dx, dy).xyz, 0.55);
+	vec3 tangentNormal = unpackNormal(textures(tex, coord, dx, dy).xyz, normalMapScale);
 	vec3 N = normalize(n);
 	vec3 T = normalize(tangent);
 	vec3 B = -normalize(cross(N, T));
 	mat3 TBN = mat3(T, B, N);
 	return normalize(TBN * tangentNormal);
 }
+
 
 // Ray intersect depth map using relaxed cone stepping.
 // Depth value stored in alpha channel (black at object surface)

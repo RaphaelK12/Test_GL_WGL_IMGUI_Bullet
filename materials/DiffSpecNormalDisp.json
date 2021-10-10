@@ -23,9 +23,13 @@
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
 	"shinines": 		[16.0, 16.0, 16.0, 1.0],
 	"name": 			"DiffSpecNormalDisp",
-	"fileName": 		"DiffSpecNormalDisp.mat",
+	"fileName": 		"DiffSpecNormalDisp.json",
 	"shaderName": 		"DiffSpecNormalDisp",
-	"shaderList": 		["DiffSpecNormalDisp.vs", "DiffSpecNormalDisp.fs"],
+	"shaderList":
+		{
+			"vs" : "DiffSpecNormalDisp.vs",
+			"fs" : "DiffSpecNormalDisp.fs"
+		},
 	"textures":			[
 		{
 			"name" : "CobbleStonesDiff.jpg",

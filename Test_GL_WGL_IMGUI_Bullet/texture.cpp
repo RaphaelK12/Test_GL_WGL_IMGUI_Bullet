@@ -99,7 +99,7 @@ Texture::~Texture(void) {
 	mFileName.clear();
 }
 
-#define sizeOfArray(arr) (sizeof(arr)/sizeof(arr[0]))
+#define sizeOfArray(arr) (int(sizeof(arr)/sizeof(arr[0])))
 
 void Texture::setTextureVariables() {
 	static const int textureWrapModesValues[] = { GL_REPEAT,GL_MIRRORED_REPEAT, GL_MIRROR_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE  ,GL_CLAMP_TO_BORDER };

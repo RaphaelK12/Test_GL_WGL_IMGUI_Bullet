@@ -23,8 +23,12 @@
 	"reflex": 			[1.0  , 1.0  , 1.0, 1.0],
 	"shinines": 		[256.0, 256.0, 1.0, 1.0],
 	"name": 			"screen",
-	"fileName": 		"screen.mat",
+	"fileName": 		"screen.json",
 	"shaderName": 		"screen",
-	"shaderList": 		["lineVertexColor.vs", "lineVertexColor.fs"],
+	"shaderList":
+		{
+			"vs" : "screen.vs",
+			"fs" : "screen.fs"
+		},
 	"textures": 		[]
 }

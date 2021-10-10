@@ -4,6 +4,7 @@ public:
 	Word();
 	~Word();
 	vec4 time;
+	vec4 deltatime;
 	uint frame;
 	vec4 sintime;
 	vec4 costime;
